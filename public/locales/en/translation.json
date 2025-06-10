@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "home": "Home",
+    "leaderboard": "Leaderboard"
+  },
+  "home": {
+    "title": "Adrenaline Gamer MMR Rating",
+    "subtitle": "A community-driven platform that ranks performance of AG players",
+    "view_rankings": "View Rankings",
+    "view_rankings_desc": "Find out where you stand in the community",
+    "browse_matches": "Browse old matches",
+    "browse_matches_desc": "Find out how you did in previous matches",
+    "read_docs": "Read the docs",
+    "read_docs_desc": "Learn the inner-workings of our rating algorithm",
+    "stats_title": "Stats",
+    "stats_desc": "Lorep ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "open_source_title": "Open source, open data",
+    "open_source_desc": "Built from the ground up with transparency in mind"
+  },
+  "leaderboard": {
+    "global": "Global Leaderboard",
+    "rank": "Rank",
+    "player": "Player",
+    "steam_id": "Steam ID",
+    "rating": "Rating",
+    "matches": "Matches",
+    "win_percent": "Win %"
+  }
+}

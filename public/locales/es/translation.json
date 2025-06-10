@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "leaderboard": "Clasificación"
+  },
+  "home": {
+    "title": "Adrenaline Gamer MMR Rating",
+    "subtitle": "Una plataforma impulsada por la comunidad que clasifica el rendimiento de los jugadores de AG",
+    "view_rankings": "Ver Clasificación",
+    "view_rankings_desc": "Descubre tu posición en la comunidad",
+    "browse_matches": "Buscar partidas antiguas",
+    "browse_matches_desc": "Descubre cómo te fue en partidas anteriores",
+    "read_docs": "Leer la documentación",
+    "read_docs_desc": "Conoce el funcionamiento interno de nuestro algoritmo de rating",
+    "stats_title": "Estadísticas",
+    "stats_desc": "Lorep ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "open_source_title": "Código abierto, datos abiertos",
+    "open_source_desc": "Construido desde cero con la transparencia en mente"
+  },
+  "leaderboard": {
+    "global": "Clasificación Global",
+    "rank": "Puesto",
+    "player": "Jugador",
+    "steam_id": "ID de Steam",
+    "rating": "Puntaje",
+    "matches": "Partidas",
+    "win_percent": "% Victorias"
+  }
+}
