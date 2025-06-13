@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export interface LeaderboardPlayer {
+    id: number;
     player: string;
     steamID: string;
     avatarURL: string;
@@ -23,6 +24,7 @@ export const fetchLeaderboard = async (page: number, limit: number): Promise<Lea
         });
 
         return response.data.map((player: any) => ({
+            id: player.id,
             player: player.steamName ? player.steamName : "Unknown Player",
             steamID: player.steamID,
             avatarURL: player.avatarURL,

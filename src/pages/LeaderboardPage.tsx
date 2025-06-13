@@ -20,6 +20,7 @@ import {
   LeaderboardPlayer,
 } from "../adapters/agmmr-api/leaderboard"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 export const LeaderboardPage = () => {
   const theme = useTheme()
@@ -36,7 +37,6 @@ export const LeaderboardPage = () => {
       try {
         const leaderboardResponse = await fetchLeaderboard(page + 1, pageSize)
         setLeaderboardData(leaderboardResponse)
-        console.log("Leaderboard data fetched successfully:", leaderboardResponse)
       } catch (error) {
         console.error("Failed to fetch data from server: ", error)
         return
@@ -109,18 +109,29 @@ export const LeaderboardPage = () => {
                     #{page * pageSize + idx + 1}
                   </TableCell>
                   <TableCell
-                    sx={{ color: "white", display: "flex", alignItems: "center" }}
+                    sx={{
+                      color: "white",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                   >
                     <Avatar
                       src={row.avatarURL}
                       alt={row.player}
                       sx={{ width: 32, height: 32, mr: 1 }}
                     />
-                    {row.player}
+                    <Link
+                      to={`/player/${row.id}`}
+                      style={{
+                        color: "#4C94FF",
+                        textDecoration: "none",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {row.player}
+                    </Link>
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>
-                    {row.steamID}
-                  </TableCell>
+                  <TableCell sx={{ color: "white" }}>{row.steamID}</TableCell>
                   <TableCell sx={{ color: "white", fontWeight: 700 }}>
                     {row.rating}
                   </TableCell>

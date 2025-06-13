@@ -21,6 +21,7 @@ import { ErrorBoundary } from "react-error-boundary"
 import { HomePage } from "./pages/HomePage"
 import { Navbar } from "./components/Navbar"
 import { LeaderboardPage } from "./pages/LeaderboardPage"
+import { PlayerPage } from "./pages/PlayerPage"
 
 const AppLayout = () => {
   return (
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
     <Route element={<AppLayout />}>
       <Route path="/" element={<HomePage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
+      <Route path="/player/:playerId" element={<PlayerPage />} />
     </Route>
   )
 )
