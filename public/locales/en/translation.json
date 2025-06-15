@@ -41,5 +41,8 @@
     "damage_dealt": "Damage Dealt",
     "damage_taken": "Damage Taken",
     "gained_points": "Gained points"
+  },
+  "banner": {
+    "dev_warning": "This system is in heavy development. Ratings and data may change at any time."
   }
 }

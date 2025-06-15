@@ -23,6 +23,8 @@ const pages = [
   { label: "Leaderboard", icon: <LeaderboardIcon />, path: "/leaderboard" },
 ];
 
+export const BANNER_HEIGHT = 35;
+
 export function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -147,6 +149,23 @@ export function Navbar() {
           </>
         )}
       </Toolbar>
+      {/* Dev Warning Banner */}
+      <Box
+        sx={{
+          width: "100%",
+          bgcolor: theme.palette.secondary.main,
+          color: theme.palette.common.white,
+          textAlign: "center",
+          fontWeight: 700,
+          letterSpacing: 0.5,
+          fontSize: { xs: 14, sm: 16 },
+          height: `${BANNER_HEIGHT}px`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        dangerouslySetInnerHTML={{ __html: t("banner.dev_warning") }}
+      />
     </AppBar>
   );
 }

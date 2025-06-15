@@ -24,12 +24,14 @@ import { Navbar } from "./components/Navbar"
 import { LeaderboardPage } from "./pages/LeaderboardPage"
 import { PlayerPage } from "./pages/PlayerPage"
 import { MatchPage } from "./pages/MatchPage"
+import { BANNER_HEIGHT } from "./components/Navbar"; // Ajusta la ruta si es necesario
 
 const AppLayout = () => {
   return (
     <>
       <Navbar />
       <Toolbar />
+      <Box sx={{ height: `${BANNER_HEIGHT}px` }} />
       <Stack
         direction="column"
         justifyContent="space-between"

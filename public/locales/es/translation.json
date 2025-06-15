@@ -41,5 +41,8 @@
     "damage_dealt": "Daño Hecho",
     "damage_taken": "Daño Recibido",
     "gained_points": "Puntos Ganados"
+  },
+  "banner": {
+    "dev_warning": "Este sistema está en desarrollo activo. Los ratings y datos pueden cambiar en cualquier momento."
   }
 }
