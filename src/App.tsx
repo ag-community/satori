@@ -5,6 +5,7 @@ import {
   CssBaseline,
   Stack,
   ThemeProvider,
+  Toolbar,
 } from "@mui/material"
 import React from "react"
 import { I18nextProvider } from "react-i18next"
@@ -22,11 +23,13 @@ import { HomePage } from "./pages/HomePage"
 import { Navbar } from "./components/Navbar"
 import { LeaderboardPage } from "./pages/LeaderboardPage"
 import { PlayerPage } from "./pages/PlayerPage"
+import { MatchPage } from "./pages/MatchPage"
 
 const AppLayout = () => {
   return (
     <>
       <Navbar />
+      <Toolbar />
       <Stack
         direction="column"
         justifyContent="space-between"
@@ -44,6 +47,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<AppLayout />}>
       <Route path="/" element={<HomePage />} />
+      <Route path="/match/:matchId" element={<MatchPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/player/:playerId" element={<PlayerPage />} />
     </Route>
@@ -71,7 +75,12 @@ export default function App() {
           secondary: {
             main: "#4C94FF",
           },
-          
+          success: {
+            main: "#4C94FF"
+          },
+          error: {
+            main: "#FF4C4C",
+          },
           background: {
             default: "#0F0F0F",
           },

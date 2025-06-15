@@ -25,5 +25,21 @@
     "rating": "Puntaje",
     "matches": "Partidas",
     "win_percent": "% Victorias"
+  },
+  "match": {
+    "match_on": "partida en",
+    "server": "Servidor",
+    "blue_team": "Equipo Azul",
+    "red_team": "Equipo Rojo",
+    "winner": "Ganador",
+    "total_frags": "Frags Totales",
+    "total_deaths": "Muertes Totales",
+    "player": "Jugador",
+    "frags": "Frags",
+    "deaths": "Muertes",
+    "avg_ping": "Ping Prom.",
+    "damage_dealt": "Daño Hecho",
+    "damage_taken": "Daño Recibido",
+    "gained_points": "Puntos Ganados"
   }
 }

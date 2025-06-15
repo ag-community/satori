@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { fetchPlayer, Player, Match } from "../adapters/agmmr-api/player"
 import {
   Alert,
@@ -19,6 +19,8 @@ import {
 } from "@mui/material"
 import { CardSection } from "../components/CardSection"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
+import IconButton from "@mui/material/IconButton"
 
 const getPlayerIdFromQueryParams = (identifier?: string): number => {
   let userId = parseInt(identifier || "")
@@ -129,14 +131,15 @@ export const PlayerPage = () => {
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>Map</TableCell>
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>Frags</TableCell>
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>Deaths</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Points</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Rating</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>MMR Δ</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>MMR After</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }} align="center"></TableCell> {/* Nueva columna para el icono */}
               </TableRow>
             </TableHead>
             <TableBody>
               {playerProfile.matchHistory.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={7} sx={{ color: "white", textAlign: "center" }}>
+                  <TableCell colSpan={8} sx={{ color: "white", textAlign: "center" }}>
                     No matches found.
                   </TableCell>
                 </TableRow>
@@ -159,6 +162,16 @@ export const PlayerPage = () => {
                     {match.mmrDelta}
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>{match.mmrAfterMatch}</TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      component={Link}
+                      to={`/match/${match.matchId}`}
+                      size="small"
+                      sx={{ color: "#4C94FF" }}
+                    >
+                      <InfoOutlinedIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

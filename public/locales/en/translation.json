@@ -25,5 +25,21 @@
     "rating": "Rating",
     "matches": "Matches",
     "win_percent": "Win %"
+  },
+  "match": {
+    "match_on": "match on",
+    "server": "Server",
+    "blue_team": "Blue Team",
+    "red_team": "Red Team",
+    "winner": "Winner",
+    "total_frags": "Total Frags",
+    "total_deaths": "Total Deaths",
+    "player": "Player",
+    "frags": "Frags",
+    "deaths": "Deaths",
+    "avg_ping": "Avg. Ping",
+    "damage_dealt": "Damage Dealt",
+    "damage_taken": "Damage Taken",
+    "gained_points": "Gained points"
   }
 }
