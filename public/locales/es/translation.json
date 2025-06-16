@@ -42,6 +42,14 @@
     "damage_taken": "Daño Recibido",
     "gained_points": "Puntos Ganados"
   },
+  "player": {
+    "match_history": "Historial de partidas",
+    "date": "Fecha",
+    "map": "Mapa",
+    "rating": "Puntaje",
+    "no_matches": "No se encontraron partidas",
+    "rating_gained": "Puntaje ganado"
+  },
   "banner": {
     "dev_warning": "Este sistema está en desarrollo activo. Los ratings y datos pueden cambiar en cualquier momento."
   }

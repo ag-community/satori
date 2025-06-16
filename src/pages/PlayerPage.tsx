@@ -21,6 +21,7 @@ import { CardSection } from "../components/CardSection"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
 import IconButton from "@mui/material/IconButton"
+import { useTranslation } from "react-i18next"
 
 const getPlayerIdFromQueryParams = (identifier?: string): number => {
   let userId = parseInt(identifier || "")
@@ -33,6 +34,7 @@ const getPlayerIdFromQueryParams = (identifier?: string): number => {
 
 export const PlayerPage = () => {
   const theme = useTheme()
+  const { t } = useTranslation()
   const queryParams = useParams()
   const profilePlayerId = getPlayerIdFromQueryParams(queryParams["playerId"])
   const [playerProfile, setPlayerProfile] = useState<Player | null>(null)
@@ -103,7 +105,7 @@ export const PlayerPage = () => {
             <Box mt={1}>
               <Chip
                 icon={<EmojiEventsIcon color="secondary" />}
-                label={`MMR: ${playerProfile.mmr}`}
+                label={`${t("leaderboard.rating")}: ${playerProfile.mmr}`}
                 color="secondary"
                 sx={{ fontWeight: 700, fontSize: 16 }}
               />
@@ -114,7 +116,7 @@ export const PlayerPage = () => {
 
       <CardSection sx={{ mt: 3 }}>
         <Typography variant="h6" fontWeight={700} mb={2}>
-          Match History
+          {t("player.match_history")}
         </Typography>
         <TableContainer
           component={Paper}
@@ -127,20 +129,24 @@ export const PlayerPage = () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Date</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Map</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Frags</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>Deaths</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>MMR Δ</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>MMR After</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }} align="center"></TableCell> {/* Nueva columna para el icono */}
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("player.date")}</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("player.map")}</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.frags")}</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.deaths")}</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("player.rating_gained")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("player.rating")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }} align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {playerProfile.matchHistory.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={8} sx={{ color: "white", textAlign: "center" }}>
-                    No matches found.
+                    {t("player.no_matches")}
                   </TableCell>
                 </TableRow>
               )}
