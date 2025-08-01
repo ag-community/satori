@@ -7,6 +7,7 @@ export interface Match {
   matchDate: Date;
   mapName: string;
   matchDetails: MatchDetails[];
+  isInvalidMatch: boolean;
 }
 
 export interface MatchDetails {

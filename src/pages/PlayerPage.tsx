@@ -160,13 +160,25 @@ export const PlayerPage = () => {
                   <TableCell sx={{ color: "white" }}>{match.stats.deaths}</TableCell>
                   <TableCell
                     sx={{
-                      color: match.mmrDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
+                      color:
+                        match.mmrDelta === 0 && match.mmrAfterMatch === 0
+                          ? "gray"
+                          : match.mmrDelta > 0
+                          ? "#4CFF4C"
+                          : "#FF4C4C",
                       fontWeight: 700,
                     }}
                   >
-                    {match.mmrDelta >= 0 ? "+" : ""}
-                    {match.mmrDelta}
+                    {match.mmrDelta === 0 && match.mmrAfterMatch === 0 ? (
+                      "N/A"
+                    ) : (
+                      <>
+                        {match.mmrDelta > 0 ? "+" : ""}
+                        {match.mmrDelta}
+                      </>
+                    )}
                   </TableCell>
+
                   <TableCell sx={{ color: "white" }}>{match.mmrAfterMatch}</TableCell>
                   <TableCell align="center">
                     <IconButton

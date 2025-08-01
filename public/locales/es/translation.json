@@ -37,10 +37,11 @@
     "player": "Jugador",
     "frags": "Frags",
     "deaths": "Muertes",
-    "avg_ping": "Ping Prom.",
+    "avg_ping": "Ping",
     "damage_dealt": "Daño Hecho",
     "damage_taken": "Daño Recibido",
-    "gained_points": "Puntos Ganados"
+    "gained_points": "Puntos Ganados",
+    "invalid": "Esta partida ha sido clasificada como inválida debido a la baja cantidad de Frags/Daño hecho. No se suman ni restan puntos."
   },
   "player": {
     "match_history": "Historial de partidas",

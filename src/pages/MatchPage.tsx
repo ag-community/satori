@@ -82,18 +82,29 @@ export const MatchPage = () => {
         borderRadius: 2,
         boxShadow: "none",
         mb: 2,
+        width: "100%",
       }}
     >
-      <Table size="small">
+      <Table
+        size="small"
+        sx={{
+          width: "100%",
+          "& td, & th": {
+            fontSize: "15px",
+            whiteSpace: "nowrap",
+            padding: "12px 16px",
+          },
+        }}
+      >
         <TableHead>
           <TableRow>
             <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.player")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.frags")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.deaths")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.avg_ping")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.damage_dealt")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.damage_taken")}</TableCell>
-            <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.gained_points")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.frags")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.deaths")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.avg_ping")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.damage_dealt")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.damage_taken")}</TableCell>
+            <TableCell sx={{ color: "white", fontWeight: 700 }} align="center">{t("match.gained_points")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -121,26 +132,26 @@ export const MatchPage = () => {
                   </Typography>
                 </Box>
               </TableCell>
-              <TableCell sx={{ color: "white" }}>{player.frags}</TableCell>
-              <TableCell sx={{ color: "white" }}>{player.deaths}</TableCell>
-              <TableCell sx={{ color: "white" }}>{player.averagePing}</TableCell>
-              <TableCell sx={{ color: "white" }}>{player.damageDealt}</TableCell>
-              <TableCell sx={{ color: "white" }}>{player.damageTaken}</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">{player.frags}</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">{player.deaths}</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">{player.averagePing}</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">{player.damageDealt}</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">{player.damageTaken}</TableCell>
               <TableCell
                 sx={{
                   color: player.mmrDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
                   fontWeight: 700,
-                }}
+                }} align="center"
               >
-                {player.mmrDelta >= 0 ? "+" : ""}
-                {player.mmrDelta}
+                {player.mmrDelta === 0 ? "-" : `${player.mmrDelta > 0 ? "+" : ""}
+                ${player.mmrDelta}`}
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 
   // Ordenar por frags descendente
   const bluePlayersSorted = [...bluePlayers].sort((a, b) => b.frags - a.frags);
@@ -149,10 +160,11 @@ export const MatchPage = () => {
   return (
     <Box
       sx={{
-        maxWidth: 900,
+        width: "100%",
+        maxWidth: 1100,
         mx: "auto",
-        py: 4,
         px: 2,
+        py: 4,
       }}
     >
       <CardSection
@@ -195,13 +207,22 @@ export const MatchPage = () => {
           }}
         >
           <Typography variant="h5" fontWeight={700} mb={1}>
-            {matchType} {t("match.match_on")} {matchData.mapName}
+            Formato: {matchType} 
+          </Typography>
+          <Typography variant="h5" fontWeight={700} mb={1}>
+            Mapa: {matchData.mapName}
           </Typography>
           <Typography color="text.secondary" mb={2}>
-            {new Date(matchData.matchDate).toLocaleString()} | {t("match.server")}: {matchData.serverIp}
+           {`${new Date(matchData.matchDate).getDate().toString().padStart(2, '0')}-${(new Date(matchData.matchDate).getMonth()+1).toString().padStart(2, '0')}-${new Date(matchData.matchDate).getFullYear()} (${new Date(matchData.matchDate).getHours().toString().padStart(2, '0')}:${new Date(matchData.matchDate).getMinutes().toString().padStart(2, '0')}`}) | {t("match.server")}: {matchData.serverIp}
           </Typography>
         </Box>
       </CardSection>
+
+      {matchData.isInvalidMatch && (
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          {t("match.invalid")}
+        </Alert>
+      )}
 
       <CardSection>
         <Box
@@ -210,11 +231,14 @@ export const MatchPage = () => {
           justifyContent="space-between"
           mb={2}
           sx={blueIsWinner ? {
-            background: `${theme.palette.success.main}22`,
+            background: `${theme.palette.success.main}21`,
             borderRadius: 2,
             px: 2,
-            py: 1,
-          } : {}}
+            py: 2,
+          } : {
+            px: 2,
+            py: 2,
+          }}
         >
           <Box display="flex" alignItems="center" gap={1}>
             <Typography
@@ -224,28 +248,32 @@ export const MatchPage = () => {
             >
               {t("match.blue_team")}
             </Typography>
-            {blueIsWinner && (
-              <Typography
-                variant="body2"
-                fontWeight={700}
-                color="white"
-                sx={{
-                  ml: 1,
-                  px: 1.5,
-                  py: 0.5,
-                  borderRadius: 1,
-                  background: theme.palette.success.main,
-                  letterSpacing: 1,
-                }}
-              >
-                {t("match.winner")}
-              </Typography>
-            )}
+            <Box sx={{ width: 70, height: 24 }}>
+              {blueIsWinner && (
+                <Typography
+                  variant="body2"
+                  fontWeight={700}
+                  color="white"
+                  sx={{
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: 1,
+                    background: theme.palette.success.main,
+                    letterSpacing: 1,
+                    display: "inline-block",
+                    textAlign: "center",
+                  }}
+                >
+                  {t("match.winner")}
+                </Typography>
+              )}
+            </Box>
           </Box>
           <Typography variant="body2" color="white">
             {t("match.total_frags")}: <b>{blueFrags}</b> &nbsp;|&nbsp; {t("match.total_deaths")}: <b>{blueDeaths}</b>
           </Typography>
         </Box>
+
         {renderTeamTable(bluePlayersSorted)}
 
         <Box
@@ -258,7 +286,10 @@ export const MatchPage = () => {
             borderRadius: 2,
             px: 2,
             py: 1,
-          } : {}}
+          } : {
+            px: 2,
+            py: 1,
+          }}
         >
           <Box display="flex" alignItems="center" gap={1}>
             <Typography
@@ -267,31 +298,36 @@ export const MatchPage = () => {
               color={theme.palette.error.main}
               sx={redIsWinner ? { textShadow: `0 0 8px ${theme.palette.error.main}` } : {}}
             >
-              Red Team
+              {t("match.red_team")}
             </Typography>
-            {redIsWinner && (
-              <Typography
-                variant="body2"
-                fontWeight={700}
-                color="white"
-                sx={{
-                  ml: 1,
-                  px: 1.5,
-                  py: 0.5,
-                  borderRadius: 1,
-                  background: theme.palette.error.main,
-                  letterSpacing: 1,
-                }}
-              >
-                Winner
-              </Typography>
-            )}
+            <Box sx={{ width: 70, height: 24 }}>
+              {redIsWinner && (
+                <Typography
+                  variant="body2"
+                  fontWeight={700}
+                  color="white"
+                  sx={{
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: 1,
+                    background: theme.palette.error.main,
+                    letterSpacing: 1,
+                    display: "inline-block",
+                    textAlign: "center",
+                  }}
+                >
+                  {t("match.winner")}
+                </Typography>
+              )}
+            </Box>
           </Box>
           <Typography variant="body2" color="white">
-            Total Frags: <b>{redFrags}</b> &nbsp;|&nbsp; Total Deaths: <b>{redDeaths}</b>
+            {t("match.total_frags")}: <b>{redFrags}</b> &nbsp;|&nbsp; {t("match.total_deaths")}: <b>{redDeaths}</b>
           </Typography>
         </Box>
+
         {renderTeamTable(redPlayersSorted)}
+
       </CardSection>
     </Box>
   )
