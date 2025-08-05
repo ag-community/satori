@@ -267,7 +267,7 @@ export const MatchPage = () => {
               color={theme.palette.error.main}
               sx={redIsWinner ? { textShadow: `0 0 8px ${theme.palette.error.main}` } : {}}
             >
-              Red Team
+              {t("match.red_team")}
             </Typography>
             {redIsWinner && (
               <Typography
@@ -288,7 +288,7 @@ export const MatchPage = () => {
             )}
           </Box>
           <Typography variant="body2" color="white">
-            Total Frags: <b>{redFrags}</b> &nbsp;|&nbsp; Total Deaths: <b>{redDeaths}</b>
+            {t("match.total_frags")}: <b>{redFrags}</b> &nbsp;|&nbsp; {t("match.total_deaths")}: <b>{redDeaths}</b>
           </Typography>
         </Box>
         {renderTeamTable(redPlayersSorted)}
