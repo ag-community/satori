@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import { fetchPlayer, Player, Match } from "../adapters/agmmr-api/player"
+import { fetchPlayer, Player, Match, fetchPlayerMatches } from "../adapters/shion/player"
 import {
   Alert,
   Avatar,
@@ -16,6 +16,7 @@ import {
   Chip,
   Divider,
   useTheme,
+  TablePagination,
 } from "@mui/material"
 import { CardSection } from "../components/CardSection"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
@@ -38,7 +39,10 @@ export const PlayerPage = () => {
   const queryParams = useParams()
   const profilePlayerId = getPlayerIdFromQueryParams(queryParams["playerId"])
   const [playerProfile, setPlayerProfile] = useState<Player | null>(null)
+  const [matches, setMatches] = useState<Match[]>([])
   const [error, setError] = useState("")
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
     ;(async () => {
@@ -52,6 +56,27 @@ export const PlayerPage = () => {
       }
     })()
   }, [profilePlayerId])
+
+  useEffect(() => {
+    ;(async () => {
+      if (!profilePlayerId) return
+      try {
+        const matchesResponse = await fetchPlayerMatches(profilePlayerId, page + 1, pageSize)
+        setMatches(matchesResponse)
+      } catch (e: any) {
+        setError("Failed to fetch player match history")
+      }
+    })()
+  }, [profilePlayerId, page, pageSize])
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPageSize(parseInt(event.target.value, 10))
+    setPage(0)
+  }
 
   if (!profilePlayerId) {
     return (
@@ -105,7 +130,7 @@ export const PlayerPage = () => {
             <Box mt={1}>
               <Chip
                 icon={<EmojiEventsIcon color="secondary" />}
-                label={`${t("leaderboard.rating")}: ${playerProfile.mmr}`}
+                label={`${t("leaderboard.rating")}: ${playerProfile.rating}`}
                 color="secondary"
                 sx={{ fontWeight: 700, fontSize: 16 }}
               />
@@ -143,31 +168,31 @@ export const PlayerPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {playerProfile.matchHistory.length === 0 && (
+              {matches.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={8} sx={{ color: "white", textAlign: "center" }}>
                     {t("player.no_matches")}
                   </TableCell>
                 </TableRow>
               )}
-              {playerProfile.matchHistory.map((match: Match) => (
+              {matches.map((match: Match) => (
                 <TableRow key={match.matchId}>
                   <TableCell sx={{ color: "white" }}>
                     {new Date(match.matchDate).toLocaleString()}
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>{match.mapName}</TableCell>
-                  <TableCell sx={{ color: "white" }}>{match.stats.frags}</TableCell>
-                  <TableCell sx={{ color: "white" }}>{match.stats.deaths}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{match.frags}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{match.deaths}</TableCell>
                   <TableCell
                     sx={{
-                      color: match.mmrDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
+                      color: match.ratingDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
                       fontWeight: 700,
                     }}
                   >
-                    {match.mmrDelta >= 0 ? "+" : ""}
-                    {match.mmrDelta}
+                    {match.ratingDelta >= 0 ? "+" : ""}
+                    {match.ratingDelta}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>{match.mmrAfterMatch}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{match.ratingAfterMatch}</TableCell>
                   <TableCell align="center">
                     <IconButton
                       component={Link}
@@ -182,6 +207,21 @@ export const PlayerPage = () => {
               ))}
             </TableBody>
           </Table>
+          <TablePagination
+            component="div"
+            count={-1}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={pageSize}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            sx={{
+              color: "white",
+              ".MuiTablePagination-toolbar": { color: "white" },
+              ".MuiTablePagination-selectIcon": { color: "white" },
+              ".MuiTablePagination-actions": { color: "white" },
+            }}
+          />
         </TableContainer>
       </CardSection>
     </Box>

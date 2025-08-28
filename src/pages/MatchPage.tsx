@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchMatch, Match } from "../adapters/agmmr-api/match"
+import { fetchMatch, Match } from "../adapters/shion/match"
 import { CardSection } from "../components/CardSection"
 import { Avatar, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, useTheme, Typography, Alert } from "@mui/material"
 import { Link } from "react-router-dom"
@@ -128,12 +128,12 @@ export const MatchPage = () => {
               <TableCell sx={{ color: "white" }}>{player.damageTaken}</TableCell>
               <TableCell
                 sx={{
-                  color: player.mmrDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
+                  color: player.ratingDelta >= 0 ? "#4CFF4C" : "#FF4C4C",
                   fontWeight: 700,
                 }}
               >
-                {player.mmrDelta >= 0 ? "+" : ""}
-                {player.mmrDelta}
+                {player.ratingDelta >= 0 ? "+" : ""}
+                {player.ratingDelta}
               </TableCell>
             </TableRow>
           ))}

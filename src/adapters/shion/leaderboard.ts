@@ -11,7 +11,7 @@ export interface LeaderboardPlayer {
 }
 
 const apiInstance = axios.create({
-  baseURL: process.env.REACT_APP_AGMMR_API_BASE_URL,
+  baseURL: process.env.REACT_APP_SHION_API_BASE_URL,
 })
 
 export const fetchLeaderboard = async (page: number, limit: number): Promise<LeaderboardPlayer[]> => {
@@ -25,10 +25,10 @@ export const fetchLeaderboard = async (page: number, limit: number): Promise<Lea
 
         return response.data.map((player: any) => ({
             id: player.id,
-            player: player.steamName ? player.steamName : "Unknown Player",
-            steamID: player.steamID,
-            avatarURL: player.avatarURL,
-            rating: player.mmr,
+            player: player.steam_name ? player.steam_name : "Unknown Player",
+            steamID: player.steam_id,
+            avatarURL: player.steam_avatar_url,
+            rating: Math.round(player.rating),
             matches: 0,
             winRate: 0,
         }))

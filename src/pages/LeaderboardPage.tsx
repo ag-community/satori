@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next"
 import {
   fetchLeaderboard,
   LeaderboardPlayer,
-} from "../adapters/agmmr-api/leaderboard"
+} from "../adapters/shion/leaderboard"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 

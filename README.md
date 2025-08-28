@@ -1,4 +1,4 @@
-# agmod-mmr-web
+# satori
 
 To install dependencies:
 
