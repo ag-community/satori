@@ -92,6 +92,12 @@ export const LeaderboardPage = () => {
                   {t("leaderboard.steam_id")}
                 </TableCell>
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("leaderboard.matches_played")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("leaderboard.win_rate")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
                   {t("leaderboard.rating")}
                 </TableCell>
               </TableRow>
@@ -132,8 +138,10 @@ export const LeaderboardPage = () => {
                     </Link>
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>{row.steamID}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses > 0 ? ((row.playerStats.wins / (row.playerStats.wins + row.playerStats.losses)) * 100).toFixed(2) + '%' : '0%'}</TableCell>
                   <TableCell sx={{ color: "white", fontWeight: 700 }}>
-                    {row.rating}
+                    {row.playerStats.rating}
                   </TableCell>
                 </TableRow>
               ))}

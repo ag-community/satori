@@ -22,9 +22,10 @@
     "rank": "Puesto",
     "player": "Jugador",
     "steam_id": "ID de Steam",
+    "matches_played": "Partidas Jugadas",
     "rating": "Puntaje",
     "matches": "Partidas",
-    "win_percent": "% Victorias"
+    "win_rate": "Tasa de Victorias"
   },
   "match": {
     "match_on": "partida en",

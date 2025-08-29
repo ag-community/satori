@@ -22,9 +22,10 @@
     "rank": "Rank",
     "player": "Player",
     "steam_id": "Steam ID",
+    "matches_played": "Matches Played",
     "rating": "Rating",
     "matches": "Matches",
-    "win_percent": "Win %"
+    "win_rate": "Win Rate"
   },
   "match": {
     "match_on": "match on",
