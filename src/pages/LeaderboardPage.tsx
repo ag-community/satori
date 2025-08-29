@@ -103,48 +103,67 @@ export const LeaderboardPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {leaderboardData?.map((row, idx) => (
-                <TableRow
-                  key={row.steamName + idx}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                    background: theme.palette.primary.main,
-                  }}
-                >
-                  <TableCell sx={{ color: "white", fontWeight: 700 }}>
-                    #{page * pageSize + idx + 1}
-                  </TableCell>
-                  <TableCell
+              {leaderboardData?.map((row, idx) => {
+                const position = page * pageSize + idx + 1;
+                let rankStyle = {};
+                
+                if (position <= 3) {
+                  rankStyle = {
+                    fontWeight: 800,
+                    borderLeft: `4px solid ${
+                      position === 1 
+                        ? "rgba(255, 215, 0, 0.7)"
+                        : position === 2 
+                          ? "rgba(192, 192, 192, 0.7)"
+                          : "rgba(205, 127, 50, 0.7)"
+                    }`
+                  };
+                }
+                
+                return (
+                  <TableRow
+                    key={row.steamName + idx}
                     sx={{
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
+                      "&:last-child td, &:last-child th": { border: 0 },
+                      background: theme.palette.primary.main,
+                      ...rankStyle
                     }}
                   >
-                    <Avatar
-                      src={row.avatarURL}
-                      alt={row.steamName}
-                      sx={{ width: 32, height: 32, mr: 1 }}
-                    />
-                    <Link
-                      to={`/player/${row.id}`}
-                      style={{
-                        color: "#4C94FF",
-                        textDecoration: "none",
-                        fontWeight: 700,
+                    <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                      #{position}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
-                      {row.steamName}
-                    </Link>
-                  </TableCell>
-                  <TableCell sx={{ color: "white" }}>{row.steamID}</TableCell>
-                  <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses}</TableCell>
-                  <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses > 0 ? ((row.playerStats.wins / (row.playerStats.wins + row.playerStats.losses)) * 100).toFixed(2) + '%' : '0%'}</TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: 700 }}>
-                    {row.playerStats.rating}
-                  </TableCell>
-                </TableRow>
-              ))}
+                      <Avatar
+                        src={row.avatarURL}
+                        alt={row.steamName}
+                        sx={{ width: 32, height: 32, mr: 1 }}
+                      />
+                      <Link
+                        to={`/player/${row.id}`}
+                        style={{
+                          color: "#4C94FF",
+                          textDecoration: "none",
+                          fontWeight: 700,
+                        }}
+                      >
+                        {row.steamName}
+                      </Link>
+                    </TableCell>
+                    <TableCell sx={{ color: "white" }}>{row.steamID}</TableCell>
+                    <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses}</TableCell>
+                    <TableCell sx={{ color: "white" }}>{row.playerStats.wins + row.playerStats.losses > 0 ? ((row.playerStats.wins / (row.playerStats.wins + row.playerStats.losses)) * 100).toFixed(2) + '%' : '0%'}</TableCell>
+                    <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                      {row.playerStats.rating}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
           <TablePagination
