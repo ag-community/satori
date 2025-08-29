@@ -130,7 +130,7 @@ export const PlayerPage = () => {
             <Box mt={1}>
               <Chip
                 icon={<EmojiEventsIcon color="secondary" />}
-                label={`${t("leaderboard.rating")}: ${playerProfile.rating}`}
+                label={`${t("leaderboard.rating")}: ${playerProfile.playerStats.rating}`}
                 color="secondary"
                 sx={{ fontWeight: 700, fontSize: 16 }}
               />

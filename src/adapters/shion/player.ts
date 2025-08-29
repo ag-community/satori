@@ -5,7 +5,15 @@ export interface Player {
     steamID: string;
     steamName: string;
     avatarURL: string;
+    playerStats: PlayerStats;
+}
+
+export interface PlayerStats {
     rating: number;
+    wins: number;
+    losses: number;
+    totalFrags: number;
+    totalDeaths: number;
 }
 
 export interface Match {
@@ -29,9 +37,15 @@ export const fetchPlayer = async (playerId: number): Promise<Player> => {
         return {
             id: response.data.id,
             steamID: response.data.steam_id,
-            steamName: response.data.steam_name,
+            steamName: response.data.steam_name ? response.data.steam_name : "Unknown Player",
             avatarURL: response.data.steam_avatar_url,
-            rating: Math.round(response.data.rating),
+            playerStats: {
+                rating: Math.round(response.data.stats.rating),
+                wins: response.data.stats.wins,
+                losses: response.data.stats.losses,
+                totalFrags: response.data.stats.total_frags,
+                totalDeaths: response.data.stats.total_deaths,
+            }
         };
     } catch (error) {
         console.error("Error fetching player data:", error);

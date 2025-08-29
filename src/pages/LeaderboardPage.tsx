@@ -105,7 +105,7 @@ export const LeaderboardPage = () => {
             <TableBody>
               {leaderboardData?.map((row, idx) => (
                 <TableRow
-                  key={row.player + idx}
+                  key={row.steamName + idx}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                     background: theme.palette.primary.main,
@@ -123,7 +123,7 @@ export const LeaderboardPage = () => {
                   >
                     <Avatar
                       src={row.avatarURL}
-                      alt={row.player}
+                      alt={row.steamName}
                       sx={{ width: 32, height: 32, mr: 1 }}
                     />
                     <Link
@@ -134,7 +134,7 @@ export const LeaderboardPage = () => {
                         fontWeight: 700,
                       }}
                     >
-                      {row.player}
+                      {row.steamName}
                     </Link>
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>{row.steamID}</TableCell>
