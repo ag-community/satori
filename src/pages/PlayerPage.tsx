@@ -393,7 +393,7 @@ export const PlayerPage = () => {
         </CardSection>
       </Box>
 
-      <CardSection sx={{ mt: 3 }}>
+      <CardSection>
         <Typography variant="h6" fontWeight={700} mb={2}>
           {t("player.match_history")}
         </Typography>
