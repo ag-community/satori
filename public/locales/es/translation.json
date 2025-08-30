@@ -44,11 +44,22 @@
     "gained_points": "Puntos Ganados"
   },
   "player": {
+    "statistics": "Estadísticas",
+    "rating_progression": "Progresión del Puntaje",
+    "matches_played": "Partidas jugadas",
+    "wins": "Victorias",
+    "losses": "Derrotas",
+    "win_rate": "Tasa de victorias",
+    "total_frags": "Frags totales",
+    "total_deaths": "Muertes totales",
+    "kd_ratio": "Relación K/D",
+    "avg_frags_per_match": "Frags prom. por partida",
     "match_history": "Historial de partidas",
     "date": "Fecha",
     "map": "Mapa",
     "rating": "Puntaje",
     "no_matches": "No se encontraron partidas",
+    "no_rating_data": "No hay datos de puntaje disponibles",
     "rating_gained": "Puntaje ganado"
   },
   "banner": {

@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import { fetchPlayer, Player, Match, fetchPlayerMatches } from "../adapters/shion/player"
+import {
+  fetchPlayer,
+  Player,
+  Match,
+  fetchPlayerMatches,
+  PlayerHistory,
+  fetchPlayerRatingHistory,
+} from "../adapters/shion/player"
 import {
   Alert,
   Avatar,
@@ -17,12 +24,15 @@ import {
   Divider,
   useTheme,
   TablePagination,
+  Grid,
+  GridLegacy,
 } from "@mui/material"
 import { CardSection } from "../components/CardSection"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
 import IconButton from "@mui/material/IconButton"
 import { useTranslation } from "react-i18next"
+import { Line } from "react-chartjs-2"
 
 const getPlayerIdFromQueryParams = (identifier?: string): number => {
   let userId = parseInt(identifier || "")
@@ -33,12 +43,106 @@ const getPlayerIdFromQueryParams = (identifier?: string): number => {
   return userId
 }
 
+const getChartOptions = () => {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
+    scales: {
+      y: {
+        display: true,
+        ticks: {
+          precision: 0,
+        },
+      },
+      x: {
+        display: false,
+      },
+    },
+    plugins: {
+      tooltip: {
+        intersect: false,
+      },
+      legend: {
+        display: false,
+      },
+    },
+  } as const
+}
+
+const PlayerRatingChart = ({ playerRatingHistory }: { playerRatingHistory: PlayerHistory | null }) => {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  
+  if (!playerRatingHistory || playerRatingHistory.captures.length === 0) {
+    return (
+      <Box 
+        sx={{ 
+          height: 231, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          color: 'text.secondary'
+        }}
+      >
+        <Typography align="center">{t('player.no_rating_data')}</Typography>
+      </Box>
+    );
+  }
+  
+  const captures = playerRatingHistory.captures;
+  let chartLabels = [];
+  let chartRatings = [];
+  
+  if (captures.length === 1) {
+    const capture = captures[0];
+    const date = capture.capturedAt.toLocaleDateString();
+    
+    chartLabels = [date, date];
+    chartRatings = [capture.rating, capture.rating];
+  } else {
+    chartLabels = captures.map(capture => capture.capturedAt.toLocaleDateString());
+    chartRatings = captures.map(capture => capture.rating);
+  }
+  
+  const chartData = {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: t("player.rating"),
+        data: chartRatings,
+        borderColor: "#ffffff",
+        tension: 0.5,
+        borderWidth: 3,
+      },
+    ],
+  };
+  
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        height: "231px",
+        width: "100%",
+      }}
+    >
+      <Line data={chartData} options={getChartOptions()} />
+    </Box>
+  );
+};
+
 export const PlayerPage = () => {
   const theme = useTheme()
   const { t } = useTranslation()
   const queryParams = useParams()
   const profilePlayerId = getPlayerIdFromQueryParams(queryParams["playerId"])
   const [playerProfile, setPlayerProfile] = useState<Player | null>(null)
+  const [playerRatingHistory, setPlayerRatingHistory] =
+    useState<PlayerHistory | null>(null)
   const [matches, setMatches] = useState<Match[]>([])
   const [error, setError] = useState("")
   const [page, setPage] = useState(0)
@@ -61,7 +165,23 @@ export const PlayerPage = () => {
     ;(async () => {
       if (!profilePlayerId) return
       try {
-        const matchesResponse = await fetchPlayerMatches(profilePlayerId, page + 1, pageSize)
+        const historyResponse = await fetchPlayerRatingHistory(profilePlayerId)
+        setPlayerRatingHistory(historyResponse)
+      } catch (e: any) {
+        setError("Failed to fetch player rating history: " + e.message)
+      }
+    })()
+  }, [profilePlayerId])
+
+  useEffect(() => {
+    ;(async () => {
+      if (!profilePlayerId) return
+      try {
+        const matchesResponse = await fetchPlayerMatches(
+          profilePlayerId,
+          page + 1,
+          pageSize
+        )
         setMatches(matchesResponse)
       } catch (e: any) {
         setError("Failed to fetch player match history")
@@ -73,7 +193,9 @@ export const PlayerPage = () => {
     setPage(newPage)
   }
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPageSize(parseInt(event.target.value, 10))
     setPage(0)
   }
@@ -139,6 +261,138 @@ export const PlayerPage = () => {
         </Box>
       </CardSection>
 
+      <Box
+        sx={{
+          display: "flex",
+          gap: 3,
+          flexDirection: { xs: "column", md: "row" },
+          mt: 3,
+        }}
+      >
+        <CardSection sx={{ flexGrow: 1, flexBasis: "40%" }}>
+          <Typography variant="h6" fontWeight={700} mb={2}>
+            {t("player.statistics")}
+          </Typography>
+          <TableContainer
+            component={Paper}
+            sx={{
+              background: theme.palette.primary.main,
+              borderRadius: 2,
+              boxShadow: "none",
+            }}
+          >
+            <Table size="small">
+              <TableBody>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.matches_played")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.wins +
+                      playerProfile.playerStats.losses}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.wins")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.wins}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.losses")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.losses}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.win_rate")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.wins +
+                    playerProfile.playerStats.losses
+                      ? (
+                          (playerProfile.playerStats.wins /
+                            (playerProfile.playerStats.wins +
+                              playerProfile.playerStats.losses)) *
+                          100
+                        ).toFixed(2) + "%"
+                      : "0%"}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.total_frags")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.totalFrags || 0}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.total_deaths")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.totalDeaths || 0}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.kd_ratio")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.totalDeaths > 0
+                      ? (
+                          playerProfile.playerStats.totalFrags /
+                          playerProfile.playerStats.totalDeaths
+                        ).toFixed(2)
+                      : playerProfile.playerStats.totalFrags.toFixed(2)}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ color: "white" }}>
+                    {t("player.avg_frags_per_match")}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }} align="right">
+                    {playerProfile.playerStats.wins +
+                      playerProfile.playerStats.losses >
+                    0
+                      ? (
+                          playerProfile.playerStats.totalFrags /
+                          (playerProfile.playerStats.wins +
+                            playerProfile.playerStats.losses)
+                        ).toFixed(2)
+                      : "0"}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardSection>
+
+        <CardSection sx={{ flexGrow: 1, flexBasis: "60%" }}>
+          <Typography variant="h6" fontWeight={700} mb={2}>
+            {t("player.rating_progression")}
+          </Typography>
+          <Paper
+            sx={{
+              background: theme.palette.primary.main,
+              borderRadius: 2,
+              boxShadow: "none",
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <PlayerRatingChart playerRatingHistory={playerRatingHistory} />
+          </Paper>
+        </CardSection>
+      </Box>
+
       <CardSection sx={{ mt: 3 }}>
         <Typography variant="h6" fontWeight={700} mb={2}>
           {t("player.match_history")}
@@ -154,23 +408,37 @@ export const PlayerPage = () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("player.date")}</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("player.map")}</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.frags")}</TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }}>{t("match.deaths")}</TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("player.date")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("player.map")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("match.frags")}
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: 700 }}>
+                  {t("match.deaths")}
+                </TableCell>
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>
                   {t("player.rating_gained")}
                 </TableCell>
                 <TableCell sx={{ color: "white", fontWeight: 700 }}>
                   {t("player.rating")}
                 </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: 700 }} align="center"></TableCell>
+                <TableCell
+                  sx={{ color: "white", fontWeight: 700 }}
+                  align="center"
+                ></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {matches.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={8} sx={{ color: "white", textAlign: "center" }}>
+                  <TableCell
+                    colSpan={8}
+                    sx={{ color: "white", textAlign: "center" }}
+                  >
                     {t("player.no_matches")}
                   </TableCell>
                 </TableRow>
@@ -192,7 +460,9 @@ export const PlayerPage = () => {
                     {match.ratingDelta >= 0 ? "+" : ""}
                     {match.ratingDelta}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>{match.ratingAfterMatch}</TableCell>
+                  <TableCell sx={{ color: "white" }}>
+                    {match.ratingAfterMatch}
+                  </TableCell>
                   <TableCell align="center">
                     <IconButton
                       component={Link}

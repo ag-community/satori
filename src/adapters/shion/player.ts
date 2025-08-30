@@ -27,6 +27,15 @@ export interface Match {
     ratingDelta: number;
 }
 
+export interface PlayerHistory {
+    captures: PlayerHistoryCapture[];
+}
+
+export interface PlayerHistoryCapture {
+    capturedAt: Date;
+    rating: number;
+}
+
 const apiInstance = axios.create({
   baseURL: process.env.REACT_APP_SHION_API_BASE_URL,
 })
@@ -74,6 +83,22 @@ export const fetchPlayerMatches = async (playerId: number, page: number = 1, lim
         }));
     } catch (error) {
         console.error("Error fetching player matches:", error);
+        throw error;
+    }
+}
+
+export const fetchPlayerRatingHistory = async (playerId: number): Promise<PlayerHistory> => {
+    try {
+        const response = await apiInstance.get(`/players/${playerId}/rating_history`);
+
+        return {
+            captures: response.data.captures.map((capture: any) => ({
+                capturedAt: new Date(capture.captured_at),
+                rating: Math.round(capture.rating),
+            }))
+        };
+    } catch (error) {
+        console.error("Error fetching player rating history:", error);
         throw error;
     }
 }

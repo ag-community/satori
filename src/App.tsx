@@ -16,7 +16,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom"
-
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js"
 import { _i18n } from "./i18n"
 import { ErrorBoundary } from "react-error-boundary"
 import { HomePage } from "./pages/HomePage"
@@ -25,6 +34,16 @@ import { LeaderboardPage } from "./pages/LeaderboardPage"
 import { PlayerPage } from "./pages/PlayerPage"
 import { MatchPage } from "./pages/MatchPage"
 import { BANNER_HEIGHT } from "./components/Navbar"; // Ajusta la ruta si es necesario
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 const AppLayout = () => {
   return (
