@@ -71,15 +71,15 @@ export const fetchPlayerMatches = async (playerId: number, page: number = 1, lim
             }
         });
         
-        return response.data.map((player: any) => ({
-            matchId: player.id,
-            serverIp: player.server_ip,
-            matchDate: player.match_date,
-            mapName: player.map_name,
-            frags: player.match_details.find((detail: any) => detail.player_id === playerId)?.frags,
-            deaths: player.match_details.find((detail: any) => detail.player_id === playerId)?.deaths,
-            ratingAfterMatch: Math.round(player.rating_after_match),
-            ratingDelta: Math.round(player.rating_delta),
+        return response.data.map((match: any) => ({
+            matchId: match.id,
+            serverIp: match.server_ip,
+            matchDate: match.match_date,
+            mapName: match.map_name,
+            frags: match.match_details.find((detail: any) => detail.player_id === playerId)?.frags,
+            deaths: match.match_details.find((detail: any) => detail.player_id === playerId)?.deaths,
+            ratingAfterMatch: Math.floor(match.match_details.find((detail: any) => detail.player_id === playerId)?.rating_after_match),
+            ratingDelta: Math.round(match.match_details.find((detail: any) => detail.player_id === playerId)?.rating_delta),
         }));
     } catch (error) {
         console.error("Error fetching player matches:", error);
