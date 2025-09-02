@@ -13,7 +13,7 @@
     "read_docs": "Leer la documentación",
     "read_docs_desc": "Conoce el funcionamiento interno de nuestro algoritmo de rating",
     "stats_title": "Estadísticas",
-    "stats_desc": "Lorep ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "stats_desc": "Monitorea tu rendimiento de juego con estadísticas completas, incluyendo relación K/D, tasa de victorias y progresión de puntaje a lo largo del tiempo",
     "open_source_title": "Código abierto, datos abiertos",
     "open_source_desc": "Construido desde cero con la transparencia en mente"
   },

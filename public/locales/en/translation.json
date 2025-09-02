@@ -13,7 +13,7 @@
     "read_docs": "Read the docs",
     "read_docs_desc": "Learn the inner-workings of our rating algorithm",
     "stats_title": "Stats",
-    "stats_desc": "Lorep ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "stats_desc": "Track your game performance with comprehensive statistics including K/D ratio, win rate, and rating progression over time",
     "open_source_title": "Open source, open data",
     "open_source_desc": "Built from the ground up with transparency in mind"
   },
@@ -58,7 +58,7 @@
     "date": "Date",
     "map": "Map",
     "rating": "Rating",
-    "no_matches": "No se encontraron partidas",
+    "no_matches": "No matches found",
     "no_rating_data": "No rating data available",
     "rating_gained": "Rating gained"
   },
