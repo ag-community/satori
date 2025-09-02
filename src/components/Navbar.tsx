@@ -17,6 +17,7 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { LanguageSelector } from "./LanguageSelector";
+import AGLogoBlue from "../components/images/logos/ag_logo_blue.png"
 
 const pages = [
   { label: "Home", icon: <HomeIcon />, path: "/" },
@@ -51,22 +52,29 @@ export function Navbar() {
       }}
     >
       <Toolbar>
-        {/* Logo or Title */}
-        <Typography
-          variant="h6"
-          noWrap
+        {/* Logo */}
+        <Box
           component={Link}
           to="/"
           sx={{
-            color: theme.palette.secondary.main,
-            textDecoration: "none",
-            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: { xs: 'flex-start', sm: 'center' },
             flexGrow: { xs: 1, sm: 0 },
             mr: 2,
+            textDecoration: 'none',
           }}
         >
-          Logo here
-        </Typography>
+          <Box
+            component="img"
+            src={AGLogoBlue}
+            alt="Adrenaline Gamer Logo"
+            sx={{
+              height: 40,
+              width: 'auto',
+            }}
+          />
+        </Box>
 
         {/* Desktop Menu */}
         {!isMobile && (

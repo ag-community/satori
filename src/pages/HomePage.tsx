@@ -5,6 +5,7 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SearchIcon from "@mui/icons-material/Search";
 import { CardSection } from "../components/CardSection";
 import { ActionCard } from "../components/ActionCard";
+import AGLogoBlue from "../components/images/logos/ag_logo_blue.png";
 
 export const HomePage = () => {
   const { t } = useTranslation();
@@ -18,7 +19,15 @@ export const HomePage = () => {
         px: 2,
       }}
     >
-      <CardSection>
+      <CardSection
+        backgroundLogo={AGLogoBlue}
+        logoPosition="right"
+        sx={{ 
+          display: "flex", 
+          alignItems: "center", 
+          minHeight: 120,
+        }}
+      >
         <Typography variant="h5" fontWeight={700} mb={1}>
           {t("home.title")}
         </Typography>
@@ -47,16 +56,15 @@ export const HomePage = () => {
         </Box>
       </CardSection>
 
-      <CardSection sx={{ display: "flex", alignItems: "center", minHeight: 120 }}>
-        <Box
-          sx={{
-            width: 160,
-            height: 100,
-            borderRadius: 2,
-            background: "linear-gradient(135deg, #2c97fb 60%, #181818 100%)",
-            mr: 3,
-          }}
-        />
+      <CardSection 
+        backgroundLogo={AGLogoBlue}
+        logoPosition="left"
+        sx={{ 
+          display: "flex", 
+          alignItems: "center", 
+          minHeight: 120,
+        }}
+      >
         <Box>
           <Typography variant="h6" fontWeight={700}>
             {t("home.stats_title")}
@@ -67,16 +75,15 @@ export const HomePage = () => {
         </Box>
       </CardSection>
 
-      <CardSection sx={{ display: "flex", alignItems: "center", minHeight: 120 }}>
-        <Box
-          sx={{
-            width: 160,
-            height: 100,
-            borderRadius: 2,
-            background: "linear-gradient(135deg, #2c97fb 60%, #181818 100%)",
-            mr: 3,
-          }}
-        />
+      <CardSection 
+        backgroundLogo={AGLogoBlue}
+        logoPosition="right"
+        sx={{ 
+          display: "flex", 
+          alignItems: "center", 
+          minHeight: 120,
+        }}
+      >
         <Box>
           <Typography variant="h6" fontWeight={700}>
             {t("home.open_source_title")}
