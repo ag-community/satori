@@ -4,8 +4,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Box, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionCard } from '../components/ActionCard';
 import { CardSection } from '../components/CardSection';
+import { ActionCard } from '../components/homepage/HomepageActionCard';
 
 export const HomePage = () => {
   const { t } = useTranslation();

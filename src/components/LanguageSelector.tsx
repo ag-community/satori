@@ -83,14 +83,16 @@ export const LanguageSelector = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'language-selector-button',
-          sx: {
-            bgcolor: theme.palette.primary.main,
-            paddingTop: 0,
+        slotProps={{
+          paper: { sx: { width: 180, borderRadius: 3 } },
+          list: {
+            'aria-labelledby': 'language-selector-button',
+            sx: {
+              bgcolor: theme.palette.primary.main,
+              paddingTop: 0,
+            },
           },
         }}
-        slotProps={{ paper: { sx: { width: 180, borderRadius: 3 } } }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         {languages.map((language) => (

@@ -1,11 +1,5 @@
 import { Box, type BoxProps, useTheme } from '@mui/material';
 
-interface CardSectionProps extends BoxProps {
-  backgroundLogo?: string;
-  backgroundLogoOpacity?: number;
-  logoPosition?: 'left' | 'right';
-}
-
 export function CardSection({
   children,
   backgroundLogo,
@@ -13,7 +7,11 @@ export function CardSection({
   logoPosition = 'right',
   sx,
   ...rest
-}: CardSectionProps) {
+}: BoxProps & {
+  backgroundLogo?: string;
+  backgroundLogoOpacity?: number;
+  logoPosition?: 'left' | 'right';
+}) {
   const theme = useTheme();
   return (
     <Box

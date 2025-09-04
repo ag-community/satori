@@ -54,7 +54,6 @@ export function Navbar() {
       }}
     >
       <Toolbar>
-        {/* Logo */}
         <Box
           component={Link}
           to="/"
@@ -77,8 +76,6 @@ export function Navbar() {
             }}
           />
         </Box>
-
-        {/* Desktop Menu */}
         {!isMobile && (
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
             {pages.map((page) => (
@@ -113,8 +110,6 @@ export function Navbar() {
         )}
 
         <LanguageSelector />
-
-        {/* Mobile Menu */}
         {isMobile && (
           <>
             <IconButton
@@ -159,7 +154,6 @@ export function Navbar() {
           </>
         )}
       </Toolbar>
-      {/* Dev Warning Banner */}
       <Box
         sx={{
           width: '100%',
