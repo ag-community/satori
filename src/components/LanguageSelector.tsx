@@ -1,4 +1,4 @@
-import CheckIcon from "@mui/icons-material/Check";
+import CheckIcon from '@mui/icons-material/Check';
 import {
   Box,
   Button,
@@ -8,9 +8,10 @@ import {
   MenuItem,
   Stack,
   useTheme,
-} from "@mui/material";
-import React from "react";
-import { useTranslation } from "react-i18next";
+} from '@mui/material';
+import React, { useId } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getFlagUrl } from '../utils/countries';
 
 export interface Language {
   code: string;
@@ -18,16 +19,9 @@ export interface Language {
 }
 
 const languages: Language[] = [
-  { code: "en", name: "English" },
-  { code: "es", name: "Español" },
+  { code: 'us', name: 'English' },
+  { code: 'es', name: 'Español' },
 ];
-
-// Simple flag url helper (uses flagcdn.com)
-function getFlagUrl(code: string) {
-  // en -> us for flag
-  const flagCode = code === "en" ? "us" : code;
-  return `https://flagcdn.com/24x18/${flagCode}.png`;
-}
 
 export const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -56,20 +50,20 @@ export const LanguageSelector = () => {
     <Box>
       <Button
         aria-label="language-selector-button"
-        id="language-selector-button"
-        aria-controls={open ? "language-selector-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
+        id={useId()}
+        aria-controls={open ? 'language-selector-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
         sx={{
-          color: "white",
-          textTransform: "none",
-          minWidth: { xs: "40px", md: "auto" },
+          color: 'white',
+          textTransform: 'none',
+          minWidth: { xs: '40px', md: 'auto' },
           px: { xs: 1, md: 2 },
           background: theme.palette.primary.main,
           borderRadius: 2,
-          "&:hover": {
-            background: theme.palette.secondary.main + "22",
+          '&:hover': {
+            background: `${theme.palette.secondary.main}22`,
           },
         }}
       >
@@ -79,8 +73,8 @@ export const LanguageSelector = () => {
             height={20}
             width={24}
             alt={currentLanguage.name}
-            src={getFlagUrl(currentLanguage.code)}
-            sx={{ borderRadius: "2px" }}
+            src={getFlagUrl(currentLanguage.code.toUpperCase())}
+            sx={{ borderRadius: '2px' }}
           />
         </Stack>
       </Button>
@@ -90,14 +84,14 @@ export const LanguageSelector = () => {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "language-selector-button",
+          'aria-labelledby': 'language-selector-button',
           sx: {
             bgcolor: theme.palette.primary.main,
             paddingTop: 0,
           },
         }}
         slotProps={{ paper: { sx: { width: 180, borderRadius: 3 } } }}
-        transformOrigin={{ vertical: "top", horizontal: "center" }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         {languages.map((language) => (
           <MenuItem
@@ -105,8 +99,8 @@ export const LanguageSelector = () => {
             onClick={() => changeLanguage(language.code)}
             selected={i18n.language.startsWith(language.code)}
             sx={{
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               gap: 1,
               p: 1.5,
             }}
@@ -116,12 +110,12 @@ export const LanguageSelector = () => {
               height={20}
               width={24}
               alt={language.name}
-              src={getFlagUrl(language.code)}
-              sx={{ borderRadius: "2px" }}
+              src={getFlagUrl(language.code.toUpperCase())}
+              sx={{ borderRadius: '2px' }}
             />
             <ListItemText primary={language.name} />
             {i18n.language.startsWith(language.code) && (
-              <ListItemIcon sx={{ minWidth: "auto", color: "success.main" }}>
+              <ListItemIcon sx={{ minWidth: 'auto', color: 'success.main' }}>
                 <CheckIcon fontSize="small" />
               </ListItemIcon>
             )}

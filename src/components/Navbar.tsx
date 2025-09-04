@@ -1,38 +1,38 @@
-import React from "react";
+import HomeIcon from '@mui/icons-material/Home';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Box,
-  Toolbar,
-  Typography,
+  Button,
   IconButton,
   Menu,
   MenuItem,
-  Button,
-  useTheme,
+  Toolbar,
   useMediaQuery,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import HomeIcon from "@mui/icons-material/Home";
-import LeaderboardIcon from "@mui/icons-material/Leaderboard";
-import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
-import { LanguageSelector } from "./LanguageSelector";
-import AGLogoBlue from "../components/images/logos/ag_logo_blue.png"
+  useTheme,
+} from '@mui/material';
+import React, { useId } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
+import { LanguageSelector } from './LanguageSelector';
 
 const pages = [
-  { label: "Home", icon: <HomeIcon />, path: "/" },
-  { label: "Leaderboard", icon: <LeaderboardIcon />, path: "/leaderboard" },
+  { label: 'Home', icon: <HomeIcon />, path: '/' },
+  { label: 'Leaderboard', icon: <LeaderboardIcon />, path: '/leaderboard' },
 ];
 
 export const BANNER_HEIGHT = 35;
 
 export function Navbar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
   const location = useLocation();
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null,
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -40,6 +40,8 @@ export function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const id = useId();
 
   return (
     <AppBar
@@ -67,7 +69,7 @@ export function Navbar() {
         >
           <Box
             component="img"
-            src={AGLogoBlue}
+            src={`${process.env.ASSET_PREFIX}/images/ag_logo_blue.png`}
             alt="Adrenaline Gamer Logo"
             sx={{
               height: 40,
@@ -78,7 +80,7 @@ export function Navbar() {
 
         {/* Desktop Menu */}
         {!isMobile && (
-          <Box sx={{ flexGrow: 1, display: "flex" }}>
+          <Box sx={{ flexGrow: 1, display: 'flex' }}>
             {pages.map((page) => (
               <Button
                 key={page.label}
@@ -91,17 +93,17 @@ export function Navbar() {
                   color:
                     location.pathname === page.path
                       ? theme.palette.secondary.main
-                      : "white",
+                      : 'white',
                   fontWeight: location.pathname === page.path ? 700 : 500,
                   background:
                     location.pathname === page.path
-                      ? theme.palette.secondary.main + "22"
-                      : "transparent",
+                      ? `${theme.palette.secondary.main}22`
+                      : 'transparent',
                   borderRadius: 2,
-                  "&:hover": {
-                    background: theme.palette.secondary.main + "22",
+                  '&:hover': {
+                    background: `${theme.palette.secondary.main}22`,
                   },
-                  textTransform: "none",
+                  textTransform: 'none',
                 }}
               >
                 {t(`navbar.${page.label.toLowerCase()}`) || page.label}
@@ -127,16 +129,16 @@ export function Navbar() {
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id={id}
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
+                vertical: 'bottom',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -160,20 +162,21 @@ export function Navbar() {
       {/* Dev Warning Banner */}
       <Box
         sx={{
-          width: "100%",
+          width: '100%',
           bgcolor: theme.palette.secondary.main,
           color: theme.palette.common.white,
-          textAlign: "center",
+          textAlign: 'center',
           fontWeight: 700,
           letterSpacing: 0.5,
           fontSize: { xs: 14, sm: 16 },
           height: `${BANNER_HEIGHT}px`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-        dangerouslySetInnerHTML={{ __html: t("banner.dev_warning") }}
-      />
+      >
+        {t('banner.dev_warning')}
+      </Box>
     </AppBar>
   );
 }

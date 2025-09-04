@@ -1,4 +1,10 @@
 {
+  "title": {
+    "home": "Adrenaline Gamer Rating - Inicio",
+    "leaderboard": "Adrenaline Gamer Rating - Clasificación",
+    "player": "Adrenaline Gamer Rating - Jugador {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Partida #{{matchId}}"
+  },
   "navbar": {
     "home": "Inicio",
     "leaderboard": "Clasificación"

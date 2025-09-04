@@ -1,4 +1,10 @@
 {
+  "title": {
+    "home": "Adrenaline Gamer Rating - Home",
+    "leaderboard": "Adrenaline Gamer Rating - Leaderboard",
+    "player": "Adrenaline Gamer Rating - Player {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Match #{{matchId}}"
+  },
   "navbar": {
     "home": "Home",
     "leaderboard": "Leaderboard"

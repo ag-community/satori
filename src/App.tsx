@@ -1,21 +1,13 @@
-import { ContactPage } from "@mui/icons-material"
+/// <reference types="@rsbuild/core/types" />
+
 import {
   Box,
-  createTheme,
   CssBaseline,
+  createTheme,
   Stack,
   ThemeProvider,
   Toolbar,
-} from "@mui/material"
-import React from "react"
-import { I18nextProvider } from "react-i18next"
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Outlet,
-  Route,
-  RouterProvider,
-} from "react-router-dom"
+} from '@mui/material';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -25,15 +17,23 @@ import {
   PointElement,
   Title,
   Tooltip,
-} from "chart.js"
-import { _i18n } from "./i18n"
-import { ErrorBoundary } from "react-error-boundary"
-import { HomePage } from "./pages/HomePage"
-import { Navbar } from "./components/Navbar"
-import { LeaderboardPage } from "./pages/LeaderboardPage"
-import { PlayerPage } from "./pages/PlayerPage"
-import { MatchPage } from "./pages/MatchPage"
-import { BANNER_HEIGHT } from "./components/Navbar"; // Ajusta la ruta si es necesario
+} from 'chart.js';
+import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { I18nextProvider } from 'react-i18next';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Outlet,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+import { BANNER_HEIGHT, Navbar } from './components/Navbar';
+import { _i18n } from './i18n';
+import { HomePage } from './pages/HomePage';
+import { LeaderboardPage } from './pages/LeaderboardPage';
+import { MatchPage } from './pages/MatchPage';
+import { PlayerPage } from './pages/PlayerPage';
 
 ChartJS.register(
   CategoryScale,
@@ -42,8 +42,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
-)
+  Legend,
+);
 
 const AppLayout = () => {
   return (
@@ -61,8 +61,8 @@ const AppLayout = () => {
         </Box>
       </Stack>
     </>
-  )
-}
+  );
+};
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -71,15 +71,15 @@ const router = createBrowserRouter(
       <Route path="/match/:matchId" element={<MatchPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/player/:playerId" element={<PlayerPage />} />
-    </Route>
-  )
-)
+    </Route>,
+  ),
+);
 
 function fallbackRender({ error }: { error: Error }) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
+      <pre style={{ color: 'red' }}>{error.message}</pre>
     </div>
   );
 }
@@ -89,29 +89,29 @@ export default function App() {
     () =>
       createTheme({
         palette: {
-          mode: "dark",
+          mode: 'dark',
           primary: {
-            main: "#161616",
+            main: '#161616',
           },
           secondary: {
-            main: "#4C94FF",
+            main: '#4C94FF',
           },
           success: {
-            main: "#4C94FF"
+            main: '#4C94FF',
           },
           error: {
-            main: "#FF4C4C",
+            main: '#FF4C4C',
           },
           background: {
-            default: "#0F0F0F",
+            default: '#0F0F0F',
           },
         },
         typography: {
-          fontFamily: "Nunito",
+          fontFamily: 'Nunito',
         },
       }),
-    []
-  )
+    [],
+  );
 
   return (
     <React.StrictMode>
@@ -119,10 +119,10 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <ErrorBoundary fallbackRender={fallbackRender}>
-          <RouterProvider router={router} />
+            <RouterProvider router={router} />
           </ErrorBoundary>
         </ThemeProvider>
       </I18nextProvider>
     </React.StrictMode>
-  )
+  );
 }

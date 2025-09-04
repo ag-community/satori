@@ -1,5 +1,5 @@
-import { Box, Paper, Typography, useTheme } from "@mui/material";
-import { ReactNode } from "react";
+import { Box, Paper, Typography } from '@mui/material';
+import type { ReactNode } from 'react';
 
 export function ActionCard({
   icon,
@@ -10,18 +10,17 @@ export function ActionCard({
   title: string;
   description: string;
 }) {
-  const theme = useTheme();
   return (
     <Paper
       elevation={0}
       sx={{
-        background: "#181818",
+        background: '#181818',
         borderRadius: 2,
         p: 2,
         flex: 1,
         minWidth: 0,
         mr: 2,
-        "&:last-child": { mr: 0 },
+        '&:last-child': { mr: 0 },
       }}
     >
       <Box display="flex" alignItems="center" mb={1}>

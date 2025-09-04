@@ -1,17 +1,16 @@
-import React from "react";
-import { Box, BoxProps, useTheme } from "@mui/material";
+import { Box, type BoxProps, useTheme } from '@mui/material';
 
 interface CardSectionProps extends BoxProps {
   backgroundLogo?: string;
   backgroundLogoOpacity?: number;
-  logoPosition?: "left" | "right";
+  logoPosition?: 'left' | 'right';
 }
 
 export function CardSection({
   children,
   backgroundLogo,
   backgroundLogoOpacity = 0.8,
-  logoPosition = "right",
+  logoPosition = 'right',
   sx,
   ...rest
 }: CardSectionProps) {
@@ -23,8 +22,8 @@ export function CardSection({
         borderRadius: 3,
         p: { xs: 2, sm: 3 },
         mb: 3,
-        position: "relative",
-        overflow: "hidden",
+        position: 'relative',
+        overflow: 'hidden',
         ...sx,
       }}
       {...rest}
@@ -32,14 +31,14 @@ export function CardSection({
       {backgroundLogo && (
         <Box
           sx={{
-            position: "absolute",
-            [logoPosition === "left" ? "left" : "right"]: -30,
-            top: logoPosition === "right" ? -30 : "auto",
-            bottom: logoPosition === "left" ? -30 : "auto",
+            position: 'absolute',
+            [logoPosition === 'left' ? 'left' : 'right']: -30,
+            top: logoPosition === 'right' ? -30 : 'auto',
+            bottom: logoPosition === 'left' ? -30 : 'auto',
             width: 180,
             height: 180,
             zIndex: 0,
-            overflow: "hidden",
+            overflow: 'hidden',
           }}
         >
           <Box
@@ -47,12 +46,12 @@ export function CardSection({
             src={backgroundLogo}
             alt=""
             sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
               opacity: backgroundLogoOpacity,
-              filter: "brightness(0.7) saturate(1.5)",
-              transform: "scale(1)",
+              filter: 'brightness(0.7) saturate(1.5)',
+              transform: 'scale(1)',
             }}
           />
         </Box>
@@ -60,12 +59,24 @@ export function CardSection({
 
       <Box
         sx={{
-          position: "relative",
+          position: 'relative',
           zIndex: 1,
-          width: "100%",
-          maxWidth: backgroundLogo ? (logoPosition === "left" ? "80%" : "80%") : "100%",
-          marginLeft: backgroundLogo ? (logoPosition === "right" ? 0 : "auto") : 0,
-          marginRight: backgroundLogo ? (logoPosition === "left" ? 0 : "auto") : 0,
+          width: '100%',
+          maxWidth: backgroundLogo
+            ? logoPosition === 'left'
+              ? '80%'
+              : '80%'
+            : '100%',
+          marginLeft: backgroundLogo
+            ? logoPosition === 'right'
+              ? 0
+              : 'auto'
+            : 0,
+          marginRight: backgroundLogo
+            ? logoPosition === 'left'
+              ? 0
+              : 'auto'
+            : 0,
         }}
       >
         {children}
