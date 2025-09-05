@@ -1,0 +1,75 @@
+{
+  "title": {
+    "home": "Adrenaline Gamer Rating - Ana Sayfa",
+    "leaderboard": "Adrenaline Gamer Rating - Lider Tablosu",
+    "player": "Adrenaline Gamer Rating - Oyuncu {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Mac #{{matchId}}"
+  },
+  "navbar": {
+    "home": "Ana Sayfa",
+    "leaderboard": "Lider Tablosu"
+  },
+  "home": {
+    "title": "Adrenaline Gamer Rating",
+    "subtitle": "AG oyuncularinin performansini siralayan topluluk odakli bir platform",
+    "view_rankings": "Siralamalari Goruntule",
+    "view_rankings_desc": "Toplulukta nerede durdugunu ogren",
+    "browse_matches": "Eski maclara goz at",
+    "browse_matches_desc": "Onceki maclarda nasil oynadigini gor",
+    "read_docs": "Belgeleri oku",
+    "read_docs_desc": "Derecelendirme algoritmamizin nasil calistigini ogren",
+    "stats_title": "Istatistikler",
+    "stats_desc": "K/D orani, kazanma orani ve zamanla gelisen derecelendirme gibi kapsamli istatistiklerle performansini takip et",
+    "open_source_title": "Acik kaynak, acik veri",
+    "open_source_desc": "Tam seffaflikla sifirdan insa edildi"
+  },
+  "leaderboard": {
+    "global": "Global Lider Tablosu",
+    "rank": "Sira",
+    "player": "Oyuncu",
+    "steam_id": "Steam ID",
+    "matches_played": "Oynanan Maclar",
+    "rating": "Derecelendirme",
+    "matches": "Maclar",
+    "win_rate": "Kazanma Orani"
+  },
+  "match": {
+    "match_on": "{{mapName}} haritasında {{matchType}} maçı",
+    "server": "Sunucu",
+    "blue_team": "Mavi Takim",
+    "red_team": "Kirmizi Takim",
+    "winner": "Kazanan",
+    "total_frags": "Toplam Skor",
+    "total_deaths": "Toplam Olum",
+    "player": "Oyuncu",
+    "frags": "Skor",
+    "deaths": "Olumler",
+    "avg_ping": "Ort. Ping",
+    "damage_dealt": "Verilen Hasar",
+    "damage_taken": "Alinan Hasar",
+    "gained_points": "Kazanilan puan"
+  },
+  "player": {
+    "statistics": "Istatistikler",
+    "rating_progression": "Derecelendirme Gelisimi",
+    "matches_played": "Oynanan maclar",
+    "wins": "Galibiyetler",
+    "losses": "Maglubiyetler",
+    "win_rate": "Kazanma orani",
+    "total_frags": "Toplam skor",
+    "total_deaths": "Toplam olum",
+    "kd_ratio": "K/D orani",
+    "avg_frags_per_match": "Mac basina ort. skor",
+    "match_history": "Mac gecmisi",
+    "date": "Tarih",
+    "map": "Harita",
+    "match_type": "Maç Türü",
+    "rating": "Derecelendirme",
+    "no_matches": "Mac bulunamadi",
+    "no_rating_data": "Derecelendirme verisi mevcut degil",
+    "rating_gained": "Kazanilan derecelendirme"
+  },
+  "banner": {
+    "dev_warning": "Bu sistem halen gelistirilme asamasinda. Derecelendirme ve veriler her an degisebilir."
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": {
+    "home": "Adrenaline Gamer Rating - Início",
+    "leaderboard": "Adrenaline Gamer Rating - Ranking",
+    "player": "Adrenaline Gamer Rating - Jogador {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Partida #{{matchId}}"
+  },
+  "navbar": {
+    "home": "Início",
+    "leaderboard": "Ranking"
+  },
+  "home": {
+    "title": "Adrenaline Gamer Rating",
+    "subtitle": "Uma plataforma criada pela comunidade que classifica o desempenho dos jogadores de AG",
+    "view_rankings": "Ver Ranking",
+    "view_rankings_desc": "Descubra sua posição na comunidade",
+    "browse_matches": "Ver partidas antigas",
+    "browse_matches_desc": "Confira como você se saiu em partidas anteriores",
+    "read_docs": "Ler a documentação",
+    "read_docs_desc": "Entenda como funciona nosso algoritmo de pontuação",
+    "stats_title": "Estatísticas",
+    "stats_desc": "Acompanhe seu desempenho no jogo com estatísticas completas incluindo taxa K/D, taxa de vitória e evolução do rating ao longo do tempo",
+    "open_source_title": "Código aberto, dados abertos",
+    "open_source_desc": "Construído do zero com transparência em mente"
+  },
+  "leaderboard": {
+    "global": "Ranking Global",
+    "rank": "Posição",
+    "player": "Jogador",
+    "steam_id": "Steam ID",
+    "matches_played": "Partidas Jogadas",
+    "rating": "Pontuação",
+    "matches": "Partidas",
+    "win_rate": "Taxa de Vitória"
+  },
+  "match": {
+    "match_on": "Partida {{matchType}} em {{mapName}}",
+    "server": "Servidor",
+    "blue_team": "Time Azul",
+    "red_team": "Time Vermelho",
+    "winner": "Vencedor",
+    "total_frags": "Total de Abates",
+    "total_deaths": "Total de Mortes",
+    "player": "Jogador",
+    "frags": "Abates",
+    "deaths": "Mortes",
+    "avg_ping": "Ping Médio",
+    "damage_dealt": "Dano Causado",
+    "damage_taken": "Dano Sofrido",
+    "gained_points": "Pontos ganhos"
+  },
+  "player": {
+    "statistics": "Estatísticas",
+    "rating_progression": "Evolução do Rating",
+    "matches_played": "Partidas jogadas",
+    "wins": "Vitórias",
+    "losses": "Derrotas",
+    "win_rate": "Taxa de vitória",
+    "total_frags": "Total de abates",
+    "total_deaths": "Total de mortes",
+    "kd_ratio": "Taxa K/D",
+    "avg_frags_per_match": "Média de abates por partida",
+    "match_history": "Histórico de partidas",
+    "date": "Data",
+    "map": "Mapa",
+    "match_type": "Tipo de Partida",
+    "rating": "Pontuação",
+    "no_matches": "Nenhuma partida encontrada",
+    "no_rating_data": "Nenhum dado de rating disponível",
+    "rating_gained": "Pontuação ganha"
+  },
+  "banner": {
+    "dev_warning": "Este sistema está em desenvolvimento. Ratings e dados podem mudar a qualquer momento."
+  }
+}

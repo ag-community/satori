@@ -21,6 +21,9 @@ export interface Language {
 const languages: Language[] = [
   { code: 'us', name: 'English' },
   { code: 'es', name: 'Español' },
+  { code: 'br', name: 'Português (Brasil)' },
+  { code: 'tr', name: 'Türkçe' },
+  { code: 'ru', name: 'Русский' },
 ];
 
 export const LanguageSelector = () => {

@@ -1,0 +1,75 @@
+{
+  "title": {
+    "home": "Adrenaline Gamer Rating - Главная",
+    "leaderboard": "Adrenaline Gamer Rating - Таблица лидеров",
+    "player": "Adrenaline Gamer Rating - Игрок {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Матч #{{matchId}}"
+  },
+  "navbar": {
+    "home": "Главная",
+    "leaderboard": "Лидеры"
+  },
+  "home": {
+    "title": "Adrenaline Gamer Rating",
+    "subtitle": "Платформа, созданная сообществом, которая ранжирует игроков AG по их результатам",
+    "view_rankings": "Посмотреть рейтинг",
+    "view_rankings_desc": "Узнай, какое место занимаешь в сообществе",
+    "browse_matches": "Просмотр старых матчей",
+    "browse_matches_desc": "Посмотри, как ты играл в прошлых матчах",
+    "read_docs": "Прочитать документацию",
+    "read_docs_desc": "Узнай, как работает наш алгоритм подсчета рейтинга",
+    "stats_title": "Статистика",
+    "stats_desc": "Отслеживай свои результаты по полным показателям, включая K/D, процент побед и рост рейтинга со временем",
+    "open_source_title": "Открытый код, открытые данные",
+    "open_source_desc": "Создано с нуля с упором на прозрачность"
+  },
+  "leaderboard": {
+    "global": "Глобальный рейтинг",
+    "rank": "Место",
+    "player": "Игрок",
+    "steam_id": "Steam ID",
+    "matches_played": "Сыграно матчей",
+    "rating": "Рейтинг",
+    "matches": "Матчи",
+    "win_rate": "Процент побед"
+  },
+  "match": {
+    "match_on": "Матч {{matchType}} на карте {{mapName}}",
+    "server": "Сервер",
+    "blue_team": "Синяя команда",
+    "red_team": "Красная команда",
+    "winner": "Победитель",
+    "total_frags": "Всего фрагов",
+    "total_deaths": "Всего смертей",
+    "player": "Игрок",
+    "frags": "Фраги",
+    "deaths": "Смерти",
+    "avg_ping": "Средний пинг",
+    "damage_dealt": "Нанесено урона",
+    "damage_taken": "Получено урона",
+    "gained_points": "Получено очков"
+  },
+  "player": {
+    "statistics": "Статистика",
+    "rating_progression": "Рост рейтинга",
+    "matches_played": "Сыграно матчей",
+    "wins": "Победы",
+    "losses": "Поражения",
+    "win_rate": "Процент побед",
+    "total_frags": "Всего фрагов",
+    "total_deaths": "Всего смертей",
+    "kd_ratio": "Соотношение K/D",
+    "avg_frags_per_match": "Среднее фрагов за матч",
+    "match_history": "История матчей",
+    "date": "Дата",
+    "map": "Карта",
+    "match_type": "Тип матча",
+    "rating": "Рейтинг",
+    "no_matches": "Матчи не найдены",
+    "no_rating_data": "Нет данных по рейтингу",
+    "rating_gained": "Получено рейтинга"
+  },
+  "banner": {
+    "dev_warning": "Эта система находится в активной разработке. Рейтинги и данные могут измениться в любой момент."
+  }
+}
