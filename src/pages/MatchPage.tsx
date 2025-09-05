@@ -71,8 +71,6 @@ export const MatchPage = () => {
   const bluePlayers = matchData.matchDetails.filter((p) => p.model === 'blue');
   const redPlayers = matchData.matchDetails.filter((p) => p.model === 'red');
 
-  const matchType = `${bluePlayers.length}vs${redPlayers.length}`;
-
   const blueFrags = bluePlayers.reduce((sum, p) => sum + p.frags, 0);
   const blueDeaths = bluePlayers.reduce((sum, p) => sum + p.deaths, 0);
   const redFrags = redPlayers.reduce((sum, p) => sum + p.frags, 0);
@@ -93,7 +91,7 @@ export const MatchPage = () => {
         px: 2,
       }}
     >
-      <MatchBanner matchData={matchData} matchType={matchType} />
+      <MatchBanner matchData={matchData} />
 
       <CardSection>
         <MatchTeamHeader

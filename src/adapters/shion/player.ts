@@ -21,6 +21,7 @@ export interface Match {
   serverIp: string;
   matchDate: string;
   mapName: string;
+  matchType: string;
   frags: number;
   deaths: number;
   ratingAfterMatch: number;
@@ -82,6 +83,7 @@ export const fetchPlayerMatches = async (
       serverIp: match.server_ip,
       matchDate: match.match_date,
       mapName: match.map_name,
+      matchType: match.match_type,
       frags: match.match_details.find(
         (detail: any) => detail.player_id === playerId,
       )?.frags,

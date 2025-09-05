@@ -3,13 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { Match } from '../../adapters/shion/match';
 import { CardSection } from '../CardSection';
 
-export const MatchBanner = ({
-  matchData,
-  matchType,
-}: {
-  matchData: Match;
-  matchType: string;
-}) => {
+export const MatchBanner = ({ matchData }: { matchData: Match }) => {
   const { t } = useTranslation();
 
   return (
@@ -51,7 +45,10 @@ export const MatchBanner = ({
         }}
       >
         <Typography variant="h5" fontWeight={700} mb={1}>
-          {matchType} {t('match.match_on')} {matchData.mapName}
+          {t('match.match_on', {
+            matchType: matchData.matchType,
+            mapName: matchData.mapName,
+          })}
         </Typography>
         <Typography color="text.secondary" mb={2}>
           {new Date(matchData.matchDate).toLocaleString()} | {t('match.server')}

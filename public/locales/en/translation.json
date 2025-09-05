@@ -34,7 +34,7 @@
     "win_rate": "Win Rate"
   },
   "match": {
-    "match_on": "match on",
+    "match_on": "{{matchType}} match on {{mapName}}",
     "server": "Server",
     "blue_team": "Blue Team",
     "red_team": "Red Team",
@@ -63,6 +63,7 @@
     "match_history": "Match history",
     "date": "Date",
     "map": "Map",
+    "match_type": "Match Type",
     "rating": "Rating",
     "no_matches": "No matches found",
     "no_rating_data": "No rating data available",

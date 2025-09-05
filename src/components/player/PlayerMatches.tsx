@@ -142,7 +142,7 @@ export const PlayerMatches = ({
                       mb: 1.2,
                     }}
                   >
-                    <Box>
+                    <Box sx={{ flex: 1, textAlign: 'left' }}>
                       <Typography
                         variant="caption"
                         sx={{ color: 'grey.500', display: 'block' }}
@@ -160,7 +160,29 @@ export const PlayerMatches = ({
                       </Typography>
                     </Box>
 
-                    <Box sx={{ textAlign: 'right' }}>
+                    <Box sx={{ flex: 1, textAlign: 'center' }}>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: 'grey.500',
+                          display: 'block',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {t('player.match_type')}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          color: 'white',
+                          fontSize: '0.875rem',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {match.matchType}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ flex: 1, textAlign: 'right' }}>
                       <Typography
                         variant="caption"
                         sx={{ color: 'grey.500', display: 'block' }}
@@ -183,7 +205,7 @@ export const PlayerMatches = ({
                   <Box
                     sx={{ display: 'flex', justifyContent: 'space-between' }}
                   >
-                    <Box>
+                    <Box sx={{ flex: 1, textAlign: 'left' }}>
                       <Typography
                         variant="caption"
                         sx={{ color: 'grey.500', display: 'block' }}
@@ -195,19 +217,29 @@ export const PlayerMatches = ({
                       </Typography>
                     </Box>
 
-                    <Box>
+                    <Box sx={{ flex: 1, textAlign: 'center' }}>
                       <Typography
                         variant="caption"
-                        sx={{ color: 'grey.500', display: 'block' }}
+                        sx={{
+                          color: 'grey.500',
+                          display: 'block',
+                          textAlign: 'center',
+                        }}
                       >
                         {t('match.deaths')}
                       </Typography>
-                      <Typography sx={{ color: 'white', fontSize: '0.875rem' }}>
+                      <Typography
+                        sx={{
+                          color: 'white',
+                          fontSize: '0.875rem',
+                          textAlign: 'center',
+                        }}
+                      >
                         {match.deaths}
                       </Typography>
                     </Box>
 
-                    <Box sx={{ textAlign: 'right' }}>
+                    <Box sx={{ flex: 1, textAlign: 'right' }}>
                       <Typography
                         variant="caption"
                         sx={{ color: 'grey.500', display: 'block' }}
@@ -264,6 +296,9 @@ export const PlayerMatches = ({
                 {t('player.map')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 700 }}>
+                {t('player.match_type')}
+              </TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 700 }}>
                 {t('match.frags')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 700 }}>
@@ -313,6 +348,9 @@ export const PlayerMatches = ({
                     })}
                   </TableCell>
                   <TableCell sx={{ color: 'white' }}>{match.mapName}</TableCell>
+                  <TableCell sx={{ color: 'white' }}>
+                    {match.matchType}
+                  </TableCell>
                   <TableCell sx={{ color: 'white' }}>{match.frags}</TableCell>
                   <TableCell sx={{ color: 'white' }}>{match.deaths}</TableCell>
                   <TableCell

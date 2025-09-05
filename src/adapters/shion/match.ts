@@ -5,6 +5,7 @@ export interface Match {
   serverIp: string;
   matchDate: Date;
   mapName: string;
+  matchType: string;
   matchDetails: MatchDetails[];
 }
 
@@ -34,6 +35,7 @@ export const fetchMatch = async (matchId: number): Promise<Match> => {
       serverIp: response.data.server_ip,
       matchDate: new Date(response.data.match_date),
       mapName: response.data.map_name,
+      matchType: response.data.match_type,
       matchDetails: response.data.match_details.map((details: any) => ({
         playerId: details.player_id,
         playerSteamName: details.steam_name,

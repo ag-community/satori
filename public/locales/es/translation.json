@@ -34,7 +34,7 @@
     "win_rate": "Tasa de Victorias"
   },
   "match": {
-    "match_on": "partida en",
+    "match_on": "Partida {{matchType}} en {{mapName}}",
     "server": "Servidor",
     "blue_team": "Equipo Azul",
     "red_team": "Equipo Rojo",
@@ -63,6 +63,7 @@
     "match_history": "Historial de partidas",
     "date": "Fecha",
     "map": "Mapa",
+    "match_type": "Tipo de Partida",
     "rating": "Puntaje",
     "no_matches": "No se encontraron partidas",
     "no_rating_data": "No hay datos de puntaje disponibles",
