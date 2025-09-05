@@ -261,4 +261,5 @@ export const ALPHA2_COUNTRY_LIST: { [key: string]: string } = {
   ZM: 'Zambia',
   ZW: 'Zimbabwe',
   AX: 'Åland Islands',
+  XX: 'Unknown',
 };

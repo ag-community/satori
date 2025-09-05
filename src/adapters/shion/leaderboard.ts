@@ -5,6 +5,7 @@ export interface LeaderboardPlayer {
   steamID: string;
   steamName: string;
   avatarURL: string;
+  country: string;
   playerStats: PlayerStats;
 }
 
@@ -37,6 +38,7 @@ export const fetchLeaderboard = async (
       steamID: player.steam_id,
       steamName: player.steam_name ? player.steam_name : 'Unknown Player',
       avatarURL: player.steam_avatar_url,
+      country: player.country,
       playerStats: {
         rating: Math.round(player.stats.rating),
         wins: player.stats.wins,

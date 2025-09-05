@@ -20,6 +20,7 @@ import {
   fetchLeaderboard,
   type LeaderboardPlayer as LeaderboardPlayerType,
 } from '../../adapters/shion/leaderboard';
+import { getFlagUrl } from '../../utils/countries';
 import { getRankColor } from '../../utils/leaderboard';
 
 const LeaderboardPlayerItem = ({
@@ -40,6 +41,20 @@ const LeaderboardPlayerItem = ({
     matchesPlayed > 0
       ? `${((player.playerStats.wins / matchesPlayed) * 100).toFixed(2)}%`
       : '0%';
+
+  const renderCountryFlag = () => {
+    return (
+      <Box
+        component="img"
+        src={getFlagUrl(player.country.toUpperCase())}
+        sx={{
+          height: 25,
+          borderRadius: '2px',
+          marginRight: 1.5,
+        }}
+      />
+    );
+  };
 
   if (isMobile) {
     return (
@@ -89,6 +104,7 @@ const LeaderboardPlayerItem = ({
           >
             {player.steamName}
           </Link>
+          {renderCountryFlag()}
         </Box>
 
         <Box
@@ -188,6 +204,7 @@ const LeaderboardPlayerItem = ({
           alignItems: 'center',
         }}
       >
+        {renderCountryFlag()}
         <Avatar
           src={player.avatarURL}
           alt={player.steamName}
