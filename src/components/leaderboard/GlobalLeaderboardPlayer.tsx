@@ -311,6 +311,10 @@ export const GlobalLeaderboardPlayer = ({
             '.MuiTablePagination-selectIcon': { color: 'white' },
             '.MuiTablePagination-actions': { color: 'white' },
           }}
+          labelRowsPerPage={t('pagination.rows_per_page')}
+          labelDisplayedRows={({ from, to }) =>
+            `${t('pagination.displayed_rows', { from, to })}`
+          }
         />
       </Box>
     );
@@ -397,6 +401,10 @@ export const GlobalLeaderboardPlayer = ({
             '.MuiTablePagination-selectIcon': { color: 'white' },
             '.MuiTablePagination-actions': { color: 'white' },
           }}
+          labelRowsPerPage={t('pagination.rows_per_page')}
+          labelDisplayedRows={({ from, to }) =>
+            `${t('pagination.displayed_rows', { from, to })}`
+          }
         />
       </TableContainer>
     );

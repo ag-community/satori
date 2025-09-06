@@ -33,6 +33,10 @@
     "matches": "Matches",
     "win_rate": "Win Rate"
   },
+  "pagination": {
+    "rows_per_page": "Rows per page:",
+    "displayed_rows": "{{from}}-{{to}} of more than {{to}}"
+  },
   "match": {
     "match_on": "{{matchType}} match on {{mapName}}",
     "server": "Server",

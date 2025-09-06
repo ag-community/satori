@@ -33,6 +33,10 @@
     "matches": "Матчи",
     "win_rate": "Процент побед"
   },
+  "pagination": {
+    "rows_per_page": "Строк на странице:",
+    "displayed_rows": "{{from}}-{{to}} из более чем {{to}}"
+  },
   "match": {
     "match_on": "Матч {{matchType}} на карте {{mapName}}",
     "server": "Сервер",

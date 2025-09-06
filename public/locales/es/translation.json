@@ -33,6 +33,10 @@
     "matches": "Partidas",
     "win_rate": "Tasa de Victorias"
   },
+  "pagination": {
+    "rows_per_page": "Filas por página:",
+    "displayed_rows": "{{from}}-{{to}} de más de {{to}}"
+  },
   "match": {
     "match_on": "Partida {{matchType}} en {{mapName}}",
     "server": "Servidor",
