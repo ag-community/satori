@@ -4,6 +4,7 @@ import { pluginReact } from '@rsbuild/plugin-react';
 export default defineConfig({
   plugins: [pluginReact()],
   html: {
+    title: 'Adrenaline Gamer Rating System',
     meta: {
       description: 'Adrenaline Gamer Rating System',
       'theme-color': '#ffffff',
