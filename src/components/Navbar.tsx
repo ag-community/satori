@@ -1,20 +1,27 @@
 import HomeIcon from '@mui/icons-material/Home';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   AppBar,
+  Autocomplete,
   Box,
   Button,
+  CircularProgress,
+  debounce,
   IconButton,
   Menu,
   MenuItem,
+  TextField,
   Toolbar,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import React, { useId } from 'react';
+import React, { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { type Player, searchPlayers } from '../adapters/shion/player';
 import { LanguageSelector } from './LanguageSelector';
 
 const pages = [
@@ -29,6 +36,15 @@ export function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQueryOptions, setSearchQueryOptions] = useState<Player[] | null>(
+    [],
+  );
+  const [searchQueryValue, setSearchQueryValue] = useState<Player | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
@@ -41,7 +57,62 @@ export function Navbar() {
     setAnchorElNav(null);
   };
 
+  const searchForPlayers = useMemo(
+    () =>
+      debounce(async (query: string) => {
+        if (query.length < 2) return;
+
+        setLoading(true);
+        setError(null);
+
+        try {
+          const response = await searchPlayers({ query });
+          setSearchQueryOptions(response);
+        } catch (_err) {
+          setError(t('navbar.search_error'));
+          setSearchQueryOptions([]);
+        } finally {
+          setLoading(false);
+        }
+      }, 400),
+    [t],
+  );
+
+  useEffect(() => {
+    if (!searchQuery || searchQuery.length < 2) {
+      setSearchQueryOptions([]);
+      setLoading(false);
+      return;
+    }
+
+    searchForPlayers(searchQuery);
+  }, [searchQuery, searchForPlayers]);
+
   const id = useId();
+
+  const renderOption = (
+    props: React.HTMLAttributes<HTMLLIElement>,
+    option: Player,
+  ) => (
+    <li {...props}>
+      <Box display="flex" alignItems="center" width="100%">
+        <Box
+          component="img"
+          src={option.avatarURL}
+          alt=""
+          sx={{
+            width: 24,
+            height: 24,
+            borderRadius: '50%',
+            mr: 1,
+          }}
+        />
+        <Box>
+          <Typography variant="body1">{option.steamName}</Typography>
+        </Box>
+      </Box>
+    </li>
+  );
 
   return (
     <AppBar
@@ -108,6 +179,58 @@ export function Navbar() {
             ))}
           </Box>
         )}
+
+        <Autocomplete
+          id={id}
+          sx={{ width: 225 }}
+          filterOptions={(x) => x}
+          value={searchQueryValue}
+          options={searchQueryOptions ?? []}
+          getOptionLabel={(option) => option.steamName}
+          isOptionEqualToValue={(option, value) =>
+            option.steamName === value.steamName ||
+            option.steamID === value.steamID
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={t('navbar.search')}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <SearchIcon sx={{ color: 'action.active', mr: 1 }} />
+                ),
+                endAdornment: (
+                  <>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
+              helperText={error}
+              error={!!error}
+            />
+          )}
+          renderOption={renderOption}
+          onInputChange={(_event, newInputValue: string) =>
+            setSearchQuery(newInputValue)
+          }
+          onChange={(_event, newValue) => {
+            if (newValue === null) return;
+            setSearchQueryValue(newValue);
+            setSearchQueryOptions([newValue]);
+            navigate(`/player/${newValue.id}`);
+          }}
+          noOptionsText={
+            searchQuery.length < 2
+              ? t('navbar.type_more')
+              : t('navbar.no_results')
+          }
+          loading={loading}
+          loadingText={t('navbar.searching')}
+        />
 
         <LanguageSelector />
         {isMobile && (

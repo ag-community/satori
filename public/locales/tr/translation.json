@@ -7,7 +7,12 @@
   },
   "navbar": {
     "home": "Ana Sayfa",
-    "leaderboard": "Lider Tablosu"
+    "leaderboard": "Lider Tablosu",
+    "search": "Birini mi ariyorsun?",
+    "type_more": "Arama yapmak icin en az 2 karakter yazin",
+    "no_results": "Sonuc bulunamadi",
+    "searching": "Araniyor...",
+    "search_error": "Oyuncular aranirken hata olustu"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",

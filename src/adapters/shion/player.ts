@@ -37,6 +37,10 @@ export interface PlayerHistoryCapture {
   rating: number;
 }
 
+export interface SearchRequest {
+  query: string;
+}
+
 const apiInstance = axios.create({
   baseURL: process.env.PUBLIC_APP_SHION_API_BASE_URL,
 });
@@ -121,6 +125,27 @@ export const fetchPlayerRatingHistory = async (
     };
   } catch (error) {
     console.error('Error fetching player rating history:', error);
+    throw error;
+  }
+};
+
+export const searchPlayers = async (
+  request: SearchRequest,
+): Promise<Player[]> => {
+  try {
+    const response = await apiInstance.get('/players/search', {
+      params: { value: request.query },
+    });
+
+    return response.data.map((player: any) => ({
+      id: player.id,
+      steamID: player.steam_id,
+      steamName: player.steam_name,
+      avatarURL: player.steam_avatar_url,
+      playerStats: {},
+    }));
+  } catch (error) {
+    console.error('Error searching players:', error);
     throw error;
   }
 };

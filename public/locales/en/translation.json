@@ -7,7 +7,12 @@
   },
   "navbar": {
     "home": "Home",
-    "leaderboard": "Leaderboard"
+    "leaderboard": "Leaderboard",
+    "search": "Looking for someone?",
+    "type_more": "Type at least 2 characters to search",
+    "no_results": "No results found",
+    "searching": "Searching...",
+    "search_error": "Error searching for players"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",

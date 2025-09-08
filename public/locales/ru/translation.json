@@ -7,7 +7,12 @@
   },
   "navbar": {
     "home": "Главная",
-    "leaderboard": "Лидеры"
+    "leaderboard": "Лидеры",
+    "search": "Ищешь кого-то?",
+    "type_more": "Введите не менее 2 символов для поиска",
+    "no_results": "Результаты не найдены",
+    "searching": "Поиск...",
+    "search_error": "Ошибка при поиске игроков"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",
