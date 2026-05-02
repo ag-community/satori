@@ -66,7 +66,9 @@
     "damage_dealt": "Daño Hecho",
     "damage_taken": "Daño Recibido",
     "rating": "Puntaje",
-    "avg_rating": "Puntaje Prom."
+    "avg_rating": "Puntaje Prom.",
+    "unranked": "No clasificado",
+    "unranked_banner": "Partida no clasificada — el puntaje no se ve afectado"
   },
   "player": {
     "statistics": "Estadísticas",

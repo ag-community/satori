@@ -66,7 +66,9 @@
     "damage_dealt": "Нанесено урона",
     "damage_taken": "Получено урона",
     "rating": "Рейтинг",
-    "avg_rating": "Ср. рейтинг"
+    "avg_rating": "Ср. рейтинг",
+    "unranked": "Без рейтинга",
+    "unranked_banner": "Безрейтинговый матч — рейтинг не изменяется"
   },
   "player": {
     "statistics": "Статистика",

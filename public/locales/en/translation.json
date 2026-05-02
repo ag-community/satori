@@ -66,7 +66,9 @@
     "damage_dealt": "Damage Dealt",
     "damage_taken": "Damage Taken",
     "rating": "Rating",
-    "avg_rating": "Avg. Rating"
+    "avg_rating": "Avg. Rating",
+    "unranked": "Unranked",
+    "unranked_banner": "Unranked match — rating is not affected"
   },
   "player": {
     "statistics": "Statistics",

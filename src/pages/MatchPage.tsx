@@ -8,6 +8,7 @@ import { MatchBanner } from '../components/match/MatchBanner';
 import { MatchTeamCards } from '../components/match/MatchTeamCards';
 import { MatchTeamHeader } from '../components/match/MatchTeamHeader';
 import { MatchTeamTable } from '../components/match/MatchTeamTable';
+import { BLACKLISTED_MAPS } from '../utils/maps';
 
 const getMatchIdFromQueryParams = (identifier?: string): number => {
   let matchId = parseInt(identifier || '', 10);
@@ -95,6 +96,8 @@ export const MatchPage = () => {
   const bluePlayersSorted = [...bluePlayers].sort((a, b) => b.frags - a.frags);
   const redPlayersSorted = [...redPlayers].sort((a, b) => b.frags - a.frags);
 
+  const isBlacklisted = BLACKLISTED_MAPS.includes(matchData.mapName);
+
   return (
     <Box
       sx={{
@@ -107,6 +110,26 @@ export const MatchPage = () => {
       <MatchBanner matchData={matchData} />
 
       <CardSection>
+        {isBlacklisted && (
+          <Box
+            sx={{
+              px: 2,
+              py: 1,
+              mb: 2,
+              bgcolor: 'rgba(255,255,255,0.03)',
+              borderRadius: 1,
+              border: '1px solid rgba(255,255,255,0.05)',
+            }}
+          >
+            <Typography
+              variant="body2"
+              sx={{ color: 'grey.500', textAlign: 'center' }}
+            >
+              {t('match.unranked_banner')}
+            </Typography>
+          </Box>
+        )}
+
         <MatchTeamHeader
           teamName={t('match.blue_team')}
           isWinner={blueIsWinner}
@@ -117,9 +140,15 @@ export const MatchPage = () => {
           isMobile={isMobile}
         />
         {isMobile ? (
-          <MatchTeamCards players={bluePlayersSorted} />
+          <MatchTeamCards
+            players={bluePlayersSorted}
+            isBlacklisted={isBlacklisted}
+          />
         ) : (
-          <MatchTeamTable players={bluePlayersSorted} />
+          <MatchTeamTable
+            players={bluePlayersSorted}
+            isBlacklisted={isBlacklisted}
+          />
         )}
 
         <MatchTeamHeader
@@ -132,9 +161,15 @@ export const MatchPage = () => {
           isMobile={isMobile}
         />
         {isMobile ? (
-          <MatchTeamCards players={redPlayersSorted} />
+          <MatchTeamCards
+            players={redPlayersSorted}
+            isBlacklisted={isBlacklisted}
+          />
         ) : (
-          <MatchTeamTable players={redPlayersSorted} />
+          <MatchTeamTable
+            players={redPlayersSorted}
+            isBlacklisted={isBlacklisted}
+          />
         )}
       </CardSection>
     </Box>

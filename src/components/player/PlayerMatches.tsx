@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { fetchPlayerMatches, type Match } from '../../adapters/shion/player';
+import { BLACKLISTED_MAPS } from '../../utils/maps';
 
 export const PlayerMatches = ({
   playerId,
@@ -117,15 +118,23 @@ export const PlayerMatches = ({
                     }}
                   >
                     {match.mapName}
+                    {BLACKLISTED_MAPS.includes(match.mapName) && (
+                      <Typography
+                        component="span"
+                        sx={{
+                          ml: 1,
+                          fontSize: '0.7rem',
+                          color: 'grey.500',
+                          border: '1px solid',
+                          borderColor: 'grey.600',
+                          borderRadius: 1,
+                          px: 0.5,
+                        }}
+                      >
+                        {t('match.unranked')}
+                      </Typography>
+                    )}
                   </Typography>
-                  <IconButton
-                    component={Link}
-                    to={`/match/${match.matchId}`}
-                    size="small"
-                    sx={{ color: '#4C94FF' }}
-                  >
-                    <InfoOutlinedIcon fontSize="small" />
-                  </IconButton>
                 </Box>
 
                 <Box
@@ -191,13 +200,25 @@ export const PlayerMatches = ({
                       </Typography>
                       <Typography
                         sx={{
-                          color: match.ratingDelta >= 0 ? '#4CFF4C' : '#FF4C4C',
+                          color: BLACKLISTED_MAPS.includes(match.mapName)
+                            ? 'grey.500'
+                            : match.ratingDelta > 0
+                              ? '#4CFF4C'
+                              : match.ratingDelta < 0
+                                ? '#FF4C4C'
+                                : 'grey.500',
                           fontWeight: 700,
                           fontSize: '0.875rem',
                         }}
                       >
-                        {match.ratingDelta >= 0 ? '+' : ''}
-                        {match.ratingDelta}
+                        {BLACKLISTED_MAPS.includes(match.mapName)
+                          ? '—'
+                          : match.ratingDelta > 0
+                            ? '+'
+                            : ''}
+                        {BLACKLISTED_MAPS.includes(match.mapName)
+                          ? ''
+                          : match.ratingDelta}
                       </Typography>
                     </Box>
                   </Box>
@@ -246,8 +267,17 @@ export const PlayerMatches = ({
                       >
                         {t('player.rating')}
                       </Typography>
-                      <Typography sx={{ color: 'white', fontSize: '0.875rem' }}>
-                        {match.ratingAfterMatch}
+                      <Typography
+                        sx={{
+                          color: BLACKLISTED_MAPS.includes(match.mapName)
+                            ? 'grey.500'
+                            : 'white',
+                          fontSize: '0.875rem',
+                        }}
+                      >
+                        {BLACKLISTED_MAPS.includes(match.mapName)
+                          ? '—'
+                          : match.ratingAfterMatch}
                       </Typography>
                     </Box>
                   </Box>
@@ -296,7 +326,9 @@ export const PlayerMatches = ({
               <TableCell sx={{ color: 'white', fontWeight: 700 }}>
                 {t('player.date')}
               </TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 700 }}>
+              <TableCell
+                sx={{ color: 'white', fontWeight: 700, minWidth: 160 }}
+              >
                 {t('player.map')}
               </TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 700 }}>
@@ -351,7 +383,25 @@ export const PlayerMatches = ({
                       minute: '2-digit',
                     })}
                   </TableCell>
-                  <TableCell sx={{ color: 'white' }}>{match.mapName}</TableCell>
+                  <TableCell sx={{ color: 'white', whiteSpace: 'nowrap' }}>
+                    {match.mapName}
+                    {BLACKLISTED_MAPS.includes(match.mapName) && (
+                      <Typography
+                        component="span"
+                        sx={{
+                          ml: 1,
+                          fontSize: '0.7rem',
+                          color: 'grey.500',
+                          border: '1px solid',
+                          borderColor: 'grey.600',
+                          borderRadius: 1,
+                          px: 0.5,
+                        }}
+                      >
+                        {t('match.unranked')}
+                      </Typography>
+                    )}
+                  </TableCell>
                   <TableCell sx={{ color: 'white' }}>
                     {match.matchType}
                   </TableCell>
@@ -359,15 +409,35 @@ export const PlayerMatches = ({
                   <TableCell sx={{ color: 'white' }}>{match.deaths}</TableCell>
                   <TableCell
                     sx={{
-                      color: match.ratingDelta >= 0 ? '#4CFF4C' : '#FF4C4C',
+                      color: BLACKLISTED_MAPS.includes(match.mapName)
+                        ? 'grey.500'
+                        : match.ratingDelta > 0
+                          ? '#4CFF4C'
+                          : match.ratingDelta < 0
+                            ? '#FF4C4C'
+                            : 'grey.500',
                       fontWeight: 700,
                     }}
                   >
-                    {match.ratingDelta >= 0 ? '+' : ''}
-                    {match.ratingDelta}
+                    {BLACKLISTED_MAPS.includes(match.mapName)
+                      ? '—'
+                      : match.ratingDelta > 0
+                        ? '+'
+                        : ''}
+                    {BLACKLISTED_MAPS.includes(match.mapName)
+                      ? ''
+                      : match.ratingDelta}
                   </TableCell>
-                  <TableCell sx={{ color: 'white' }}>
-                    {match.ratingAfterMatch}
+                  <TableCell
+                    sx={{
+                      color: BLACKLISTED_MAPS.includes(match.mapName)
+                        ? 'grey.500'
+                        : 'white',
+                    }}
+                  >
+                    {BLACKLISTED_MAPS.includes(match.mapName)
+                      ? '—'
+                      : match.ratingAfterMatch}
                   </TableCell>
                   <TableCell align="center">
                     <IconButton
