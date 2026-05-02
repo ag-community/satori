@@ -234,7 +234,11 @@ export function Navbar() {
             setSearchQuery(newInputValue)
           }
           onChange={(_event, newValue) => {
-            if (newValue === null) return;
+            if (newValue === null) {
+              setSearchQueryValue(null);
+              setSearchQueryOptions([]);
+              return;
+            }
             setSearchQueryValue(newValue);
             setSearchQueryOptions([newValue]);
             navigate(`/player/${newValue.id}`);
