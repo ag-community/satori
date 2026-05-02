@@ -12,11 +12,11 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import type { PlayerCountry } from '../../adapters/shion/stats';
-import { ALPHA2_COUNTRY_LIST, getFlagUrl } from '../../utils/countries';
+import { getCountryName, getFlagUrl } from '../../utils/countries';
 
 export const PlayerCountriesTable = ({ data }: { data: PlayerCountry[] }) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <Paper
@@ -68,8 +68,7 @@ export const PlayerCountriesTable = ({ data }: { data: PlayerCountry[] }) => {
                       src={getFlagUrl(row.country.toUpperCase())}
                       sx={{ width: 16, height: 16 }}
                     />
-                    {ALPHA2_COUNTRY_LIST[row.country.toUpperCase()] ||
-                      row.country.toUpperCase()}
+                    {getCountryName(row.country, i18n.language)}
                   </TableCell>
                   <TableCell
                     align="right"

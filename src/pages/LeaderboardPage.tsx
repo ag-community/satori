@@ -13,19 +13,20 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CardSection } from '../components/CardSection';
 import { GlobalLeaderboardPlayer } from '../components/leaderboard/GlobalLeaderboardPlayer';
-import { ALPHA2_COUNTRY_LIST, getFlagUrl } from '../utils/countries';
+import { COUNTRY_CODES, getCountryName, getFlagUrl } from '../utils/countries';
 
 export const LeaderboardPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState('rating');
   const [country, setCountry] = useState('all');
 
-  const countryOptions = Object.entries(ALPHA2_COUNTRY_LIST)
-    .filter(([code]) => code !== 'XX')
-    .sort(([, a], [, b]) => a.localeCompare(b));
+  const countryOptions = COUNTRY_CODES.map((code) => ({
+    code,
+    name: getCountryName(code, i18n.language),
+  })).sort((a, b) => a.name.localeCompare(b.name));
 
   useEffect(() => {
     document.title = t('title.leaderboard');
@@ -129,7 +130,7 @@ export const LeaderboardPage = () => {
                 <MenuItem value="all">
                   {t('leaderboard.all_countries')}
                 </MenuItem>
-                {countryOptions.map(([code, name]) => (
+                {countryOptions.map(({ code, name }) => (
                   <MenuItem key={code} value={code}>
                     <Box display="flex" alignItems="center" gap={1}>
                       <Box
