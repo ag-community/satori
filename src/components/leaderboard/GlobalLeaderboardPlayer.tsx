@@ -139,8 +139,8 @@ const LeaderboardPlayerItem = ({
               <Typography
                 sx={{
                   color: 'white',
-                  fontWeight: 700,
                   fontSize: '0.875rem',
+                  fontWeight: 600,
                 }}
               >
                 {player.playerStats.rating}
@@ -178,23 +178,18 @@ const LeaderboardPlayerItem = ({
     );
   }
 
-  let rankStyle = {};
-  if (position <= 3) {
-    rankStyle = {
-      fontWeight: 800,
-      borderLeft: `4px solid ${rankColor}`,
-    };
-  }
-
   return (
     <TableRow
       sx={{
-        '&:last-child td, &:last-child th': { border: 0 },
-        background: theme.palette.primary.main,
-        ...rankStyle,
+        borderLeft: position <= 3 ? `4px solid ${rankColor}` : undefined,
       }}
     >
-      <TableCell sx={{ color: 'white', fontWeight: 700 }}>
+      <TableCell
+        sx={{
+          color: 'white',
+          fontWeight: position <= 3 ? 700 : 400,
+        }}
+      >
         #{position}
       </TableCell>
       <TableCell
@@ -236,19 +231,25 @@ export const GlobalLeaderboardPlayer = ({
   onError,
   sortBy,
   country,
+  page,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
 }: {
   isMobile: boolean;
   onError?: (error: string) => void;
   sortBy: string;
   country: string;
+  page: number;
+  pageSize: number;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onPageSizeChange: (newSize: number) => void;
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [leaderboardData, setLeaderboardData] = useState<
     LeaderboardPlayerType[]
   >([]);
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(50);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -271,15 +272,10 @@ export const GlobalLeaderboardPlayer = ({
     })();
   }, [page, pageSize, sortBy, country, onError]);
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setPageSize(parseInt(event.target.value, 10));
-    setPage(0);
+    onPageSizeChange(parseInt(event.target.value, 10));
   };
 
   const renderMobileView = () => {
@@ -310,7 +306,7 @@ export const GlobalLeaderboardPlayer = ({
           component="div"
           count={-1}
           page={page}
-          onPageChange={handleChangePage}
+          onPageChange={onPageChange}
           rowsPerPage={pageSize}
           onRowsPerPageChange={handleChangeRowsPerPage}
           rowsPerPageOptions={[10, 25, 50, 100]}
@@ -396,7 +392,7 @@ export const GlobalLeaderboardPlayer = ({
           component="div"
           count={-1}
           page={page}
-          onPageChange={handleChangePage}
+          onPageChange={onPageChange}
           rowsPerPage={pageSize}
           onRowsPerPageChange={handleChangeRowsPerPage}
           rowsPerPageOptions={[10, 25, 50, 100]}

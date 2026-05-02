@@ -24,16 +24,22 @@ export const PlayerMatches = ({
   playerId,
   isMobile,
   onError,
+  page,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
 }: {
   playerId: number;
   isMobile: boolean;
   onError: (error: string) => void;
+  page: number;
+  pageSize: number;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onPageSizeChange: (newSize: number) => void;
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [matches, setMatches] = useState<Match[]>([]);
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -56,15 +62,10 @@ export const PlayerMatches = ({
     })();
   }, [playerId, page, pageSize, onError]);
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setPageSize(parseInt(event.target.value, 10));
-    setPage(0);
+    onPageSizeChange(parseInt(event.target.value, 10));
   };
 
   const renderMobileView = () => {
@@ -291,7 +292,7 @@ export const PlayerMatches = ({
           component="div"
           count={-1}
           page={page}
-          onPageChange={handleChangePage}
+          onPageChange={onPageChange}
           rowsPerPage={pageSize}
           onRowsPerPageChange={handleChangeRowsPerPage}
           rowsPerPageOptions={[10, 25, 50, 100]}
@@ -458,7 +459,7 @@ export const PlayerMatches = ({
           component="div"
           count={-1}
           page={page}
-          onPageChange={handleChangePage}
+          onPageChange={onPageChange}
           rowsPerPage={pageSize}
           onRowsPerPageChange={handleChangeRowsPerPage}
           rowsPerPageOptions={[10, 25, 50, 100]}

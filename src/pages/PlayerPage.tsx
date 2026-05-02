@@ -1,7 +1,7 @@
 import { Alert, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   fetchPlayer,
   fetchPlayerRatingHistory,
@@ -17,7 +17,6 @@ import { PlayerStatistics } from '../components/player/PlayerStatistics';
 const getPlayerIdFromQueryParams = (identifier?: string): number => {
   let userId = parseInt(identifier || '', 10);
   if (Number.isNaN(userId)) {
-    // TODO: do API lookup
     userId = 0;
   }
   return userId;
@@ -27,12 +26,16 @@ export const PlayerPage = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const queryParams = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const profilePlayerId = getPlayerIdFromQueryParams(queryParams.playerId);
   const [playerProfile, setPlayerProfile] = useState<Player | null>(null);
   const [playerRatingHistory, setPlayerRatingHistory] =
     useState<PlayerHistory | null>(null);
   const [error, setError] = useState('');
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const page = parseInt(searchParams.get('page') || '0', 10);
+  const pageSize = parseInt(searchParams.get('limit') || '10', 10);
 
   useEffect(() => {
     document.title = t('title.player', {
@@ -130,6 +133,19 @@ export const PlayerPage = () => {
           playerId={profilePlayerId}
           isMobile={isMobile}
           onError={handleError}
+          page={page}
+          pageSize={pageSize}
+          onPageChange={(_event: unknown, newPage: number) => {
+            const next = new URLSearchParams(searchParams);
+            next.set('page', String(newPage));
+            setSearchParams(next, { replace: true });
+          }}
+          onPageSizeChange={(newSize: number) => {
+            const next = new URLSearchParams(searchParams);
+            next.set('limit', String(newSize));
+            next.set('page', '0');
+            setSearchParams(next, { replace: true });
+          }}
         />
       </CardSection>
     </Box>

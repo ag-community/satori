@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { CardSection } from '../components/CardSection';
 import { GlobalLeaderboardPlayer } from '../components/leaderboard/GlobalLeaderboardPlayer';
 import { COUNTRY_CODES, getCountryName, getFlagUrl } from '../utils/countries';
@@ -19,9 +20,13 @@ export const LeaderboardPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { t, i18n } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState('rating');
-  const [country, setCountry] = useState('all');
+
+  const sortBy = searchParams.get('sort') || 'rating';
+  const country = searchParams.get('country') || 'all';
+  const page = parseInt(searchParams.get('page') || '0', 10);
+  const pageSize = parseInt(searchParams.get('limit') || '50', 10);
 
   const countryOptions = COUNTRY_CODES.map((code) => ({
     code,
@@ -75,7 +80,12 @@ export const LeaderboardPage = () => {
               <Select
                 value={sortBy}
                 label={t('leaderboard.filter_sort')}
-                onChange={(e) => setSortBy(e.target.value)}
+                onChange={(e) => {
+                  const next = new URLSearchParams(searchParams);
+                  next.set('sort', e.target.value);
+                  next.set('page', '0');
+                  setSearchParams(next, { replace: true });
+                }}
                 sx={{
                   color: 'white',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -113,7 +123,12 @@ export const LeaderboardPage = () => {
               <Select
                 value={country}
                 label={t('leaderboard.filter_country')}
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={(e) => {
+                  const next = new URLSearchParams(searchParams);
+                  next.set('country', e.target.value);
+                  next.set('page', '0');
+                  setSearchParams(next, { replace: true });
+                }}
                 sx={{
                   color: 'white',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -158,6 +173,19 @@ export const LeaderboardPage = () => {
           onError={handleError}
           sortBy={sortBy}
           country={country === 'all' ? '' : country}
+          page={page}
+          pageSize={pageSize}
+          onPageChange={(_event: unknown, newPage: number) => {
+            const next = new URLSearchParams(searchParams);
+            next.set('page', String(newPage));
+            setSearchParams(next, { replace: true });
+          }}
+          onPageSizeChange={(newSize: number) => {
+            const next = new URLSearchParams(searchParams);
+            next.set('limit', String(newSize));
+            next.set('page', '0');
+            setSearchParams(next, { replace: true });
+          }}
         />
       </CardSection>
     </Box>
