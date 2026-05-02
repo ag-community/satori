@@ -195,6 +195,22 @@ export function Navbar() {
             <TextField
               {...params}
               label={t('navbar.search')}
+              sx={{
+                '& .MuiInputLabel-root': {
+                  color: 'grey.500',
+                  '&.Mui-focused': { color: '#4C94FF' },
+                  '&.MuiInputLabel-shrink': { color: '#4C94FF' },
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255, 255, 255, 0.23)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#4C94FF',
+                },
+              }}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (

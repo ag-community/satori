@@ -234,9 +234,13 @@ const LeaderboardPlayerItem = ({
 export const GlobalLeaderboardPlayer = ({
   isMobile,
   onError,
+  sortBy,
+  country,
 }: {
   isMobile: boolean;
   onError?: (error: string) => void;
+  sortBy: string;
+  country: string;
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -251,7 +255,12 @@ export const GlobalLeaderboardPlayer = ({
     (async () => {
       setIsLoading(true);
       try {
-        const leaderboardResponse = await fetchLeaderboard(page + 1, pageSize);
+        const leaderboardResponse = await fetchLeaderboard(
+          page + 1,
+          pageSize,
+          sortBy,
+          country || undefined,
+        );
         setLeaderboardData(leaderboardResponse);
       } catch (error) {
         if (onError) onError('Failed to fetch leaderboard data');
@@ -260,7 +269,7 @@ export const GlobalLeaderboardPlayer = ({
         setIsLoading(false);
       }
     })();
-  }, [page, pageSize, onError]);
+  }, [page, pageSize, sortBy, country, onError]);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -271,53 +280,6 @@ export const GlobalLeaderboardPlayer = ({
   ) => {
     setPageSize(parseInt(event.target.value, 10));
     setPage(0);
-  };
-
-  const renderMobileView = () => {
-    return (
-      <Box>
-        {isLoading ? (
-          <Typography sx={{ color: 'white', textAlign: 'center', py: 2 }}>
-            {t('common.loading')}
-          </Typography>
-        ) : leaderboardData.length === 0 ? (
-          <Typography sx={{ color: 'white', textAlign: 'center', py: 2 }}>
-            {t('leaderboard.no_data')}
-          </Typography>
-        ) : (
-          leaderboardData.map((player, idx) => {
-            const position = page * pageSize + idx + 1;
-            return (
-              <LeaderboardPlayerItem
-                key={player.id || `player-${idx}`}
-                player={player}
-                position={position}
-                isMobile={true}
-              />
-            );
-          })
-        )}
-        <TablePagination
-          component="div"
-          count={-1}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={pageSize}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          sx={{
-            color: 'white',
-            '.MuiTablePagination-toolbar': { color: 'white' },
-            '.MuiTablePagination-selectIcon': { color: 'white' },
-            '.MuiTablePagination-actions': { color: 'white' },
-          }}
-          labelRowsPerPage={t('pagination.rows_per_page')}
-          labelDisplayedRows={({ from, to }) =>
-            `${t('pagination.displayed_rows', { from, to })}`
-          }
-        />
-      </Box>
-    );
   };
 
   const renderDesktopView = () => {
@@ -410,5 +372,5 @@ export const GlobalLeaderboardPlayer = ({
     );
   };
 
-  return <>{isMobile ? renderMobileView() : renderDesktopView()}</>;
+  return <Box>{isMobile ? renderMobileView() : renderDesktopView()}</Box>;
 };

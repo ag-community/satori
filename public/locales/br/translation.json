@@ -36,7 +36,13 @@
     "matches_played": "Partidas Jogadas",
     "rating": "Pontuação",
     "matches": "Partidas",
-    "win_rate": "Taxa de Vitória"
+    "win_rate": "Taxa de Vitória",
+    "filter_country": "País",
+    "filter_sort": "Ordenar por",
+    "filter_sort_rating": "Pontuação",
+    "filter_sort_winrate": "Taxa de Vitória",
+    "all_countries": "Todos os Países",
+    "no_data": "Nenhum dado disponível"
   },
   "pagination": {
     "rows_per_page": "Linhas por página:",
@@ -76,7 +82,12 @@
     "rating": "Pontuação",
     "no_matches": "Nenhuma partida encontrada",
     "no_rating_data": "Nenhum dado de rating disponível",
-    "rating_gained": "Pontuação ganha"
+    "rating_gained": "Pontuação ganha",
+    "global_rank": "Global",
+    "country_rank": "País"
+  },
+  "common": {
+    "loading": "Carregando..."
   },
   "banner": {
     "dev_warning": "Este sistema está em desenvolvimento. Ratings e dados podem mudar a qualquer momento."

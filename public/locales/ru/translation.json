@@ -36,7 +36,13 @@
     "matches_played": "Сыграно матчей",
     "rating": "Рейтинг",
     "matches": "Матчи",
-    "win_rate": "Процент побед"
+    "win_rate": "Процент побед",
+    "filter_country": "Страна",
+    "filter_sort": "Сортировать по",
+    "filter_sort_rating": "Рейтинг",
+    "filter_sort_winrate": "Процент побед",
+    "all_countries": "Все страны",
+    "no_data": "Нет данных"
   },
   "pagination": {
     "rows_per_page": "Строк на странице:",
@@ -76,7 +82,12 @@
     "rating": "Рейтинг",
     "no_matches": "Матчи не найдены",
     "no_rating_data": "Нет данных по рейтингу",
-    "rating_gained": "Получено рейтинга"
+    "rating_gained": "Получено рейтинга",
+    "global_rank": "Глобальный",
+    "country_rank": "Страна"
+  },
+  "common": {
+    "loading": "Загрузка..."
   },
   "banner": {
     "dev_warning": "Эта система находится в активной разработке. Рейтинги и данные могут измениться в любой момент."

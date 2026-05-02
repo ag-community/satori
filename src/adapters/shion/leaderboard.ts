@@ -24,12 +24,16 @@ const apiInstance = axios.create({
 export const fetchLeaderboard = async (
   page: number,
   limit: number,
+  sortBy?: string,
+  country?: string,
 ): Promise<LeaderboardPlayer[]> => {
   try {
     const response = await apiInstance.get('/players/leaderboard', {
       params: {
         page: page,
         limit: limit,
+        sort_by: sortBy,
+        country: country,
       },
     });
 

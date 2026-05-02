@@ -36,7 +36,13 @@
     "matches_played": "Matches Played",
     "rating": "Rating",
     "matches": "Matches",
-    "win_rate": "Win Rate"
+    "win_rate": "Win Rate",
+    "filter_country": "Country",
+    "filter_sort": "Sort by",
+    "filter_sort_rating": "Rating",
+    "filter_sort_winrate": "Win Rate",
+    "all_countries": "All Countries",
+    "no_data": "No data available"
   },
   "pagination": {
     "rows_per_page": "Rows per page:",
@@ -76,7 +82,12 @@
     "rating": "Rating",
     "no_matches": "No matches found",
     "no_rating_data": "No rating data available",
-    "rating_gained": "Rating gained"
+    "rating_gained": "Rating gained",
+    "global_rank": "Global",
+    "country_rank": "Country"
+  },
+  "common": {
+    "loading": "Loading..."
   },
   "banner": {
     "dev_warning": "This system is in heavy development. Ratings and data may change at any time."

@@ -1,4 +1,5 @@
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import PublicIcon from '@mui/icons-material/Public';
 import { Avatar, Box, Chip, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import type { Player } from '../../adapters/shion/player';
@@ -20,13 +21,29 @@ export const PlayerProfile = ({ playerProfile }: { playerProfile: Player }) => {
         <Typography color="text.secondary" sx={{ fontSize: 16 }}>
           SteamID: <b>{playerProfile.steamID}</b>
         </Typography>
-        <Box mt={1}>
+        <Box mt={1} display="flex" gap={1} flexWrap="wrap">
           <Chip
             icon={<EmojiEventsIcon color="secondary" />}
             label={`${t('leaderboard.rating')}: ${playerProfile.playerStats.rating}`}
             color="secondary"
             sx={{ fontWeight: 700, fontSize: 16 }}
           />
+          {playerProfile.globalRank && (
+            <Chip
+              icon={<EmojiEventsIcon />}
+              label={`#${playerProfile.globalRank} ${t('player.global_rank')}`}
+              variant="outlined"
+              sx={{ fontWeight: 600, fontSize: 14 }}
+            />
+          )}
+          {playerProfile.countryRank && (
+            <Chip
+              icon={<PublicIcon />}
+              label={`#${playerProfile.countryRank} ${playerProfile.country.toUpperCase()}`}
+              variant="outlined"
+              sx={{ fontWeight: 600, fontSize: 14 }}
+            />
+          )}
         </Box>
       </Box>
     </Box>
