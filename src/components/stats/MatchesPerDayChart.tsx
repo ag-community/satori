@@ -15,7 +15,7 @@ export const MatchesPerDayChart = ({ data }: { data: MatchesPerDay[] }) => {
         label: t('stats.matches'),
         data: data.map((d) => d.count),
         borderColor: theme.palette.secondary.main,
-        backgroundColor: theme.palette.secondary.main + '1A',
+        backgroundColor: `${theme.palette.secondary.main}1A`,
         fill: true,
         tension: 0.3,
         borderWidth: 2,

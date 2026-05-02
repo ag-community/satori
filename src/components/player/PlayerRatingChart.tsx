@@ -102,7 +102,7 @@ export const PlayerRatingChart = ({
         label: t('player.rating'),
         data: chartRatings,
         borderColor: theme.palette.secondary.main,
-        backgroundColor: theme.palette.secondary.main + '1A',
+        backgroundColor: `${theme.palette.secondary.main}1A`,
         fill: true,
         tension: 0.5,
         borderWidth: 3,
