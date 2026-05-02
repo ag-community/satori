@@ -1,4 +1,5 @@
 import { Box, Paper, Typography, useTheme } from '@mui/material';
+import moment from 'moment';
 import { Line } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import type { PlayerHistory } from '../../adapters/shion/player';
@@ -28,12 +29,15 @@ export const PlayerRatingChart = ({
           },
         },
         x: {
-          display: false,
+          display: true,
+          ticks: { color: theme.palette.text.secondary, maxTicksLimit: 8 },
+          grid: { color: theme.palette.divider },
         },
       },
       plugins: {
         tooltip: {
           intersect: false,
+          mode: 'index',
         },
         legend: {
           display: false,
@@ -50,7 +54,7 @@ export const PlayerRatingChart = ({
         </Typography>
         <Paper
           sx={{
-            background: theme.palette.primary.main,
+            background: theme.palette.background.paper,
             borderRadius: 2,
             boxShadow: 'none',
             p: 2,
@@ -80,13 +84,13 @@ export const PlayerRatingChart = ({
 
   if (captures.length === 1) {
     const capture = captures[0];
-    const date = capture.capturedAt.toLocaleDateString();
+    const date = moment(capture.capturedAt).format('MMM D');
 
     chartLabels = [date, date];
     chartRatings = [capture.rating, capture.rating];
   } else {
     chartLabels = captures.map((capture) =>
-      capture.capturedAt.toLocaleDateString(),
+      moment(capture.capturedAt).format('MMM D'),
     );
     chartRatings = captures.map((capture) => capture.rating);
   }
@@ -97,7 +101,9 @@ export const PlayerRatingChart = ({
       {
         label: t('player.rating'),
         data: chartRatings,
-        borderColor: '#ffffff',
+        borderColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.secondary.main + '1A',
+        fill: true,
         tension: 0.5,
         borderWidth: 3,
       },
@@ -111,7 +117,7 @@ export const PlayerRatingChart = ({
       </Typography>
       <Paper
         sx={{
-          background: theme.palette.primary.main,
+          background: theme.palette.background.paper,
           borderRadius: 2,
           boxShadow: 'none',
           p: 2,

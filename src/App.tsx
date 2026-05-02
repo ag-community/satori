@@ -104,6 +104,7 @@ export default function App() {
           },
           background: {
             default: '#0F0F0F',
+            paper: '#181818',
           },
         },
         typography: {

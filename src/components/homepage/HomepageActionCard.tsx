@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, useTheme } from '@mui/material';
 import type { ReactNode } from 'react';
 
 export function ActionCard({
@@ -10,11 +10,13 @@ export function ActionCard({
   title: string;
   description: string;
 }) {
+  const theme = useTheme();
+
   return (
     <Paper
       elevation={0}
       sx={{
-        background: '#181818',
+        background: theme.palette.background.paper,
         borderRadius: 2,
         p: 2,
         flex: 1,
