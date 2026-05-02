@@ -282,6 +282,49 @@ export const GlobalLeaderboardPlayer = ({
     setPage(0);
   };
 
+  const renderMobileView = () => {
+    return (
+      <Box>
+        {isLoading ? (
+          <Typography sx={{ color: 'white', textAlign: 'center', py: 2 }}>
+            {t('common.loading')}
+          </Typography>
+        ) : leaderboardData.length === 0 ? (
+          <Typography sx={{ color: 'white', textAlign: 'center', py: 2 }}>
+            {t('leaderboard.no_data')}
+          </Typography>
+        ) : (
+          leaderboardData.map((player, idx) => {
+            const position = page * pageSize + idx + 1;
+            return (
+              <LeaderboardPlayerItem
+                key={player.id || `player-${idx}`}
+                player={player}
+                position={position}
+                isMobile={true}
+              />
+            );
+          })
+        )}
+        <TablePagination
+          component="div"
+          count={-1}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={pageSize}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[10, 25, 50, 100]}
+          sx={{
+            color: 'white',
+            '.MuiTablePagination-toolbar': { color: 'white' },
+            '.MuiTablePagination-selectIcon': { color: 'white' },
+            '.MuiTablePagination-actions': { color: 'white' },
+          }}
+        />
+      </Box>
+    );
+  };
+
   const renderDesktopView = () => {
     return (
       <TableContainer
@@ -372,5 +415,5 @@ export const GlobalLeaderboardPlayer = ({
     );
   };
 
-  return <Box>{isMobile ? renderMobileView() : renderDesktopView()}</Box>;
+  return <>{isMobile ? renderMobileView() : renderDesktopView()}</>;
 };
