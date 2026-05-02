@@ -65,7 +65,8 @@
     "avg_ping": "Средний пинг",
     "damage_dealt": "Нанесено урона",
     "damage_taken": "Получено урона",
-    "gained_points": "Получено очков"
+    "rating": "Рейтинг",
+    "avg_rating": "Ср. рейтинг"
   },
   "player": {
     "statistics": "Статистика",

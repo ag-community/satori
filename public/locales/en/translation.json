@@ -65,7 +65,8 @@
     "avg_ping": "Avg. Ping",
     "damage_dealt": "Damage Dealt",
     "damage_taken": "Damage Taken",
-    "gained_points": "Gained points"
+    "rating": "Rating",
+    "avg_rating": "Avg. Rating"
   },
   "player": {
     "statistics": "Statistics",

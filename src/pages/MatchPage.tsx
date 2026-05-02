@@ -76,6 +76,19 @@ export const MatchPage = () => {
   const redFrags = redPlayers.reduce((sum, p) => sum + p.frags, 0);
   const redDeaths = redPlayers.reduce((sum, p) => sum + p.deaths, 0);
 
+  const blueAvgRating = bluePlayers.length
+    ? Math.round(
+        bluePlayers.reduce((sum, p) => sum + p.ratingAfterMatch, 0) /
+          bluePlayers.length,
+      )
+    : 0;
+  const redAvgRating = redPlayers.length
+    ? Math.round(
+        redPlayers.reduce((sum, p) => sum + p.ratingAfterMatch, 0) /
+          redPlayers.length,
+      )
+    : 0;
+
   const blueIsWinner = blueFrags > redFrags;
   const redIsWinner = redFrags > blueFrags;
 
@@ -100,6 +113,7 @@ export const MatchPage = () => {
           teamColor={theme.palette.success.main}
           totalFrags={blueFrags}
           totalDeaths={blueDeaths}
+          avgRating={blueAvgRating}
           isMobile={isMobile}
         />
         {isMobile ? (
@@ -114,6 +128,7 @@ export const MatchPage = () => {
           teamColor={theme.palette.error.main}
           totalFrags={redFrags}
           totalDeaths={redDeaths}
+          avgRating={redAvgRating}
           isMobile={isMobile}
         />
         {isMobile ? (

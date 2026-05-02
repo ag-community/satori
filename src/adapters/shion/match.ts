@@ -21,6 +21,7 @@ export interface MatchDetails {
   damageTaken: number;
   model: string;
   ratingDelta: number;
+  ratingAfterMatch: number;
 }
 
 const apiInstance = axios.create({
@@ -48,6 +49,7 @@ export const fetchMatch = async (matchId: number): Promise<Match> => {
         damageTaken: details.damage_taken,
         model: details.model,
         ratingDelta: Math.round(details.rating_delta),
+        ratingAfterMatch: Math.round(details.rating_after_match),
       })),
     };
   } catch (error) {

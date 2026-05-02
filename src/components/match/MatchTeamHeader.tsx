@@ -7,6 +7,7 @@ export const MatchTeamHeader = ({
   teamColor,
   totalFrags,
   totalDeaths,
+  avgRating,
   isMobile = false,
 }: {
   teamName: string;
@@ -14,6 +15,7 @@ export const MatchTeamHeader = ({
   teamColor: string;
   totalFrags: number;
   totalDeaths: number;
+  avgRating: number;
   isMobile?: boolean;
 }) => {
   const theme = useTheme();
@@ -78,6 +80,9 @@ export const MatchTeamHeader = ({
           <Typography variant="body2" color="white">
             {t('match.total_deaths')}: <b>{totalDeaths}</b>
           </Typography>
+          <Typography variant="body2" color="white">
+            {t('match.avg_rating')}: <b>{avgRating}</b>
+          </Typography>
         </Box>
       </Card>
     );
@@ -129,7 +134,8 @@ export const MatchTeamHeader = ({
       </Box>
       <Typography variant="body2" color="white">
         {t('match.total_frags')}: <b>{totalFrags}</b> &nbsp;|&nbsp;{' '}
-        {t('match.total_deaths')}: <b>{totalDeaths}</b>
+        {t('match.total_deaths')}: <b>{totalDeaths}</b> &nbsp;|&nbsp;{' '}
+        {t('match.avg_rating')}: <b>{avgRating}</b>
       </Typography>
     </Box>
   );

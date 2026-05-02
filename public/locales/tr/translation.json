@@ -65,7 +65,8 @@
     "avg_ping": "Ort. Ping",
     "damage_dealt": "Verilen Hasar",
     "damage_taken": "Alinan Hasar",
-    "gained_points": "Kazanilan puan"
+    "rating": "Derecelendirme",
+    "avg_rating": "Ort. Derece"
   },
   "player": {
     "statistics": "Istatistikler",

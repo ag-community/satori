@@ -51,7 +51,7 @@ export const MatchTeamTable = ({ players }: { players: MatchDetails[] }) => {
               {t('match.damage_taken')}
             </TableCell>
             <TableCell sx={{ color: 'white', fontWeight: 700 }}>
-              {t('match.gained_points')}
+              {t('match.rating')}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -99,8 +99,14 @@ export const MatchTeamTable = ({ players }: { players: MatchDetails[] }) => {
                   fontWeight: 700,
                 }}
               >
-                {player.ratingDelta >= 0 ? '+' : ''}
-                {player.ratingDelta}
+                {player.ratingAfterMatch}{' '}
+                <Typography
+                  component="span"
+                  sx={{ fontWeight: 400, fontSize: '0.85em' }}
+                >
+                  ({player.ratingDelta >= 0 ? '+' : ''}
+                  {player.ratingDelta})
+                </Typography>
               </TableCell>
             </TableRow>
           ))}

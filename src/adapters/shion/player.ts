@@ -100,7 +100,7 @@ export const fetchPlayerMatches = async (
       deaths: match.match_details.find(
         (detail: any) => detail.player_id === playerId,
       )?.deaths,
-      ratingAfterMatch: Math.floor(
+      ratingAfterMatch: Math.round(
         match.match_details.find((detail: any) => detail.player_id === playerId)
           ?.rating_after_match,
       ),

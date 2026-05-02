@@ -65,7 +65,8 @@
     "avg_ping": "Ping Médio",
     "damage_dealt": "Dano Causado",
     "damage_taken": "Dano Sofrido",
-    "gained_points": "Pontos ganhos"
+    "rating": "Pontuação",
+    "avg_rating": "Pont. Média"
   },
   "player": {
     "statistics": "Estatísticas",

@@ -65,7 +65,8 @@
     "avg_ping": "Ping Prom.",
     "damage_dealt": "Daño Hecho",
     "damage_taken": "Daño Recibido",
-    "gained_points": "Puntos Ganados"
+    "rating": "Puntaje",
+    "avg_rating": "Puntaje Prom."
   },
   "player": {
     "statistics": "Estadísticas",

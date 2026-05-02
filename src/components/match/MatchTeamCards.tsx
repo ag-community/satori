@@ -126,7 +126,7 @@ export const MatchTeamCards = ({ players }: { players: MatchDetails[] }) => {
                   textAlign: 'center',
                 }}
               >
-                {t('match.gained_points')}
+                {t('match.rating')}
               </Typography>
             </Box>
 
@@ -196,8 +196,18 @@ export const MatchTeamCards = ({ players }: { players: MatchDetails[] }) => {
                   textAlign: 'center',
                 }}
               >
-                {player.ratingDelta >= 0 ? '+' : ''}
-                {player.ratingDelta}
+                {player.ratingAfterMatch}{' '}
+                <Typography
+                  component="span"
+                  sx={{
+                    fontWeight: 400,
+                    fontSize: '0.85em',
+                    color: player.ratingDelta >= 0 ? '#4CFF4C' : '#FF4C4C',
+                  }}
+                >
+                  ({player.ratingDelta >= 0 ? '+' : ''}
+                  {player.ratingDelta})
+                </Typography>
               </Typography>
             </Box>
           </Box>
