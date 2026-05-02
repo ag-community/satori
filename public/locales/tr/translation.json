@@ -40,6 +40,7 @@
     "filter_country": "Ülke",
     "filter_sort": "Sırala",
     "filter_sort_rating": "Derecelendirme",
+    "filter_sort_matches": "Oynanan Maç",
     "filter_sort_winrate": "Kazanma Orani",
     "all_countries": "Tüm Ülkeler",
     "no_data": "Veri mevcut değil"

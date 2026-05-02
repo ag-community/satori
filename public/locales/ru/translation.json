@@ -40,6 +40,7 @@
     "filter_country": "Страна",
     "filter_sort": "Сортировать по",
     "filter_sort_rating": "Рейтинг",
+    "filter_sort_matches": "Сыграно матчей",
     "filter_sort_winrate": "Процент побед",
     "all_countries": "Все страны",
     "no_data": "Нет данных"

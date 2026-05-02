@@ -91,6 +91,9 @@ export const LeaderboardPage = () => {
                 <MenuItem value="rating">
                   {t('leaderboard.filter_sort_rating')}
                 </MenuItem>
+                <MenuItem value="matches_played">
+                  {t('leaderboard.filter_sort_matches')}
+                </MenuItem>
                 <MenuItem value="win_rate">
                   {t('leaderboard.filter_sort_winrate')}
                 </MenuItem>

@@ -40,6 +40,7 @@
     "filter_country": "País",
     "filter_sort": "Ordenar por",
     "filter_sort_rating": "Puntaje",
+    "filter_sort_matches": "Partidas Jugadas",
     "filter_sort_winrate": "Tasa de Victorias",
     "all_countries": "Todos los Países",
     "no_data": "No hay datos disponibles"
