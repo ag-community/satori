@@ -9,6 +9,7 @@ import {
   Toolbar,
 } from '@mui/material';
 import {
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
   Legend,
@@ -34,8 +35,10 @@ import { HomePage } from './pages/HomePage';
 import { LeaderboardPage } from './pages/LeaderboardPage';
 import { MatchPage } from './pages/MatchPage';
 import { PlayerPage } from './pages/PlayerPage';
+import { StatsPage } from './pages/StatsPage';
 
 ChartJS.register(
+  BarElement,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -71,6 +74,7 @@ const router = createBrowserRouter(
       <Route path="/match/:matchId" element={<MatchPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/player/:playerId" element={<PlayerPage />} />
+      <Route path="/stats" element={<StatsPage />} />
     </Route>,
   ),
 );

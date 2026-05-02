@@ -3,7 +3,8 @@
     "home": "Adrenaline Gamer Rating - Início",
     "leaderboard": "Adrenaline Gamer Rating - Ranking",
     "player": "Adrenaline Gamer Rating - Jogador {{playerName}}",
-    "match": "Adrenaline Gamer Rating - Partida #{{matchId}}"
+    "match": "Adrenaline Gamer Rating - Partida #{{matchId}}",
+    "stats": "Adrenaline Gamer Rating - Estatísticas"
   },
   "navbar": {
     "home": "Início",
@@ -12,7 +13,8 @@
     "type_more": "Digite pelo menos 2 caracteres para buscar",
     "no_results": "Nenhum resultado encontrado",
     "searching": "Buscando...",
-    "search_error": "Erro ao buscar jogadores"
+    "search_error": "Erro ao buscar jogadores",
+    "stats": "Estatísticas"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",
@@ -86,6 +88,22 @@
     "rating_gained": "Pontuação ganha",
     "global_rank": "Global",
     "country_rank": "País"
+  },
+  "stats": {
+    "title": "Estatísticas Globais",
+    "total_players": "Total de Jogadores",
+    "total_matches": "Total de Partidas",
+    "total_frags": "Total de Abates",
+    "total_deaths": "Total de Mortes",
+    "matches_per_day": "Partidas por Dia",
+    "popular_maps": "Mapas Mais Jogados",
+    "hourly_activity": "Atividade por Hora",
+    "player_countries": "Países dos Jogadores",
+    "country": "País",
+    "players": "Jogadores",
+    "map": "Mapa",
+    "matches": "Partidas",
+    "hour": "Hora"
   },
   "common": {
     "loading": "Carregando..."

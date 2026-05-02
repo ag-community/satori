@@ -3,7 +3,8 @@
     "home": "Adrenaline Gamer Rating - Ana Sayfa",
     "leaderboard": "Adrenaline Gamer Rating - Lider Tablosu",
     "player": "Adrenaline Gamer Rating - Oyuncu {{playerName}}",
-    "match": "Adrenaline Gamer Rating - Mac #{{matchId}}"
+    "match": "Adrenaline Gamer Rating - Mac #{{matchId}}",
+    "stats": "Adrenaline Gamer Rating - Istatistikler"
   },
   "navbar": {
     "home": "Ana Sayfa",
@@ -12,7 +13,8 @@
     "type_more": "Arama yapmak icin en az 2 karakter yazin",
     "no_results": "Sonuc bulunamadi",
     "searching": "Araniyor...",
-    "search_error": "Oyuncular aranirken hata olustu"
+    "search_error": "Oyuncular aranirken hata olustu",
+    "stats": "Istatistikler"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",
@@ -86,6 +88,22 @@
     "rating_gained": "Kazanilan derecelendirme",
     "global_rank": "Küresel",
     "country_rank": "Ülke"
+  },
+  "stats": {
+    "title": "Küresel İstatistikler",
+    "total_players": "Toplam Oyuncu",
+    "total_matches": "Toplam Maç",
+    "total_frags": "Toplam Skor",
+    "total_deaths": "Toplam Ölüm",
+    "matches_per_day": "Günlük Maç",
+    "popular_maps": "En Çok Oynanan Haritalar",
+    "hourly_activity": "Saatlik Aktivite",
+    "player_countries": "Oyuncu Ülkeleri",
+    "country": "Ülke",
+    "players": "Oyuncular",
+    "map": "Harita",
+    "matches": "Maçlar",
+    "hour": "Saat"
   },
   "common": {
     "loading": "Yükleniyor..."

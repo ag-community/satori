@@ -3,7 +3,8 @@
     "home": "Adrenaline Gamer Rating - Home",
     "leaderboard": "Adrenaline Gamer Rating - Leaderboard",
     "player": "Adrenaline Gamer Rating - Player {{playerName}}",
-    "match": "Adrenaline Gamer Rating - Match #{{matchId}}"
+    "match": "Adrenaline Gamer Rating - Match #{{matchId}}",
+    "stats": "Adrenaline Gamer Rating - Stats"
   },
   "navbar": {
     "home": "Home",
@@ -12,7 +13,8 @@
     "type_more": "Type at least 2 characters to search",
     "no_results": "No results found",
     "searching": "Searching...",
-    "search_error": "Error searching for players"
+    "search_error": "Error searching for players",
+    "stats": "Stats"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",
@@ -86,6 +88,22 @@
     "rating_gained": "Rating gained",
     "global_rank": "Global",
     "country_rank": "Country"
+  },
+  "stats": {
+    "title": "Global Statistics",
+    "total_players": "Total Players",
+    "total_matches": "Total Matches",
+    "total_frags": "Total Frags",
+    "total_deaths": "Total Deaths",
+    "matches_per_day": "Matches per Day",
+    "popular_maps": "Most Played Maps",
+    "hourly_activity": "Hourly Activity",
+    "player_countries": "Player Countries",
+    "country": "Country",
+    "players": "Players",
+    "map": "Map",
+    "matches": "Matches",
+    "hour": "Hour"
   },
   "common": {
     "loading": "Loading..."

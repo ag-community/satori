@@ -3,7 +3,8 @@
     "home": "Adrenaline Gamer Rating - Главная",
     "leaderboard": "Adrenaline Gamer Rating - Таблица лидеров",
     "player": "Adrenaline Gamer Rating - Игрок {{playerName}}",
-    "match": "Adrenaline Gamer Rating - Матч #{{matchId}}"
+    "match": "Adrenaline Gamer Rating - Матч #{{matchId}}",
+    "stats": "Adrenaline Gamer Rating - Статистика"
   },
   "navbar": {
     "home": "Главная",
@@ -12,7 +13,8 @@
     "type_more": "Введите не менее 2 символов для поиска",
     "no_results": "Результаты не найдены",
     "searching": "Поиск...",
-    "search_error": "Ошибка при поиске игроков"
+    "search_error": "Ошибка при поиске игроков",
+    "stats": "Статистика"
   },
   "home": {
     "title": "Adrenaline Gamer Rating",
@@ -86,6 +88,22 @@
     "rating_gained": "Получено рейтинга",
     "global_rank": "Глобальный",
     "country_rank": "Страна"
+  },
+  "stats": {
+    "title": "Глобальная статистика",
+    "total_players": "Всего игроков",
+    "total_matches": "Всего матчей",
+    "total_frags": "Всего фрагов",
+    "total_deaths": "Всего смертей",
+    "matches_per_day": "Матчей в день",
+    "popular_maps": "Самые популярные карты",
+    "hourly_activity": "Активность по часам",
+    "player_countries": "Страны игроков",
+    "country": "Страна",
+    "players": "Игроки",
+    "map": "Карта",
+    "matches": "Матчи",
+    "hour": "Час"
   },
   "common": {
     "loading": "Загрузка..."

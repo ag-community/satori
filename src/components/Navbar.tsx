@@ -1,3 +1,4 @@
+import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -27,6 +28,7 @@ import { LanguageSelector } from './LanguageSelector';
 const pages = [
   { label: 'Home', icon: <HomeIcon />, path: '/' },
   { label: 'Leaderboard', icon: <LeaderboardIcon />, path: '/leaderboard' },
+  { label: 'Stats', icon: <BarChartIcon />, path: '/stats' },
 ];
 
 export const BANNER_HEIGHT = 35;
