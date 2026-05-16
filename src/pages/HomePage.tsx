@@ -54,6 +54,7 @@ export const HomePage = () => {
             icon={<MenuBookIcon color="secondary" />}
             title={t('home.read_docs')}
             description={t('home.read_docs_desc')}
+            to="/docs"
           />
         </Box>
       </CardSection>

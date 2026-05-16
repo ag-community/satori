@@ -4,7 +4,8 @@
     "leaderboard": "Adrenaline Gamer Rating - Ranking",
     "player": "Adrenaline Gamer Rating - Jogador {{playerName}}",
     "match": "Adrenaline Gamer Rating - Partida #{{matchId}}",
-    "stats": "Adrenaline Gamer Rating - Estatísticas"
+    "stats": "Adrenaline Gamer Rating - Estatísticas",
+    "docs": "Adrenaline Gamer Rating - Documentação"
   },
   "navbar": {
     "home": "Início",
@@ -110,6 +111,87 @@
   },
   "common": {
     "loading": "Carregando..."
+  },
+  "docs": {
+    "nav": {
+      "algorithm": "Visão Geral do Algoritmo",
+      "architecture": "Arquitetura",
+      "changelog": "Registro de Alterações"
+    },
+    "algorithm": {
+      "title": "Visão Geral do Algoritmo: Weng-Lin (OpenSkill)",
+      "intro": "Weng-Lin é um algoritmo bayesiano de ranking online publicado por Ruby C. Weng e Chih-Jen Lin em 2011. É funcionalmente equivalente ao TrueSkill mas usa distribuição logística em vez de Gaussiana, computa atualizações via equações de forma fechada, é 2.5-6.5x mais rápido e não é patenteado.",
+      "core_model": "Modelo Principal",
+      "core_table": {
+        "parameter": "Parâmetro",
+        "symbol": "Símbolo",
+        "meaning": "Significado",
+        "rating": "Rating",
+        "uncertainty": "Incerteza"
+      },
+      "params_mu": "Nível de habilidade estimado (média da posterior)",
+      "params_sigma": "Desvio padrão da estimativa de habilidade",
+      "equations": "Equações de Atualização",
+      "key_properties_title": "Propriedades Chave",
+      "key_properties": [
+        "Resultado esperado → Ω ≈ 0 → rating quase não muda",
+        "Surpresa → Ω ≈ 1 → grande mudança",
+        "σ sempre diminui (sistema fica mais confiante)",
+        "σ maior → atualizações maiores (mais a aprender)"
+      ],
+      "beta_title": "Por que β = 200?",
+      "beta_desc": "Nossa escala de rating é [0, ~3000] em vez da padrão [0, 50]. A proporção β/σ₀ permanece similar: 200/333 ≈ 0.6 vs 4.17/8.33 ≈ 0.5. A escala inflada fornece valores inteiros amigáveis para o leaderboard.",
+      "winning_team_label": "Para cada jogador i do time vencedor:",
+      "losing_team_label": "Para cada jogador j do time perdedor:",
+      "surprise_factor_label": "Ω = fator surpresa",
+      "information_gain_label": "Δ = ganho de informação"
+    },
+    "architecture": {
+      "title": "Pipeline de Processamento",
+      "desc": "O wrapper fica sobre weng_lin_two_teams() e adiciona lógica específica do AG. A crate lida com a matemática bayesiana; o wrapper lida com ajustes específicos do jogo.",
+      "diagram": {
+        "step1": "Passo 1: Guard",
+        "step2": "Passo 2: Converter",
+        "step3": "Passo 3: Atualização Bayesiana",
+        "step4": "Passo 4: Ajustes Pós-Bayesianos"
+      },
+      "step1_title": "Passo 1: Guard",
+      "step1_desc": "Afirma que os times não estão vazios para evitar propagação de NaN por divisão por zero.",
+      "step2_title": "Passo 2: Converter para WengLinRating",
+      "step2_desc": "Transforma PlayerMatchData (rating, incerteza, frags, mortes) em WengLinRating { rating: μ, incerteza: σ }.",
+      "step3_title": "Passo 3: Atualização Bayesiana",
+      "step3_desc": "Chama weng_lin_two_teams(blue, red, outcome, config) que computa μ_new e σ_new por jogador usando as equações de forma fechada de Weng-Lin.",
+      "step4_title": "Passo 4: Ajustes Pós-Bayesianos",
+      "step4_desc": "Veja a seção A Lógica do Wrapper AG abaixo para a análise detalhada de cada ajuste aplicado pelo wrapper.",
+      "step4a_hint": "A diferença bruta entre o resultado de Weng-Lin e o rating anterior do jogador.",
+      "step4b_hint": "Calcula o bônus/penalidade de desempenho individual usando a métrica de eficiência, comparando o jogador à média de sua equipe.",
+      "step4c_hint": "Combina o delta base bayesiano com o bônus de desempenho para o ajuste final não fixado.",
+      "step4d_hint": "Para vencedores: se final_delta for muito pequeno, é elevado a um mínimo. engagement_scale = clamp((frags + deaths) / 20, 0.1, 1.0)",
+      "step4e_hint": "O rating final é fixado para garantir que nunca caia abaixo do rating_floor configurado.",
+      "step4f_hint": "Uma variância dinâmica (tau) é adicionada para evitar que sigma colapse a zero após muitas partidas."
+    },
+    "changelog": {
+      "title": "Registro de Alterações",
+      "v1": {
+        "date": "2025-08-26",
+        "title": "v1 — Weng-Lin Direto (inicial)",
+        "desc": "Implementação inicial usando weng_lin_two_teams() diretamente da crate skillratings sem nenhum wrapper. Sem ajustes específicos do AG: sem modificador de desempenho, sem delta mínimo, sem piso de rating."
+      },
+      "v2": {
+        "date": "2026-04-30",
+        "title": "v2 — Wrapper Multiplicativo",
+        "desc": "Adicionou o AG Rating Wrapper com um modificador de desempenho multiplicativo. final_delta = base_delta × modifier para vencedores, final_delta = base_delta / modifier para perdedores. Desempenho medido como K/D bruto: frags - deaths × weight."
+      },
+      "v3": {
+        "date": "2026-05-15",
+        "title": "v3 — Wrapper Aditivo (atual)",
+        "desc": "Substituiu multiplicativo por aditivo: final_delta = base_delta + perf_bonus. Métrica de desempenho mudou para eficiência: (frags - deaths) / max(frags + deaths, 1). Adicionou escalonamento de sigma para convergência mais rápida de novos jogadores. Piso de vencedor escalado por participação."
+      }
+    },
+    "post_bayesian": {
+      "title": "A Lógica do Wrapper AG",
+      "desc": "O resultado bruto do Weng-Lin é apenas o começo. Nosso wrapper aplica 6 ajustes sequenciais para considerar o desempenho individual e a jogabilidade específica do AG:"
+    }
   },
   "banner": {
     "dev_warning": "Este sistema está em desenvolvimento. Ratings e dados podem mudar a qualquer momento."

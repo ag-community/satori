@@ -31,6 +31,7 @@ import {
 } from 'react-router-dom';
 import { BANNER_HEIGHT, Navbar } from './components/Navbar';
 import { _i18n } from './i18n';
+import { DocsPage } from './pages/DocsPage';
 import { HomePage } from './pages/HomePage';
 import { LeaderboardPage } from './pages/LeaderboardPage';
 import { MatchPage } from './pages/MatchPage';
@@ -75,6 +76,7 @@ const router = createBrowserRouter(
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/player/:playerId" element={<PlayerPage />} />
       <Route path="/stats" element={<StatsPage />} />
+      <Route path="/docs" element={<DocsPage />} />
     </Route>,
   ),
 );
