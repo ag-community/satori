@@ -1,6 +1,33 @@
 pre-commit:
   commands:
     check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      run: |
+        # Keep only staged paths biome checks. if none remain, nothing to do
+        FILES=$(printf '%s\n' {staged_files} | grep -E '\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc)$' || true)
+        [ -z "$FILES" ] && exit 0
+        if command -v biome >/dev/null 2>&1; then
+          RUN="biome"
+        elif command -v npx >/dev/null 2>&1; then
+          RUN="npx @biomejs/biome"
+        else
+          echo "biome: no biome binary found; skipping local check" >&2
+          exit 0
+        fi
+        if ! echo "$FILES" | xargs $RUN check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off; then
+          echo "blocked by biome; fix and re-commit (or \`git commit --no-verify\` to bypass)" >&2
+          exit 1
+        fi
       stage_fixed: true
+
+pre-push:
+  parallel: false
+  commands:
+    typecheck:
+      use_stdin: true
+      run: |
+        [ -t 0 ] || cat >/dev/null
+        command -v yarn >/dev/null 2>&1 || {
+          echo "typecheck: no yarn on PATH; skipping local pre-push typecheck" >&2
+          exit 0
+        }
+        yarn typecheck

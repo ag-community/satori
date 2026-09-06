@@ -1,0 +1,189 @@
+{
+  "title": {
+    "home": "Adrenaline Gamer Rating - Ana Sayfa",
+    "leaderboard": "Adrenaline Gamer Rating - Lider Tablosu",
+    "player": "Adrenaline Gamer Rating - Oyuncu {{playerName}}",
+    "match": "Adrenaline Gamer Rating - Mac #{{matchId}}",
+    "docs": "Adrenaline Gamer Rating - Dokümantasyon",
+    "not_found": "Adrenaline Gamer Rating - Bulunamadi"
+  },
+  "navbar": {
+    "home": "Ana Sayfa",
+    "leaderboard": "Lider Tablosu",
+    "search": "Birini mi ariyorsun?",
+    "no_results": "Sonuc bulunamadi",
+    "searching": "Araniyor...",
+    "docs": "Dokümantasyon"
+  },
+  "home": {
+    "subtitle": "AG oyuncularinin performansini siralayan topluluk odakli bir platform",
+    "view_rankings": "Siralamalari Goruntule",
+    "view_rankings_desc": "Toplulukta nerede durdugunu ogren",
+    "browse_matches": "Eski maclara goz at",
+    "browse_matches_desc": "Onceki maclarda nasil oldugunu gor",
+    "read_docs": "Belgeleri oku",
+    "read_docs_desc": "Derecelendirme algoritmamizin nasil calistigini ogren",
+    "stats_title": "Istatistikler",
+    "stats_desc": "K/D orani, kazanma orani ve zamanla gelisen derecelendirme gibi kapsamli istatistiklerle performansini takip et",
+    "open_source_title": "Acik kaynak, acik veri",
+    "open_source_desc": "Tam seffaflikla sifirdan insa edildi",
+    "welcome": "Hoş geldiniz",
+    "top_players": "En iyi oyuncular",
+    "stats_items": [
+      "Her maçtan sonra güncellenen Weng-Lin tarzı ratingler",
+      "Oyuncu başına kazanma oranı, K/D ve performans takibi",
+      "Zaman içinde rating ilerleme grafikleri",
+      "Maç başına rating değişimleriyle tam maç geçmişi"
+    ],
+    "open_source_github": "Kaynak kodu GitHub'da görüntüle"
+  },
+  "leaderboard": {
+    "global": "Global Lider Tablosu",
+    "player": "Oyuncu",
+    "matches_played": "Oynanan Maclar",
+    "rating": "Derecelendirme",
+    "win_rate": "Kazanma Orani",
+    "filter_country": "Ülke",
+    "filter_sort": "Sırala",
+    "filter_sort_rating": "Derecelendirme",
+    "filter_sort_matches": "Oynanan Maç",
+    "filter_sort_winrate": "Kazanma Orani",
+    "all_countries": "Tüm Ülkeler",
+    "no_data": "Veri mevcut değil",
+    "description": "Sunucudaki en iyi oyuncular."
+  },
+  "pagination": {
+    "displayed_rows": "{{from}}-{{to}} / {{total}}"
+  },
+  "match": {
+    "match_on": "{{mapName}} haritasında {{matchType}} maçı",
+    "server": "Sunucu",
+    "blue_team": "Mavi Takim",
+    "red_team": "Kirmizi Takim",
+    "winner": "Kazanan",
+    "total_frags": "Toplam Skor",
+    "total_deaths": "Toplam Olum",
+    "player": "Oyuncu",
+    "frags": "Skor",
+    "deaths": "Olumler",
+    "avg_ping": "Ort. Ping",
+    "damage_dealt": "Verilen Hasar",
+    "damage_taken": "Alinan Hasar",
+    "rating": "Derecelendirme",
+    "avg_rating": "Ort. Derece",
+    "result": "Sonuç",
+    "won": "Kazanildi",
+    "lost": "Kaybedildi",
+    "unranked": "Derecesiz",
+    "unranked_banner": "Derecesiz maç - derecelendirme etkilenmez",
+    "must_provide_id": "Yolda bir oyuncu kimliği sağlayın."
+  },
+  "player": {
+    "statistics": "Istatistikler",
+    "rating_progression": "Derecelendirme Gelisimi",
+    "matches_played": "Oynanan maclar",
+    "wins": "Galibiyetler",
+    "losses": "Maglubiyetler",
+    "win_rate": "Kazanma orani",
+    "total_frags": "Toplam skor",
+    "total_deaths": "Toplam olum",
+    "kd_ratio": "K/D orani",
+    "avg_frags_per_match": "Mac basina ort. skor",
+    "match_history": "Mac gecmisi",
+    "date": "Tarih",
+    "map": "Harita",
+    "rating": "Derecelendirme",
+    "steam_id": "SteamID:",
+    "no_matches": "Mac bulunamadi",
+    "no_rating_data": "Derecelendirme verisi mevcut degil",
+    "rating_gained": "Kazanilan derecelendirme",
+    "global_rank": "Küresel",
+    "not_found": "Oyuncu bulunamadi.",
+    "must_provide_id": "Yolda bir oyuncu kimliği sağlayın."
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "not_found": "Sayfa bulunamadı.",
+    "back_home": "Ana sayfaya dön"
+  },
+  "docs": {
+    "algorithm": {
+      "title": "Algoritma Genel Bakış: Weng-Lin (OpenSkill)",
+      "intro": "Weng-Lin, Ruby C. Weng ve Chih-Jen Lin tarafından 2011'de yayınlanan Bayes tipi bir çevrimiçi sıralama algoritmasıdır. İşlevsel olarak TrueSkill'e eşdeğerdir ancak Gaussian yerine lojistik dağılım kullanır, kapalı form denklemleriyle güncelleme hesaplar, 2.5-6.5x daha hızlıdır ve patentli değildir.",
+      "core_model": "Temel Model",
+      "core_table": {
+        "parameter": "Parametre",
+        "symbol": "Sembol",
+        "meaning": "Anlam",
+        "rating": "Derecelendirme",
+        "uncertainty": "Belirsizlik"
+      },
+      "params_mu": "Tahmini beceri seviyesi (posterior ortalaması)",
+      "params_sigma": "Beceri tahmininin standart sapması",
+      "equations": "Güncelleme Denklemleri",
+      "key_properties_title": "Ana Özellikler",
+      "key_properties": [
+        "Beklenen sonuç → Ω ≈ 0 → derecelendirme neredeyse değişmez",
+        "Sürpriz sonuç → Ω ≈ 1 → büyük değişim",
+        "σ her zaman azalır (sistem daha güvenli hale gelir)",
+        "Daha yüksek σ → daha büyük güncellemeler (öğrenilecek daha çok şey)"
+      ],
+      "beta_title": "Neden β = 200?",
+      "beta_desc": "Derecelendirme ölçeğimiz varsayılan [0, 50] yerine [0, ~3000]'dir. β/σ₀ oranı benzer kalır: 200/333 ≈ 0.6 vs 4.17/8.33 ≈ 0.5. Genişletilmiş ölçek, lider tablosu için uygun tam sayı değerleri sağlar.",
+      "winning_team_label": "Kazanan takımdaki her i oyuncusu için:",
+      "losing_team_label": "Kaybeden takımdaki her j oyuncusu için:",
+      "surprise_factor_label": "Ω = sürpriz faktörü",
+      "information_gain_label": "Δ = bilgi kazancı"
+    },
+    "architecture": {
+      "title": "İşlem Hattı",
+      "desc": "Sarmalayıcı, weng_lin_two_teams() üzerinde yer alır ve AG'ye özgü mantık ekler. Krat Bayes matematiğini işler; sarmalayıcı oyuna özgü ayarlamaları yapar.",
+      "diagram": {
+        "step1": "Adım 1: Guard",
+        "step2": "Step 2: Convert",
+        "step3": "Adım 3: Bayes Güncellemesi",
+        "step4": "Adım 4: Bayes Sonrası Ayarlamalar"
+      },
+      "step1_title": "Guard",
+      "step1_desc": "Sıfıra bölmeden kaynaklanan NaN yayılımını önlemek için takımların boş olmadığını doğrular.",
+      "step2_title": "WengLinRating'e Dönüştür",
+      "step2_desc": "PlayerMatchData'yı (rating, belirsizlik, frags, ölümler) WengLinRating { rating: μ, belirsizlik: σ }'ye dönüştürür.",
+      "step3_title": "Bayes Güncellemesi",
+      "step3_desc": "Kapalı form Weng-Lin denklemlerini kullanarak oyuncu başına μ_new ve σ_new hesaplayan weng_lin_two_teams(blue, red, outcome, config) çağrısı yapar.",
+      "step4_title": "Bayes Sonrası Ayarlamalar",
+      "step4_desc": "Wrapper tarafından uygulanan her bir ayarın ayrıntılı dökümü için aşağıdaki AG Sarmalayıcı Mantığı bölümüne bakın.",
+      "step4a_hint": "Weng-Lin sonucu ile oyuncunun önceki derecelendirmesi arasındaki ham fark.",
+      "step4b_hint": "Verimlilik metriğini kullanarak bireysel performans bonus/cezasını hesaplar, oyuncuyu takım ortalamasıyla karşılaştırır.",
+      "step4c_hint": "Nihai kenetlenmemiş ayar için Bayes taban deltasını performans bonusuyla birleştirir.",
+      "step4d_hint": "Kazananlar için: final_delta çok küçükse minimum tabana yükseltilir. engagement_scale = clamp((frags + deaths) / 20, 0.1, 1.0)",
+      "step4e_hint": "Nihai derecelendirme, yapılandırılan rating_floor’un altına düşmemesi için kenetlenir.",
+      "step4f_hint": "Bir dinamik varyans (tau) eklenir ve sigmanın birçok maçtan sonra sıfıra çökmesini önler."
+    },
+    "changelog": {
+      "title": "Değişiklik Günlüğü",
+      "v1": {
+        "date": "2025-08-26",
+        "title": "v1 - Doğrudan Weng-Lin (ilk)",
+        "desc": "Herhangi bir sarmalayıcı olmadan doğrudan skillratings kratından weng_lin_two_teams() kullanan ilk uygulama. AG'ye özgü ayarlama yok: performans değiştirici yok, minimum delta yok, derecelendirme tabanı yok."
+      },
+      "v2": {
+        "date": "2026-04-30",
+        "title": "v2 - Çarpımsal Sarmalayıcı",
+        "desc": "Çarpımsal performans değiştiricili AG Derecelendirme Sarmalayıcısı eklendi. Kazananlar için final_delta = base_delta × modifier, kaybedenler için final_delta = base_delta / modifier. Performans ham K/D olarak ölçülür: frags - deaths × weight."
+      },
+      "v3": {
+        "date": "2026-05-15",
+        "title": "v3 - Toplamsal Sarmalayıcı (güncel)",
+        "desc": "Çarpımsal yerine toplamsal kullanıldı: final_delta = base_delta + perf_bonus. Performans metriği verimlilik olarak değiştirildi: (frags - deaths) / max(frags + deaths, 1). Yeni oyuncuların daha hızlı yakınsaması için sigma ölçekleme eklendi. Kazanan katılım tabanı, katılıma göre ölçeklenir."
+      }
+    },
+    "post_bayesian": {
+      "title": "AG Sarmalayıcı Mantığı",
+      "desc": "Ham Weng-Lin çıktısı sadece başlangıçtır. Sarmalayıcımız, bireysel performansı ve AG’ye özgü oynanışı hesaba katmak için 6 ardışık ayar uygular:"
+    }
+  },
+  "footer": {
+    "made_by": "Yapan",
+    "based_on": "Dayalı"
+  }
+}

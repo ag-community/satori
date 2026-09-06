@@ -1,193 +1,224 @@
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useTheme } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import { useQuery } from '@tanstack/react-query';
+import { type ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
-import { CardSection } from '../components/CardSection';
-import { GlobalLeaderboardPlayer } from '../components/leaderboard/GlobalLeaderboardPlayer';
-import { COUNTRY_CODES, getCountryName, getFlagUrl } from '../utils/countries';
+import { PlayerLink } from '@/components/PlayerLink';
+import { Flag } from '@/components/ui/Flag';
+import { Pagination } from '@/components/ui/Pagination';
+import { SortableSections } from '@/components/ui/SortableSections';
+import { EmptyState, ErrorState, LoadingState } from '@/components/ui/ViewStates';
+import { api } from '@/lib/api/client';
+import type { SortBy } from '@/lib/api/types';
+import { COUNTRY_CODES, getCountryName } from '@/lib/countries';
+import { formatPercent, formatRating } from '@/lib/format';
+import { usePageTitle } from '@/lib/usePageTitle';
 
-export const LeaderboardPage = () => {
+const SORT_OPTIONS: { value: SortBy; key: string }[] = [
+  { value: 'Rating', key: 'leaderboard.filter_sort_rating' },
+  { value: 'WinRate', key: 'leaderboard.filter_sort_winrate' },
+  { value: 'Matches', key: 'leaderboard.filter_sort_matches' },
+];
+
+const FILTER_MIN_HEIGHT = 34;
+
+function parseSort(value: string | null): SortBy {
+  return SORT_OPTIONS.some((o) => o.value === value)
+    ? (value as SortBy)
+    : 'Rating';
+}
+
+export function LeaderboardPage() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { t, i18n } = useTranslation();
+  usePageTitle(t('title.leaderboard'));
   const [searchParams, setSearchParams] = useSearchParams();
-  const [error, setError] = useState<string | null>(null);
 
-  const sortBy = searchParams.get('sort') || 'rating';
-  const country = searchParams.get('country') || 'all';
-  const page = parseInt(searchParams.get('page') || '0', 10);
-  const pageSize = parseInt(searchParams.get('limit') || '50', 10);
+  const sort = parseSort(searchParams.get('sort'));
+  const country = searchParams.get('country') ?? 'all';
+  const page = Math.max(parseInt(searchParams.get('page') ?? '1', 10) || 1, 1);
+  const size = Math.max(
+    parseInt(searchParams.get('size') ?? '50', 10) || 50,
+    1,
+  );
 
-  const countryOptions = COUNTRY_CODES.map((code) => ({
-    code,
-    name: getCountryName(code, i18n.language),
-  })).sort((a, b) => a.name.localeCompare(b.name));
+  const countryOptions = useMemo(
+    () =>
+      COUNTRY_CODES.map((code) => ({
+        code,
+        name: getCountryName(code, i18n.language),
+      })).sort((a, b) => a.name.localeCompare(b.name)),
+    [i18n.language],
+  );
 
-  useEffect(() => {
-    document.title = t('title.leaderboard');
-  }, [t]);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['leaderboard', sort, country, page, size],
+    queryFn: () =>
+      api.fetchLeaderboard({
+        index: page,
+        size,
+        sortBy: sort,
+        country: country === 'all' ? undefined : country,
+      }),
+  });
 
-  const handleError = (errorMessage: string) => {
-    setError(errorMessage);
+  const setParam = (key: string, value: string) => {
+    const next = new URLSearchParams(searchParams);
+    next.set(key, value);
+    if (key !== 'page') next.set('page', '1');
+    setSearchParams(next, { replace: true });
   };
 
-  return (
-    <Box
-      sx={{
-        maxWidth: 1100,
-        mx: 'auto',
-        py: 4,
-        px: 2,
-      }}
-    >
-      <CardSection>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={2}
-          flexWrap="wrap"
-          gap={1}
-        >
-          <Box display="flex" alignItems="center">
-            <EmojiEventsIcon color="secondary" sx={{ mr: 1 }} />
-            <Typography variant="h6" fontWeight={700}>
-              {t('leaderboard.global')}
-            </Typography>
-          </Box>
+  const rankColor = (rank: number): string => {
+    if (rank === 1) return theme.vars.palette.primary.main;
+    if (rank === 2) return theme.vars.palette.grey[400];
+    if (rank === 3) return theme.vars.palette.grey[500];
+    return 'inherit';
+  };
 
-          <Box display="flex" gap={2} flexWrap="wrap">
-            <FormControl size="small" sx={{ minWidth: 140 }}>
-              <InputLabel
-                sx={{
-                  color: 'grey.500',
-                  '&.Mui-focused': { color: '#4C94FF' },
-                  '&.MuiInputLabel-shrink': { color: '#4C94FF' },
-                }}
-              >
-                {t('leaderboard.filter_sort')}
-              </InputLabel>
-              <Select
-                value={sortBy}
-                label={t('leaderboard.filter_sort')}
-                onChange={(e) => {
-                  const next = new URLSearchParams(searchParams);
-                  next.set('sort', e.target.value);
-                  next.set('page', '0');
-                  setSearchParams(next, { replace: true });
-                }}
-                sx={{
-                  color: 'white',
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(255, 255, 255, 0.23)',
-                  },
-                  '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#4C94FF',
-                  },
-                }}
-              >
-                <MenuItem value="rating">
-                  {t('leaderboard.filter_sort_rating')}
-                </MenuItem>
-                <MenuItem value="matches_played">
-                  {t('leaderboard.filter_sort_matches')}
-                </MenuItem>
-                <MenuItem value="win_rate">
-                  {t('leaderboard.filter_sort_winrate')}
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl size="small" sx={{ minWidth: 180 }}>
-              <InputLabel
-                sx={{
-                  color: 'grey.500',
-                  '&.Mui-focused': { color: '#4C94FF' },
-                  '&.MuiInputLabel-shrink': { color: '#4C94FF' },
-                }}
-              >
-                {t('leaderboard.filter_country')}
-              </InputLabel>
-              <Select
-                value={country}
-                label={t('leaderboard.filter_country')}
-                onChange={(e) => {
-                  const next = new URLSearchParams(searchParams);
-                  next.set('country', e.target.value);
-                  next.set('page', '0');
-                  setSearchParams(next, { replace: true });
-                }}
-                sx={{
-                  color: 'white',
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(255, 255, 255, 0.23)',
-                  },
-                  '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#4C94FF',
-                  },
-                }}
-              >
-                <MenuItem value="all">
-                  {t('leaderboard.all_countries')}
-                </MenuItem>
-                {countryOptions.map(({ code, name }) => (
-                  <MenuItem key={code} value={code}>
-                    <Box display="flex" alignItems="center" gap={1}>
-                      <Box
-                        component="img"
-                        src={getFlagUrl(code)}
-                        sx={{ height: 16 }}
-                      />
-                      {name}
-                    </Box>
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-        </Box>
+  const body: ReactNode = (
+    <>
+      <Typography sx={{ mb: 1.5 }}>{t('leaderboard.description')}</Typography>
 
-        {error && (
-          <Typography color="error" sx={{ mb: 2 }}>
-            {error}
-          </Typography>
-        )}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1.5,
+          flexWrap: 'wrap',
+          mb: 1.5,
+        }}
+      >
+        <FormControl size="small" sx={{ minWidth: 170 }}>
+          <InputLabel id="sort-filter-label">
+            {t('leaderboard.filter_sort')}
+          </InputLabel>
+          <Select<SortBy>
+            labelId="sort-filter-label"
+            id="sort-filter"
+            size="small"
+            value={sort}
+            label={t('leaderboard.filter_sort')}
+            onChange={(e) => setParam('sort', e.target.value)}
+            sx={{ minHeight: FILTER_MIN_HEIGHT }}
+          >
+            {SORT_OPTIONS.map((o) => (
+              <MenuItem key={o.value} value={o.value}>
+                {t(o.key)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-        <GlobalLeaderboardPlayer
-          isMobile={isMobile}
-          onError={handleError}
-          sortBy={sortBy}
-          country={country === 'all' ? '' : country}
-          page={page}
-          pageSize={pageSize}
-          onPageChange={(_event: unknown, newPage: number) => {
-            const next = new URLSearchParams(searchParams);
-            next.set('page', String(newPage));
-            setSearchParams(next, { replace: true });
-          }}
-          onPageSizeChange={(newSize: number) => {
-            const next = new URLSearchParams(searchParams);
-            next.set('limit', String(newSize));
-            next.set('page', '0');
-            setSearchParams(next, { replace: true });
-          }}
-        />
-      </CardSection>
-    </Box>
+        <FormControl size="small" sx={{ minWidth: 200 }}>
+          <InputLabel id="country-filter-label">
+            {t('leaderboard.filter_country')}
+          </InputLabel>
+          <Select<string>
+            labelId="country-filter-label"
+            id="country-filter"
+            size="small"
+            value={country}
+            label={t('leaderboard.filter_country')}
+            onChange={(e) => setParam('country', e.target.value)}
+            sx={{ minHeight: FILTER_MIN_HEIGHT }}
+          >
+            <MenuItem value="all">{t('leaderboard.all_countries')}</MenuItem>
+            {countryOptions.map(({ code, name }) => (
+              <MenuItem key={code} value={code}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+
+      {isLoading && <LoadingState />}
+      {error && <ErrorState message={error.message} />}
+      {data && data.records.length === 0 && (
+        <EmptyState label={t('leaderboard.no_data')} />
+      )}
+
+      {data && data.records.length > 0 && (
+        <>
+          <TableContainer sx={{ overflowX: 'auto' }}>
+            <Table size="small" sx={{ minWidth: 700 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>#</TableCell>
+                  <TableCell>{t('leaderboard.player')}</TableCell>
+                  <TableCell>{t('leaderboard.matches_played')}</TableCell>
+                  <TableCell>{t('leaderboard.rating')}</TableCell>
+                  <TableCell>{t('leaderboard.win_rate')}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.records.map((player, idx) => {
+                  const rank = (page - 1) * size + idx + 1;
+                  const matches =
+                    (player.stats?.wins ?? 0) + (player.stats?.losses ?? 0);
+                  const winRate = formatPercent(
+                    player.stats?.wins ?? 0,
+                    matches,
+                  );
+                  return (
+                    <TableRow key={player.id}>
+                      <TableCell
+                        sx={{
+                          color: rankColor(rank),
+                          fontWeight: rank === 1 ? 700 : undefined,
+                        }}
+                      >
+                        #{rank}
+                      </TableCell>
+                      <TableCell>
+                        <PlayerLink
+                          playerId={player.id}
+                          name={player.steam_name}
+                          avatarUrl={player.steam_avatar_url}
+                        >
+                          <Flag countryCode={player.country} />
+                        </PlayerLink>
+                      </TableCell>
+                      <TableCell>{matches}</TableCell>
+                      <TableCell>
+                        {formatRating(player.stats?.rating)}
+                      </TableCell>
+                      <TableCell>{winRate}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <Pagination
+            page={page}
+            pageSize={size}
+            total={data.total}
+            onPageChange={(p) => setParam('page', String(p))}
+          />
+        </>
+      )}
+    </>
   );
-};
+
+  return (
+    <SortableSections
+      sections={{ global: { title: t('leaderboard.global'), body } }}
+      initialOrder={['global']}
+    />
+  );
+}
