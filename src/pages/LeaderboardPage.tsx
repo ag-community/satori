@@ -19,7 +19,11 @@ import { PlayerLink } from '@/components/PlayerLink';
 import { Flag } from '@/components/ui/Flag';
 import { Pagination } from '@/components/ui/Pagination';
 import { SortableSections } from '@/components/ui/SortableSections';
-import { EmptyState, ErrorState, LoadingState } from '@/components/ui/ViewStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from '@/components/ui/ViewStates';
 import { api } from '@/lib/api/client';
 import type { SortBy } from '@/lib/api/types';
 import { COUNTRY_CODES, getCountryName } from '@/lib/countries';

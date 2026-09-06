@@ -59,7 +59,7 @@ export function Navbar() {
       >
         <Box
           component="img"
-          src='/images/ag_logo_blue.png'
+          src="/images/ag_logo_blue.png"
           alt="Adrenaline Gamer Logo"
           sx={{ height: 26, width: 'auto', display: 'block' }}
         />

@@ -11,9 +11,7 @@ export default defineConfig({
       'theme-color': '#3e4637',
       'msapplication-TileColor': '#3e4637',
     },
-    tags: [
-      { tag: 'link', attrs: { rel: 'manifest', href: '/manifest.json' } },
-    ],
+    tags: [{ tag: 'link', attrs: { rel: 'manifest', href: '/manifest.json' } }],
   },
   source: {
     entry: {

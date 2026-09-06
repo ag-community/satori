@@ -10,7 +10,11 @@ import { Link } from 'react-router-dom';
 import { PlayerLink } from '@/components/PlayerLink';
 import { Flag } from '@/components/ui/Flag';
 import { SortableSections } from '@/components/ui/SortableSections';
-import { EmptyState, ErrorState, LoadingState } from '@/components/ui/ViewStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from '@/components/ui/ViewStates';
 import { api } from '@/lib/api/client';
 import { env } from '@/lib/env';
 import { usePageTitle } from '@/lib/usePageTitle';

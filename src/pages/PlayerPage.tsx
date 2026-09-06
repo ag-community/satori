@@ -12,7 +12,11 @@ import { Card } from '@/components/ui/Card';
 import { Flag } from '@/components/ui/Flag';
 import { SortableSections } from '@/components/ui/SortableSections';
 import { StatCard } from '@/components/ui/StatCard';
-import { EmptyState, ErrorState, LoadingState } from '@/components/ui/ViewStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from '@/components/ui/ViewStates';
 import { api } from '@/lib/api/client';
 import { getCountryName } from '@/lib/countries';
 import { formatPercent, formatRating } from '@/lib/format';

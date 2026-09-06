@@ -15,7 +15,11 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Card } from '@/components/ui/Card';
 import { Pagination } from '@/components/ui/Pagination';
-import { EmptyState, ErrorState, LoadingState } from '@/components/ui/ViewStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from '@/components/ui/ViewStates';
 import { api } from '@/lib/api/client';
 import type { PlayerMatchDto } from '@/lib/api/types';
 import { formatDate, formatDelta, formatRating } from '@/lib/format';
