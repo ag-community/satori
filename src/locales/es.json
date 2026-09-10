@@ -41,11 +41,11 @@
     "global": "Clasificación Global",
     "player": "Jugador",
     "matches_played": "Partidas Jugadas",
-    "rating": "Puntaje",
+    "points": "Puntos",
     "win_rate": "Tasa de Victorias",
     "filter_country": "País",
     "filter_sort": "Ordenar por",
-    "filter_sort_rating": "Puntaje",
+    "filter_sort_points": "Puntos",
     "filter_sort_matches": "Partidas Jugadas",
     "filter_sort_winrate": "Tasa de Victorias",
     "all_countries": "Todos los Países",
@@ -69,8 +69,7 @@
     "avg_ping": "Ping Prom.",
     "damage_dealt": "Daño Hecho",
     "damage_taken": "Daño Recibido",
-    "rating": "Puntaje",
-    "avg_rating": "Puntaje Prom.",
+    "points": "Puntos",
     "result": "Resultado",
     "won": "Ganada",
     "lost": "Perdida",
@@ -80,7 +79,7 @@
   },
   "player": {
     "statistics": "Estadísticas",
-    "rating_progression": "Progresión del Puntaje",
+    "points_progression": "Progresión de Puntos",
     "matches_played": "Partidas jugadas",
     "wins": "Victorias",
     "losses": "Derrotas",
@@ -92,11 +91,10 @@
     "match_history": "Historial de partidas",
     "date": "Fecha",
     "map": "Mapa",
-    "rating": "Puntaje",
+    "points": "Puntos",
     "steam_id": "SteamID:",
-    "no_matches": "No se encontraron partidas",
-    "no_rating_data": "No hay datos de puntaje disponibles",
-    "rating_gained": "Puntaje ganado",
+    "no_matches": "No hay partidas encontradas",
+    "no_points_data": "No hay datos de puntos disponibles",
     "global_rank": "Global",
     "not_found": "Jugador no encontrado.",
     "must_provide_id": "Debe proporcionar un id de jugador en la ruta."
@@ -185,5 +183,9 @@
   "footer": {
     "made_by": "Hecho por",
     "based_on": "Basado en"
+  },
+  "season": {
+    "select": "Temporada",
+    "active": "(activa)"
   }
 }

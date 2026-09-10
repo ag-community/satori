@@ -16,6 +16,7 @@ import { type ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { PlayerLink } from '@/components/PlayerLink';
+import { SeasonSelector } from '@/components/SeasonSelector';
 import { Flag } from '@/components/ui/Flag';
 import { Pagination } from '@/components/ui/Pagination';
 import { SortableSections } from '@/components/ui/SortableSections';
@@ -31,7 +32,7 @@ import { formatPercent, formatRating } from '@/lib/format';
 import { usePageTitle } from '@/lib/usePageTitle';
 
 const SORT_OPTIONS: { value: SortBy; key: string }[] = [
-  { value: 'Rating', key: 'leaderboard.filter_sort_rating' },
+  { value: 'Points', key: 'leaderboard.filter_sort_points' },
   { value: 'WinRate', key: 'leaderboard.filter_sort_winrate' },
   { value: 'Matches', key: 'leaderboard.filter_sort_matches' },
 ];
@@ -41,7 +42,7 @@ const FILTER_MIN_HEIGHT = 34;
 function parseSort(value: string | null): SortBy {
   return SORT_OPTIONS.some((o) => o.value === value)
     ? (value as SortBy)
-    : 'Rating';
+    : 'Points';
 }
 
 export function LeaderboardPage() {
@@ -57,6 +58,15 @@ export function LeaderboardPage() {
     parseInt(searchParams.get('size') ?? '50', 10) || 50,
     1,
   );
+  const seasonParam = searchParams.get('season');
+
+  const { data: seasons } = useQuery({
+    queryKey: ['seasons'],
+    queryFn: () => api.fetchSeasons(),
+  });
+
+  const activeSeason = seasons?.find((s) => s.is_active);
+  const season = seasonParam ? parseInt(seasonParam, 10) : activeSeason?.id;
 
   const countryOptions = useMemo(
     () =>
@@ -68,14 +78,16 @@ export function LeaderboardPage() {
   );
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['leaderboard', sort, country, page, size],
+    queryKey: ['leaderboard', season, sort, country, page, size],
     queryFn: () =>
       api.fetchLeaderboard({
         index: page,
         size,
         sortBy: sort,
         country: country === 'all' ? undefined : country,
+        season,
       }),
+    enabled: season !== undefined,
   });
 
   const setParam = (key: string, value: string) => {
@@ -147,6 +159,14 @@ export function LeaderboardPage() {
             ))}
           </Select>
         </FormControl>
+
+        {season !== undefined && (
+          <SeasonSelector
+            value={season}
+            onChange={(id) => setParam('season', String(id))}
+            minHeight={FILTER_MIN_HEIGHT}
+          />
+        )}
       </Box>
 
       {isLoading && <LoadingState />}
@@ -164,7 +184,7 @@ export function LeaderboardPage() {
                   <TableCell>#</TableCell>
                   <TableCell>{t('leaderboard.player')}</TableCell>
                   <TableCell>{t('leaderboard.matches_played')}</TableCell>
-                  <TableCell>{t('leaderboard.rating')}</TableCell>
+                  <TableCell>{t('leaderboard.points')}</TableCell>
                   <TableCell>{t('leaderboard.win_rate')}</TableCell>
                 </TableRow>
               </TableHead>
@@ -198,7 +218,7 @@ export function LeaderboardPage() {
                       </TableCell>
                       <TableCell>{matches}</TableCell>
                       <TableCell>
-                        {formatRating(player.stats?.rating)}
+                        {formatRating(player.stats?.points)}
                       </TableCell>
                       <TableCell>{winRate}</TableCell>
                     </TableRow>

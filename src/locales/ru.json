@@ -41,11 +41,11 @@
     "global": "Глобальный рейтинг",
     "player": "Игрок",
     "matches_played": "Сыграно матчей",
-    "rating": "Рейтинг",
+    "points": "Очки",
     "win_rate": "Процент побед",
     "filter_country": "Страна",
     "filter_sort": "Сортировать по",
-    "filter_sort_rating": "Рейтинг",
+    "filter_sort_points": "Очки",
     "filter_sort_matches": "Сыграно матчей",
     "filter_sort_winrate": "Процент побед",
     "all_countries": "Все страны",
@@ -69,8 +69,7 @@
     "avg_ping": "Средний пинг",
     "damage_dealt": "Нанесено урона",
     "damage_taken": "Получено урона",
-    "rating": "Рейтинг",
-    "avg_rating": "Ср. рейтинг",
+    "points": "Очки",
     "result": "Результат",
     "won": "Победа",
     "lost": "Поражение",
@@ -80,7 +79,7 @@
   },
   "player": {
     "statistics": "Статистика",
-    "rating_progression": "Рост рейтинга",
+    "points_progression": "Рост очков",
     "matches_played": "Сыграно матчей",
     "wins": "Победы",
     "losses": "Поражения",
@@ -92,11 +91,10 @@
     "match_history": "История матчей",
     "date": "Дата",
     "map": "Карта",
-    "rating": "Рейтинг",
+    "points": "Очки",
     "steam_id": "SteamID:",
     "no_matches": "Матчи не найдены",
-    "no_rating_data": "Нет данных по рейтингу",
-    "rating_gained": "Получено рейтинга",
+    "no_points_data": "Нет данных по очкам",
     "global_rank": "Глобальный",
     "not_found": "Игрок не найден.",
     "must_provide_id": "Укажите id игрока в пути."
@@ -185,5 +183,9 @@
   "footer": {
     "made_by": "Сделано",
     "based_on": "На основе"
+  },
+  "season": {
+    "select": "Сезон",
+    "active": "(активная)"
   }
 }

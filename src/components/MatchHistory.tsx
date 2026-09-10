@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useQuery } from '@tanstack/react-query';
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -23,7 +23,6 @@ import {
 import { api } from '@/lib/api/client';
 import type { PlayerMatchDto } from '@/lib/api/types';
 import { formatDate, formatDelta, formatRating } from '@/lib/format';
-import { BLACKLISTED_MAPS } from '@/lib/maps';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -33,33 +32,7 @@ function resultCell(
   t: (key: string) => string,
 ): string {
   if (unranked) return 'N/A';
-  if (match.rating_delta > 0) return t('match.won');
-  if (match.rating_delta < 0) return t('match.lost');
-  return 'N/A';
-}
-
-function ratingCell(
-  match: PlayerMatchDto,
-  unranked: boolean,
-  positiveColor: string,
-  negativeColor: string,
-): ReactNode {
-  if (unranked) return 'N/A';
-  return (
-    <>
-      {formatRating(match.rating_after_match)}
-      {match.rating_delta !== 0 && (
-        <span
-          style={{
-            marginLeft: 6,
-            color: match.rating_delta > 0 ? positiveColor : negativeColor,
-          }}
-        >
-          ({formatDelta(match.rating_delta)})
-        </span>
-      )}
-    </>
-  );
+  return match.won ? t('match.won') : t('match.lost');
 }
 
 const unrankedBadge = (t: (key: string) => string) => (
@@ -83,9 +56,10 @@ const unrankedBadge = (t: (key: string) => string) => (
 
 interface MatchHistoryProps {
   playerId: number;
+  seasonId?: number;
 }
 
-export function MatchHistory({ playerId }: MatchHistoryProps) {
+export function MatchHistory({ playerId, seasonId }: MatchHistoryProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
@@ -96,8 +70,8 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
   const size = DEFAULT_PAGE_SIZE;
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['player-matches', playerId, page, size],
-    queryFn: () => api.fetchPlayerMatches(playerId, page, size),
+    queryKey: ['player-matches', playerId, seasonId, page, size],
+    queryFn: () => api.fetchPlayerMatches(playerId, page, size, seasonId),
   });
 
   const setParam = (key: string, value: string) => {
@@ -122,7 +96,7 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
           {isMobile ? (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               {data.records.map((match) => {
-                const unranked = BLACKLISTED_MAPS.includes(match.map_name);
+                const unranked = match.unranked;
                 return (
                   <Link
                     key={match.id}
@@ -147,11 +121,9 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                           sx={{
                             ml: 'auto',
                             color: !unranked
-                              ? match.rating_delta > 0
+                              ? match.won
                                 ? positiveColor
-                                : match.rating_delta < 0
-                                  ? negativeColor
-                                  : 'inherit'
+                                : negativeColor
                               : 'inherit',
                           }}
                         >
@@ -170,13 +142,27 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                         variant="body2"
                         sx={{ m: '4px 0 0', fontSize: 12 }}
                       >
-                        {t('match.rating')}:{' '}
+                        {t('match.points')}:{' '}
                         <b>
-                          {ratingCell(
-                            match,
-                            unranked,
-                            positiveColor,
-                            negativeColor,
+                          {unranked ? (
+                            'N/A'
+                          ) : (
+                            <>
+                              {formatRating(match.points_after_match)}
+                              {match.points_delta !== 0 && (
+                                <span
+                                  style={{
+                                    marginLeft: 6,
+                                    color:
+                                      match.points_delta > 0
+                                        ? positiveColor
+                                        : negativeColor,
+                                  }}
+                                >
+                                  ({formatDelta(match.points_delta)})
+                                </span>
+                              )}
+                            </>
                           )}
                         </b>
                       </Typography>
@@ -195,13 +181,12 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                     <TableCell>{t('match.result')}</TableCell>
                     <TableCell>{t('match.frags')}</TableCell>
                     <TableCell>{t('match.deaths')}</TableCell>
-                    <TableCell>{t('player.rating_gained')}</TableCell>
-                    <TableCell>{t('match.rating')}</TableCell>
+                    <TableCell>{t('match.points')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {data.records.map((match) => {
-                    const unranked = BLACKLISTED_MAPS.includes(match.map_name);
+                    const unranked = match.unranked;
                     return (
                       <TableRow
                         key={match.id}
@@ -226,11 +211,9 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                         <TableCell
                           sx={{
                             color: !unranked
-                              ? match.rating_delta > 0
+                              ? match.won
                                 ? positiveColor
-                                : match.rating_delta < 0
-                                  ? negativeColor
-                                  : 'inherit'
+                                : negativeColor
                               : 'inherit',
                           }}
                         >
@@ -238,25 +221,26 @@ export function MatchHistory({ playerId }: MatchHistoryProps) {
                         </TableCell>
                         <TableCell>{match.frags}</TableCell>
                         <TableCell>{match.deaths}</TableCell>
-                        <TableCell
-                          sx={{
-                            color: unranked
-                              ? 'inherit'
-                              : match.rating_delta > 0
-                                ? positiveColor
-                                : match.rating_delta < 0
-                                  ? negativeColor
-                                  : 'inherit',
-                          }}
-                        >
-                          {unranked ? 'N/A' : formatDelta(match.rating_delta)}
-                        </TableCell>
-                        <TableCell>
-                          {ratingCell(
-                            match,
-                            unranked,
-                            positiveColor,
-                            negativeColor,
+                        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+                          {unranked ? (
+                            'N/A'
+                          ) : (
+                            <>
+                              {formatRating(match.points_after_match)}
+                              {match.points_delta !== 0 && (
+                                <span
+                                  style={{
+                                    marginLeft: 6,
+                                    color:
+                                      match.points_delta > 0
+                                        ? positiveColor
+                                        : negativeColor,
+                                  }}
+                                >
+                                  ({formatDelta(match.points_delta)})
+                                </span>
+                              )}
+                            </>
                           )}
                         </TableCell>
                       </TableRow>

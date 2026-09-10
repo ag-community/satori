@@ -16,54 +16,49 @@ import { Avatar } from '@/components/ui/Avatar';
 import { Card } from '@/components/ui/Card';
 import type { GameDetailPlayerDto } from '@/lib/api/types';
 import { formatDelta, formatRating } from '@/lib/format';
-import { BLACKLISTED_MAPS } from '@/lib/maps';
 
 interface MatchTeamProps {
   teamName: string;
   isWinner: boolean;
   players: GameDetailPlayerDto[];
-  mapName: string;
+  unranked: boolean;
 }
 
 export function MatchTeam({
   teamName,
   isWinner,
   players,
-  mapName,
+  unranked,
 }: MatchTeamProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
-  const unranked = BLACKLISTED_MAPS.includes(mapName);
   const sorted = [...players].sort((a, b) => b.frags - a.frags);
   const totalFrags = players.reduce((sum, p) => sum + p.frags, 0);
   const totalDeaths = players.reduce((sum, p) => sum + p.deaths, 0);
-  const avgRating = players.length
-    ? Math.round(
-        players.reduce((sum, p) => sum + p.rating_after_match, 0) /
-          players.length,
-      )
-    : 0;
 
   const positiveColor = theme.vars.palette.secondary.main;
   const negativeColor = theme.vars.palette.error.main;
 
-  const ratingCell = (p: GameDetailPlayerDto): ReactNode => (
-    <>
-      {unranked ? 'N/A' : formatRating(p.rating_after_match)}
-      {!unranked && p.rating_delta !== 0 && (
-        <Typography
-          component="span"
-          sx={{
-            ml: 0.75,
-            color: p.rating_delta > 0 ? positiveColor : negativeColor,
-          }}
-        >
-          ({formatDelta(p.rating_delta)})
-        </Typography>
-      )}
-    </>
-  );
+  const pointsCell = (p: GameDetailPlayerDto): ReactNode =>
+    unranked ? (
+      'N/A'
+    ) : (
+      <Typography component="span" sx={{ whiteSpace: 'nowrap' }}>
+        {formatRating(p.points_after_match)}
+        {p.points_delta !== 0 && (
+          <Typography
+            component="span"
+            sx={{
+              ml: 0.75,
+              color: p.points_delta > 0 ? positiveColor : negativeColor,
+            }}
+          >
+            ({formatDelta(p.points_delta)})
+          </Typography>
+        )}
+      </Typography>
+    );
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -113,8 +108,7 @@ export function MatchTeam({
             sx={{ ml: 'auto', color: 'text.secondary' }}
           >
             {t('match.total_frags')}: <b>{totalFrags}</b> |{' '}
-            {t('match.total_deaths')}: <b>{totalDeaths}</b> |{' '}
-            {t('match.avg_rating')}: <b>{avgRating}</b>
+            {t('match.total_deaths')}: <b>{totalDeaths}</b>
           </Typography>
         </Box>
 
@@ -146,7 +140,7 @@ export function MatchTeam({
                     </Typography>
                   </Box>
                   <Typography component="span" sx={{ ml: 'auto' }}>
-                    {ratingCell(p)}
+                    {pointsCell(p)}
                   </Typography>
                 </Box>
                 <Typography sx={{ m: '8px 0 0', fontSize: 12 }}>
@@ -171,7 +165,7 @@ export function MatchTeam({
                   <TableCell>{t('match.avg_ping')}</TableCell>
                   <TableCell>{t('match.damage_dealt')}</TableCell>
                   <TableCell>{t('match.damage_taken')}</TableCell>
-                  <TableCell>{t('match.rating')}</TableCell>
+                  <TableCell>{t('match.points')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -196,7 +190,7 @@ export function MatchTeam({
                     <TableCell>{p.average_ping}</TableCell>
                     <TableCell>{p.damage_dealt}</TableCell>
                     <TableCell>{p.damage_taken}</TableCell>
-                    <TableCell>{ratingCell(p)}</TableCell>
+                    <TableCell>{pointsCell(p)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

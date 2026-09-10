@@ -41,11 +41,11 @@
     "global": "Global Leaderboard",
     "player": "Player",
     "matches_played": "Matches Played",
-    "rating": "Rating",
+    "points": "Points",
     "win_rate": "Win Rate",
     "filter_country": "Country",
     "filter_sort": "Sort by",
-    "filter_sort_rating": "Rating",
+    "filter_sort_points": "Points",
     "filter_sort_matches": "Matches Played",
     "filter_sort_winrate": "Win Rate",
     "all_countries": "All Countries",
@@ -69,8 +69,7 @@
     "avg_ping": "Avg. Ping",
     "damage_dealt": "Damage Dealt",
     "damage_taken": "Damage Taken",
-    "rating": "Rating",
-    "avg_rating": "Avg. Rating",
+    "points": "Points",
     "result": "Result",
     "won": "Won",
     "lost": "Lost",
@@ -80,7 +79,7 @@
   },
   "player": {
     "statistics": "Statistics",
-    "rating_progression": "Rating Progression",
+    "points_progression": "Points Progression",
     "matches_played": "Matches played",
     "wins": "Wins",
     "losses": "Losses",
@@ -92,11 +91,10 @@
     "match_history": "Match history",
     "date": "Date",
     "map": "Map",
-    "rating": "Rating",
+    "points": "Points",
     "steam_id": "SteamID:",
     "no_matches": "No matches found",
-    "no_rating_data": "No rating data available",
-    "rating_gained": "Rating gained",
+    "no_points_data": "No points data available",
     "global_rank": "Global",
     "not_found": "Player not found.",
     "must_provide_id": "Must provide a player id in the path."
@@ -185,5 +183,9 @@
   "footer": {
     "made_by": "Made by",
     "based_on": "Based on"
+  },
+  "season": {
+    "select": "Season",
+    "active": "(active)"
   }
 }

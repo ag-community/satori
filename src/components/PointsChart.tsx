@@ -28,7 +28,7 @@ ChartJS.register(
   Legend,
 );
 
-interface RatingChartProps {
+interface PointsChartProps {
   history: RatingHistoryDto[];
 }
 
@@ -57,7 +57,7 @@ function resolveColors(theme: Theme): ChartColors {
   return { text, grid, line, fill: `rgba(${channel} / 0.25)` };
 }
 
-export function RatingChart({ history }: RatingChartProps) {
+export function PointsChart({ history }: PointsChartProps) {
   const theme = useTheme();
   const { colorScheme } = useColorScheme();
   const { t } = useTranslation();
@@ -70,7 +70,7 @@ export function RatingChart({ history }: RatingChartProps) {
   }, [colorScheme, theme]);
 
   if (history.length === 0) {
-    return <p>{t('player.no_rating_data')}</p>;
+    return <p>{t('player.no_points_data')}</p>;
   }
 
   let chartLabels: string[];
@@ -80,12 +80,12 @@ export function RatingChart({ history }: RatingChartProps) {
     const capture = history[0];
     const date = formatShortDate(capture.captured_at);
     chartLabels = [date, date];
-    chartRatings = [capture.rating, capture.rating];
+    chartRatings = [capture.points, capture.points];
   } else {
     chartLabels = history.map((capture) =>
       formatShortDate(capture.captured_at),
     );
-    chartRatings = history.map((capture) => capture.rating);
+    chartRatings = history.map((capture) => capture.points);
   }
 
   const options = {
@@ -133,7 +133,7 @@ export function RatingChart({ history }: RatingChartProps) {
     labels: chartLabels,
     datasets: [
       {
-        label: t('player.rating'),
+        label: t('player.points'),
         data: chartRatings,
         borderColor: colors.line,
         backgroundColor: colors.fill,

@@ -9,7 +9,6 @@ import { Card } from '@/components/ui/Card';
 import { ErrorState, LoadingState } from '@/components/ui/ViewStates';
 import { api } from '@/lib/api/client';
 import { formatDate } from '@/lib/format';
-import { BLACKLISTED_MAPS } from '@/lib/maps';
 import { usePageTitle } from '@/lib/usePageTitle';
 
 export function GamePage() {
@@ -96,7 +95,7 @@ export function GamePage() {
           </Box>
         </Box>
 
-        {BLACKLISTED_MAPS.includes(game.map_name) && (
+        {game.unranked && (
           <Typography
             sx={{ mt: 1, mb: 1, textAlign: 'center', color: 'error.main' }}
           >
@@ -108,14 +107,14 @@ export function GamePage() {
           teamName={t('match.blue_team')}
           isWinner={blueWins}
           players={blue}
-          mapName={game.map_name}
+          unranked={game.unranked}
         />
 
         <MatchTeam
           teamName={t('match.red_team')}
           isWinner={redWins}
           players={red}
-          mapName={game.map_name}
+          unranked={game.unranked}
         />
       </Card>
     </div>

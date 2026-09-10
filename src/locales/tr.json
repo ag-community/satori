@@ -41,11 +41,11 @@
     "global": "Global Lider Tablosu",
     "player": "Oyuncu",
     "matches_played": "Oynanan Maclar",
-    "rating": "Derecelendirme",
+    "points": "Puan",
     "win_rate": "Kazanma Orani",
     "filter_country": "Ülke",
     "filter_sort": "Sırala",
-    "filter_sort_rating": "Derecelendirme",
+    "filter_sort_points": "Puan",
     "filter_sort_matches": "Oynanan Maç",
     "filter_sort_winrate": "Kazanma Orani",
     "all_countries": "Tüm Ülkeler",
@@ -69,8 +69,7 @@
     "avg_ping": "Ort. Ping",
     "damage_dealt": "Verilen Hasar",
     "damage_taken": "Alinan Hasar",
-    "rating": "Derecelendirme",
-    "avg_rating": "Ort. Derece",
+    "points": "Puan",
     "result": "Sonuç",
     "won": "Kazanildi",
     "lost": "Kaybedildi",
@@ -80,7 +79,7 @@
   },
   "player": {
     "statistics": "Istatistikler",
-    "rating_progression": "Derecelendirme Gelisimi",
+    "points_progression": "Puan Gelisimi",
     "matches_played": "Oynanan maclar",
     "wins": "Galibiyetler",
     "losses": "Maglubiyetler",
@@ -92,11 +91,10 @@
     "match_history": "Mac gecmisi",
     "date": "Tarih",
     "map": "Harita",
-    "rating": "Derecelendirme",
+    "points": "Puan",
     "steam_id": "SteamID:",
     "no_matches": "Mac bulunamadi",
-    "no_rating_data": "Derecelendirme verisi mevcut degil",
-    "rating_gained": "Kazanilan derecelendirme",
+    "no_points_data": "Puan verisi mevcut degil",
     "global_rank": "Küresel",
     "not_found": "Oyuncu bulunamadi.",
     "must_provide_id": "Yolda bir oyuncu kimliği sağlayın."
@@ -185,5 +183,9 @@
   "footer": {
     "made_by": "Yapan",
     "based_on": "Dayalı"
+  },
+  "season": {
+    "select": "Sezon",
+    "active": "(aktif)"
   }
 }

@@ -2,11 +2,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { MatchHistory } from '@/components/MatchHistory';
-import { RatingChart } from '@/components/RatingChart';
+import { PointsChart } from '@/components/PointsChart';
+import { SeasonSelector } from '@/components/SeasonSelector';
 import { Avatar } from '@/components/ui/Avatar';
 import { Card } from '@/components/ui/Card';
 import { Flag } from '@/components/ui/Flag';
@@ -23,7 +24,7 @@ import { formatPercent, formatRating } from '@/lib/format';
 import { usePageTitle } from '@/lib/usePageTitle';
 
 const SECTION_ORDER = [
-  'rating_progression',
+  'points_progression',
   'statistics',
   'match_history',
 ] as const;
@@ -35,20 +36,31 @@ export function PlayerPage() {
   const id = parseInt(playerId ?? '', 10);
   const valid = !Number.isNaN(id) && id > 0;
 
+  const [season, setSeason] = useState<number | undefined>(undefined);
+
+  const { data: seasons } = useQuery({
+    queryKey: ['seasons'],
+    queryFn: () => api.fetchSeasons(),
+    enabled: valid,
+  });
+
+  const activeSeason = seasons?.find((s) => s.is_active);
+  const resolvedSeason = season ?? activeSeason?.id;
+
   const {
     data: player,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['player', id],
-    queryFn: () => api.fetchPlayer(id),
-    enabled: valid,
+    queryKey: ['player', id, resolvedSeason],
+    queryFn: () => api.fetchPlayer(id, resolvedSeason),
+    enabled: valid && resolvedSeason !== undefined,
   });
 
   const { data: history } = useQuery({
-    queryKey: ['player-rating-history', id],
-    queryFn: () => api.fetchRatingHistory(id),
-    enabled: valid,
+    queryKey: ['player-points-history', id, resolvedSeason],
+    queryFn: () => api.fetchPointsHistory(id, resolvedSeason),
+    enabled: valid && resolvedSeason !== undefined,
   });
 
   usePageTitle(
@@ -77,12 +89,12 @@ export function PlayerPage() {
     matches > 0 ? ((stats?.total_frags ?? 0) / matches).toFixed(2) : '0';
 
   const sections: Record<SectionId, { title: string; body: ReactNode }> = {
-    rating_progression: {
-      title: t('player.rating_progression'),
+    points_progression: {
+      title: t('player.points_progression'),
       body: history ? (
-        <RatingChart history={history} />
+        <PointsChart history={history} />
       ) : (
-        <p>{t('player.no_rating_data')}</p>
+        <p>{t('player.no_points_data')}</p>
       ),
     },
     statistics: {
@@ -139,7 +151,7 @@ export function PlayerPage() {
     },
     match_history: {
       title: t('player.match_history'),
-      body: <MatchHistory playerId={id} />,
+      body: <MatchHistory playerId={id} seasonId={resolvedSeason} />,
     },
   };
 
@@ -172,7 +184,7 @@ export function PlayerPage() {
               <Flag countryCode={player.country} />
             </Typography>
             <Typography variant="body1" component="p" sx={{ m: 0 }}>
-              {t('leaderboard.rating')}: <b>{formatRating(stats?.rating)}</b>
+              {t('leaderboard.points')}: <b>{formatRating(stats?.points)}</b>
               {player.global_rank && (
                 <span style={{ marginLeft: 12 }}>
                   #{player.global_rank} {t('player.global_rank')}
@@ -186,6 +198,11 @@ export function PlayerPage() {
               )}
             </Typography>
           </Box>
+          {resolvedSeason !== undefined && (
+            <Box sx={{ ml: 'auto' }}>
+              <SeasonSelector value={resolvedSeason} onChange={setSeason} />
+            </Box>
+          )}
         </Box>
       </Card>
 

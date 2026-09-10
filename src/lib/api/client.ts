@@ -5,19 +5,31 @@ import type {
   PlayerDto,
   PlayerMatchDto,
   RatingHistoryDto,
+  SeasonDto,
   SortBy,
 } from '@/lib/api/types';
 
 export const api = {
-  fetchPlayer: (playerId: number) => apiGet<PlayerDto>(`/players/${playerId}`),
+  fetchSeasons: () => apiGet<SeasonDto[]>('/seasons'),
 
-  fetchRatingHistory: (playerId: number) =>
-    apiGet<RatingHistoryDto[]>(`/players/${playerId}/rating_history`),
+  fetchPlayer: (playerId: number, season?: number) =>
+    apiGet<PlayerDto>(`/players/${playerId}`, { season }),
 
-  fetchPlayerMatches: (playerId: number, index = 1, size = 10) =>
+  fetchPointsHistory: (playerId: number, season?: number) =>
+    apiGet<RatingHistoryDto[]>(`/players/${playerId}/points_history`, {
+      season,
+    }),
+
+  fetchPlayerMatches: (
+    playerId: number,
+    index = 1,
+    size = 10,
+    season?: number,
+  ) =>
     apiGet<PageResult<PlayerMatchDto>>(`/players/${playerId}/matches`, {
       index,
       size,
+      season,
     }),
 
   searchPlayers: (value: string, limit = 10) =>
@@ -29,6 +41,7 @@ export const api = {
       size?: number;
       sortBy?: SortBy;
       country?: string;
+      season?: number;
     } = {},
   ) =>
     apiGet<PageResult<PlayerDto>>('/players/leaderboard', {
@@ -36,6 +49,7 @@ export const api = {
       size: options.size,
       sort_by: options.sortBy,
       country: options.country,
+      season: options.season,
     }),
 
   fetchGame: (gameId: number) => apiGet<GameDto>(`/games/${gameId}`),

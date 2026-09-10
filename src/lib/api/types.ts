@@ -2,10 +2,19 @@ export interface StatsDto {
   player_id: number;
   rating: number;
   uncertainty: number;
+  points: number;
   wins: number;
   losses: number;
   total_frags: number;
   total_deaths: number;
+  num_games: number;
+}
+
+export interface SeasonDto {
+  id: number;
+  name: string;
+  start_date: string;
+  is_active: boolean;
 }
 
 export interface PlayerDto {
@@ -28,7 +37,7 @@ export interface PageResult<T> {
 
 export interface RatingHistoryDto {
   captured_at: string;
-  rating: number;
+  points: number;
 }
 
 export interface PlayerMatchDto {
@@ -38,11 +47,13 @@ export interface PlayerMatchDto {
   date: string;
   frags: number;
   deaths: number;
-  rating_after_match: number;
-  rating_delta: number;
+  points_after_match: number;
+  points_delta: number;
+  won: boolean;
+  unranked: boolean;
 }
 
-export type SortBy = 'Rating' | 'WinRate' | 'Matches';
+export type SortBy = 'Points' | 'WinRate' | 'Matches';
 
 export interface GameDetailPlayerDto {
   player_id: number;
@@ -55,8 +66,9 @@ export interface GameDetailPlayerDto {
   damage_dealt: number;
   damage_taken: number;
   model: 'BLUE' | 'RED';
-  rating_after_match: number;
-  rating_delta: number;
+  points_after_match: number;
+  points_delta: number;
+  won: boolean;
 }
 
 export interface GameDetailTeam {
@@ -69,6 +81,7 @@ export interface GameDto {
   map_name: string;
   match_type: string;
   date: string;
+  unranked: boolean;
   details: {
     teams: GameDetailTeam[];
   };

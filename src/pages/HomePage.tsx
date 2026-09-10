@@ -50,7 +50,7 @@ export function HomePage() {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['home-top-players'],
-    queryFn: () => api.fetchLeaderboard({ size: 5, sortBy: 'Rating' }),
+    queryFn: () => api.fetchLeaderboard({ size: 5, sortBy: 'Points' }),
   });
 
   const statsItems = t('home.stats_items', { returnObjects: true }) as string[];
