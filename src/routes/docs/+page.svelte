@@ -7,12 +7,12 @@
 
 	const diagram = $derived(`
 flowchart TD
-  Input["Input: blue_team[], red_team[], outcome"]
-  Input --> Guard["${m.docs_architecture_diagram_step1()}<br/>assert!(teams not empty)"]
-  Guard --> Convert["${m.docs_architecture_diagram_step2()}<br/>PlayerMatchData → WengLinRating"]
-  Convert --> Bayesian["${m.docs_architecture_diagram_step3()}<br/>weng_lin_two_teams()"]
-  Bayesian --> Post["${m.docs_architecture_diagram_step4()}"]
-  Post --> Output["Output: Vec&lt;RatingResult&gt;"]
+  Input["${m.docs_architecture_diagram_input()}"]
+  Input --> Validate["${m.docs_architecture_diagram_step1()}"]
+  Validate --> Prepare["${m.docs_architecture_diagram_step2()}"]
+  Prepare --> Update["${m.docs_architecture_diagram_step3()}"]
+  Update --> Adjust["${m.docs_architecture_diagram_step4()}"]
+  Adjust --> Output["${m.docs_architecture_diagram_output()}"]
 `);
 
 	const steps = [
