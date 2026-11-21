@@ -1,54 +1,47 @@
 {
   "name": "satori",
-  "version": "2.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
-  "scripts": {
-    "prepare": "lefthook install",
-    "dev": "rsbuild dev",
-    "build": "tsc -b && rsbuild build",
-    "preview": "rsbuild preview",
-    "typecheck": "tsc -b",
-    "lint": "biome lint --write ./src",
-    "format": "biome format --write ./src",
-    "check": "biome check --write ./src"
+  "imports": {
+    "#lib/*": "./src/lib/*"
   },
-  "dependencies": {
-    "@dnd-kit/core": "6.3.1",
-    "@dnd-kit/sortable": "10.0.0",
-    "@dnd-kit/utilities": "3.2.2",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@lightenna/react-mermaid-diagram": "^1.0.22",
-    "@mui/icons-material": "^7.3.2",
-    "@mui/material": "^7.3.2",
-    "@rsbuild/core": "^2.1.8",
-    "@rsbuild/plugin-react": "^2.1.0",
-    "@tanstack/react-query": "^5.62.0",
-    "chart.js": "^4.5.0",
-    "i18next": "^25.4.2",
-    "i18next-browser-languagedetector": "^8.2.0",
-    "i18next-http-backend": "^3.0.2",
-    "katex": "^0.16.46",
-    "mermaid": "^10.9.1",
-    "prop-types": "^15.8.1",
-    "react": "^19.1.1",
-    "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.1.1",
-    "react-i18next": "^15.7.3",
-    "react-katex": "^3.1.0",
-    "react-router-dom": "^7.8.2"
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide",
+    "paraglide": "paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide",
+    "check": "svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test:unit": "vitest",
+    "test": "pnpm run test:unit -- --run",
+    "format": "biome check --write .",
+    "lint": "biome check ."
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.11",
-    "@types/node": "^24.3.0",
-    "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.7",
-    "@types/react-katex": "^3.0.4",
-    "lefthook": "^2.1.12",
-    "typescript": "^5.9.2"
+    "@biomejs/biome": "^2.6.8",
+    "@inlang/paraglide-js": "^3.2.2",
+    "@sveltejs/adapter-node": "6.0.4",
+    "@sveltejs/kit": "3.3.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/katex": "^0.16.8",
+    "@types/node": "^26",
+    "svelte": "5.57.3",
+    "svelte-check": "^4.7.8",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   },
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
+    "@internationalized/date": "^3.12.4",
+    "bits-ui": "^2.21.0",
+    "chart.js": "^4.6.1",
+    "katex": "^0.19.1",
+    "mermaid": "^12.3.0",
+    "runed": "^0.38.0",
+    "svelte-dnd-action": "^0.9.80"
   }
 }

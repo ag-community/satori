@@ -1,0 +1,6 @@
+engineStrict: true
+overrides:
+  source-map-js: 1.2.2
+  tinybench: 6.2.3
+allowBuilds:
+  esbuild: true

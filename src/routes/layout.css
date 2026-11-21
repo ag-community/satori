@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background: var(--skin-bg);
+    color: var(--skin-text);
+    font-family: var(--font-sans, "Trebuchet MS", "Verdana", sans-serif);
+    font-size: 14px;
+  }
+
+  html[data-theme="greysteam"] body {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("/images/hl2_background01.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+}
+
+@theme {
+  --breakpoint-sm: 600px;
+}
+
+@theme inline {
+  --color-bg: var(--skin-bg);
+  --color-surface: var(--skin-surface);
+  --color-surface-lighter: var(--skin-surface-lighter);
+  --color-inset: var(--skin-inset);
+  --color-border-light: var(--skin-border-light);
+  --color-border-dark: var(--skin-border-dark);
+  --color-gold: var(--skin-gold);
+  --color-gold-bright: var(--skin-gold-bright);
+  --color-accent: var(--skin-accent);
+  --color-text: var(--skin-text);
+  --color-error: var(--skin-error);
+  --color-divider: color-mix(in srgb, var(--skin-text) 28%, transparent);
+  --font-sans: "Trebuchet MS", "Verdana", sans-serif;
+}
+
+:root,
+html[data-theme="greensteam"] {
+  --skin-bg: #3e4637;
+  --skin-surface: #4c5844;
+  --skin-surface-lighter: #5a6a50;
+  --skin-inset: #3e4637;
+  --skin-border-light: #899281;
+  --skin-border-dark: #292d23;
+  --skin-gold: #c4b550;
+  --skin-gold-bright: #e3e41f;
+  --skin-accent: #96892d;
+  --skin-text: #d8ded3;
+  --skin-error: #ff716b;
+  --radius-skin: 0px;
+  --layout-max: 780px;
+  --control-height: 25px;
+}
+
+html[data-theme="blacksteam"] {
+  --skin-bg: #080808;
+  --skin-surface: #212121;
+  --skin-surface-lighter: #181818;
+  --skin-inset: #080808;
+  --skin-border-light: #323232;
+  --skin-border-dark: #080808;
+  --skin-gold: #f0b43f;
+  --skin-gold-bright: #e3e41f;
+  --skin-accent: #96892d;
+  --skin-text: #d8ded3;
+}
+
+html[data-theme="greysteam"] {
+  --skin-bg: rgba(0, 0, 0, 0.5);
+  --skin-surface: rgba(160, 160, 160, 0.75);
+  --skin-surface-lighter: rgba(160, 160, 160, 0.5);
+  --skin-inset: rgba(0, 0, 0, 0.5);
+  --skin-border-light: #c8c8c8;
+  --skin-border-dark: rgba(40, 40, 40, 0.75);
+  --skin-gold: #ffffff;
+  --skin-gold-bright: #e3e41f;
+  --skin-accent: #ffffff;
+  --skin-text: #ffffff;
+  --radius-skin: 10px;
+}
+
+.card {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.window-titlebar {
+  position: relative;
+  margin-bottom: 1em;
+  line-height: 18px;
+  text-indent: 24px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-family: var(--font-sans, "Trebuchet MS", "Verdana", sans-serif);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: var(--skin-text);
+  background-image: url("/images/steamico.png");
+  background-repeat: no-repeat;
+  user-select: none;
+}
+
+.window-titlebar-drag {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  touch-action: none;
+}
+
+.window-titlebar-grey {
+  text-indent: 10px;
+  text-transform: none;
+  font-variant: small-caps;
+  letter-spacing: normal;
+  background-image: none;
+}
+
+.window-titlebar-control {
+  all: unset;
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+
+.window-titlebar-control[disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.window-titlebar-control:focus-visible {
+  outline: 1px dotted var(--skin-gold);
+}
+
+/* svelte-dnd-action sets visibility:hidden inline, restore the preview */
+.dnd-shadow {
+  visibility: visible !important;
+}
+
+.dnd-shadow .card {
+  opacity: 0.55;
+  outline: 1px dashed var(--skin-gold);
+  outline-offset: -1px;
+}
+
+/* drag-only drop-area expansion */
+.dnd-zone-active {
+  padding-block: 64px;
+  margin-block: -64px;
+}
+
+.mermaid-diagram .node rect,
+.mermaid-diagram .node circle,
+.mermaid-diagram .node ellipse,
+.mermaid-diagram .node polygon,
+.mermaid-diagram .node path {
+  fill: var(--skin-surface) !important;
+  stroke: var(--skin-border-light) !important;
+}
+
+.mermaid-diagram .nodeLabel,
+.mermaid-diagram .nodeLabel p,
+.mermaid-diagram .label,
+.mermaid-diagram .label p {
+  color: var(--skin-text) !important;
+  fill: var(--skin-text) !important;
+}
+
+.mermaid-diagram .edgePath .path,
+.mermaid-diagram .flowchart-link {
+  stroke: var(--skin-border-light) !important;
+}
+
+.mermaid-diagram .edgeLabel rect,
+.mermaid-diagram .labelBkg {
+  fill: var(--skin-surface) !important;
+}
+
+.mermaid-diagram .edgeLabel,
+.mermaid-diagram .edgeLabel p {
+  color: var(--skin-text) !important;
+  fill: var(--skin-text) !important;
+}
+
+.mermaid-diagram .cluster rect {
+  fill: var(--skin-inset) !important;
+  stroke: var(--skin-border-dark) !important;
+}
+
+.mermaid-diagram .marker path {
+  fill: var(--skin-border-light) !important;
+  stroke: var(--skin-border-light) !important;
+}
+
+.mermaid-diagram .background {
+  fill: var(--skin-inset) !important;
+}
+
+.bevel-raised {
+  border: 1px solid;
+  border-color: var(--skin-border-light) var(--skin-border-dark) var(--skin-border-dark)
+    var(--skin-border-light);
+}
+
+.bevel-sunken {
+  border: 1px solid;
+  border-color: var(--skin-border-dark) var(--skin-border-light) var(--skin-border-light)
+    var(--skin-border-dark);
+}
+
+.inset-panel {
+  background: var(--skin-inset);
+}
+
+.raised-panel {
+  background: var(--skin-surface);
+}
+
+.vgui-input {
+  width: 100%;
+  height: var(--control-height);
+  border: 1px solid;
+  border-color: var(--skin-border-dark) var(--skin-border-light) var(--skin-border-light)
+    var(--skin-border-dark);
+  background: var(--skin-inset);
+  color: var(--skin-text);
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+  outline: none;
+}
+
+.vgui-input:focus-visible {
+  border-color: var(--skin-gold);
+}
+
+.vgui-select {
+  height: var(--control-height);
+  border: 1px solid;
+  border-color: var(--skin-border-dark) var(--skin-border-light) var(--skin-border-light)
+    var(--skin-border-dark);
+  background: var(--skin-inset);
+  color: var(--skin-text);
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+  outline: none;
+}
+
+.vgui-select:focus-visible {
+  border-color: var(--skin-gold);
+}

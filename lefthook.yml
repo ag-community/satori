@@ -3,12 +3,12 @@ pre-commit:
     check:
       run: |
         # Keep only staged paths biome checks. if none remain, nothing to do
-        FILES=$(printf '%s\n' {staged_files} | grep -E '\.(ts|tsx|js|jsx|mjs|cjs|json|jsonc)$' || true)
+        FILES=$(printf '%s\n' {staged_files} | grep -E '\.(ts|js|json|jsonc|css)$' || true)
         [ -z "$FILES" ] && exit 0
         if command -v biome >/dev/null 2>&1; then
           RUN="biome"
-        elif command -v npx >/dev/null 2>&1; then
-          RUN="npx @biomejs/biome"
+        elif command -v pnpm >/dev/null 2>&1; then
+          RUN="pnpm exec biome"
         else
           echo "biome: no biome binary found; skipping local check" >&2
           exit 0
@@ -26,8 +26,8 @@ pre-push:
       use_stdin: true
       run: |
         [ -t 0 ] || cat >/dev/null
-        command -v yarn >/dev/null 2>&1 || {
-          echo "typecheck: no yarn on PATH; skipping local pre-push typecheck" >&2
+        command -v pnpm >/dev/null 2>&1 || {
+          echo "typecheck: no pnpm on PATH; skipping local pre-push typecheck" >&2
           exit 0
         }
-        yarn typecheck
+        pnpm check

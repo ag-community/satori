@@ -1,19 +1,30 @@
-# Local
-.DS_Store
-*.local
-*.log*
-*.tsbuildinfo
-
-# Dist
 node_modules
-dist/
 
-# Profile
-.rspack-profile-*/
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
 
-# IDE
-!.vscode/extensions.json
-.idea
+# OS
+.DS_Store
+Thumbs.db
 
-# Project
+# Env
 .env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Paraglide
+src/lib/paraglide
+project.inlang/cache/
+
+# Nix
+.direnv

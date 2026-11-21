@@ -1,5 +1,5 @@
 {
-  description = "satori - adrenaline gamer rating frontend (rsbuild + yarn)";
+  description = "satori - adrenaline gamer rating frontend";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -12,23 +12,24 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
-          nodejs_24
-          yarn
           biome
+          git
+          nodejs_24
+          pnpm
         ];
 
         shellHook = ''
           export BIOME_BINARY="$(command -v biome)"
 
           echo "satori dev shell"
-          echo "  yarn install"
-          echo "  yarn dev"
-          echo "  yarn build"
-          echo "  yarn preview"
-          echo "  yarn typecheck"
-          echo "  yarn lint"
-          echo "  yarn format"
-          echo "  yarn check"
+          echo "  pnpm install"
+          echo "  pnpm dev"
+          echo "  pnpm build"
+          echo "  pnpm check"
+          echo "  pnpm test"
+          echo "  pnpm format"
+          echo "  pnpm lint"
+          echo "  pnpm paraglide"
         '';
       };
     };
