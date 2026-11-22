@@ -12,6 +12,8 @@
 		id: string;
 		title?: string;
 		variant?: 'raised' | 'sunken';
+		className?: string;
+		fullHeight?: boolean;
 		content: Snippet;
 		[key: string]: unknown;
 	}
@@ -19,7 +21,8 @@
 	let {
 		sections,
 		initialOrder,
-	}: { sections: SectionDef[]; initialOrder?: readonly string[] } = $props();
+		class: className,
+	}: { sections: SectionDef[]; initialOrder?: readonly string[]; class?: string } = $props();
 
 	const flipDurationMs = 200;
 
@@ -39,6 +42,7 @@
 </script>
 
 <section
+	class={className}
 	use:dragHandleZone={{
 		items,
 		flipDurationMs,
@@ -54,9 +58,15 @@
 		<div
 			animate:flip={{ duration: flipDurationMs }}
 			class:dnd-shadow={Boolean(section[SHADOW_ITEM_MARKER_PROPERTY_NAME])}
+			class="{section.fullHeight ? 'h-full' : ''} {section.className ?? ''}"
 			aria-label={section.title ?? section.id}
 		>
-			<Card title={section.title} variant={section.variant} dragHandle={true}>
+			<Card
+				title={section.title}
+				variant={section.variant}
+				dragHandle={true}
+				fullHeight={section.fullHeight}
+			>
 				{@render section.content()}
 			</Card>
 		</div>

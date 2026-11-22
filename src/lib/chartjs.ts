@@ -1,4 +1,6 @@
 import {
+  BarController,
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
   LinearScale,
@@ -9,7 +11,16 @@ import {
 } from "chart.js"
 import { SKINS } from "#lib/theme/skins.js"
 
-ChartJS.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip)
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Tooltip
+)
 
 export interface ChartColors {
   text: string

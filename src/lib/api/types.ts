@@ -78,6 +78,67 @@ export interface GameDto {
   }
 }
 
+export interface StatsSummaryDto {
+  total_players: number
+  ranked_players: number
+  ranked_games: number
+  total_frags: number
+  total_deaths: number
+  average_frags: number
+  maps_played: number
+}
+
+export interface StatsMapDto {
+  map_name: string
+  games: number
+  average_frags: number
+}
+
+export interface StatsCountryDto {
+  country: string
+  players: number
+  ranked_players: number
+  average_points: number
+}
+
+export interface StatsActivityDto {
+  month: string
+  games: number
+  frags: number
+}
+
+export interface StatsPointsBucketDto {
+  label: string
+  players: number
+}
+
+export interface StatsWeekdayDto {
+  day: number
+  games: number
+}
+
+export interface StatsBestFragDto {
+  game_id: number
+  map_name: string
+  date: string
+  player_id: number
+  steam_name: string
+  steam_avatar_url: string
+  country: string
+  frags: number
+}
+
+export interface StatsOverviewDto {
+  season_id: number
+  summary: StatsSummaryDto
+  maps: StatsMapDto[]
+  countries: StatsCountryDto[]
+  activity: StatsActivityDto[]
+  points_distribution: StatsPointsBucketDto[]
+  weekdays: StatsWeekdayDto[]
+  best_frag_game: StatsBestFragDto | null
+}
+
 export interface PageResult<T> {
   records: T[]
   current: number

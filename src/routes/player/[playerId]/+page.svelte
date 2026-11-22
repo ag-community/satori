@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import MatchHistory from '#lib/components/MatchHistory.svelte';
-	import PointsChart from '#lib/components/PointsChart.svelte';
+	import PointsChart from '#lib/components/charts/player/PointsChart.svelte';
 	import SeasonSelector from '#lib/components/SeasonSelector.svelte';
 	import Avatar from '#lib/components/ui/Avatar.svelte';
 	import Card from '#lib/components/ui/Card.svelte';

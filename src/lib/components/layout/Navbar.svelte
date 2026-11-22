@@ -8,6 +8,7 @@
 	const links = [
 		{ href: '/', label: () => m.navbar_home(), end: true },
 		{ href: '/leaderboard', label: () => m.navbar_leaderboard(), end: false },
+		{ href: '/stats', label: () => m.navbar_stats(), end: false },
 		{ href: '/docs', label: () => m.navbar_docs(), end: false },
 	];
 

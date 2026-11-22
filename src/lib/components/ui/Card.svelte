@@ -6,11 +6,13 @@
 		title,
 		variant = 'raised',
 		dragHandle = false,
+		fullHeight = false,
 		children,
 	}: {
 		title?: string;
 		variant?: 'raised' | 'sunken';
 		dragHandle?: boolean;
+		fullHeight?: boolean;
 		children: Snippet;
 	} = $props();
 
@@ -20,7 +22,7 @@
 <div
 	class="card {variant === 'sunken'
 		? 'inset-panel bevel-sunken'
-		: 'raised-panel bevel-raised'}"
+		: 'raised-panel bevel-raised'} {fullHeight ? 'h-full' : ''}"
 	style="border-radius: var(--radius-skin)"
 >
 	{#if title !== undefined}
