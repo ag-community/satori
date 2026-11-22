@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import MatchHistory from '#lib/components/MatchHistory.svelte';
 	import PointsChart from '#lib/components/PointsChart.svelte';
 	import SeasonSelector from '#lib/components/SeasonSelector.svelte';
@@ -14,6 +15,17 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	let history = $state(untrack(() => data.history));
+	let historyKey = $state(untrack(() => `${data.id}:${data.season ?? ''}`));
+
+	$effect(() => {
+		const nextKey = `${data.id}:${data.season ?? ''}`;
+		if (nextKey === historyKey) return;
+
+		historyKey = nextKey;
+		history = data.history;
+	});
 
 	const player = $derived(data.player);
 	const stats = $derived(player?.stats ?? null);
@@ -78,7 +90,7 @@
 	</Card>
 
 	{#snippet pointsProgression()}
-		<PointsChart history={data.history} />
+		<PointsChart history={history} />
 	{/snippet}
 
 	{#snippet statistics()}
