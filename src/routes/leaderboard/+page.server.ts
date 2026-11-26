@@ -1,5 +1,6 @@
-import type { PageResult, PlayerDto, SeasonDto } from "#lib/api/types.js"
-import { shion } from "#lib/server/shion.js"
+import { fetchLeaderboard } from "#lib/server/shion/players.js"
+import { fetchSeasons } from "#lib/server/shion/seasons.js"
+import type { SeasonDto } from "#lib/types.js"
 import type { PageServerLoad } from "./$types"
 
 const SORTS = ["Points", "WinRate", "Matches"] as const
@@ -18,7 +19,7 @@ export const load: PageServerLoad = async ({ url }) => {
 
   let seasons: SeasonDto[] = []
   try {
-    seasons = await shion<SeasonDto[]>("/seasons")
+    seasons = await fetchSeasons()
   } catch {
     seasons = []
   }
@@ -27,14 +28,12 @@ export const load: PageServerLoad = async ({ url }) => {
   const season = seasonParam ? Number(seasonParam) : active?.id
 
   try {
-    const data = await shion<PageResult<PlayerDto>>("/players/leaderboard", {
-      params: {
-        index: page,
-        size,
-        sort_by: sort,
-        country: country === "all" ? undefined : country,
-        season,
-      },
+    const data = await fetchLeaderboard({
+      index: page,
+      size,
+      sortBy: sort,
+      country: country === "all" ? undefined : country,
+      season,
     })
     return { sort, country, page, size, season, seasons, data, error: null }
   } catch (error) {

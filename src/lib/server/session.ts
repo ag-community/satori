@@ -1,8 +1,9 @@
 import { randomBytes } from "node:crypto"
 import type { Cookies } from "@sveltejs/kit"
 import { redirect } from "@sveltejs/kit"
-import type { AuthUserDto } from "#lib/api/types.js"
-import { ShionError, shion } from "#lib/server/shion.js"
+import { fetchCurrentUser } from "#lib/server/shion/auth.js"
+import { ShionError } from "#lib/server/shion/errors.js"
+import type { AuthUserDto } from "#lib/types.js"
 
 export const SESSION_COOKIE = "satori_session"
 export const LOGIN_FLOW_COOKIE = "satori_login_flow"
@@ -92,7 +93,7 @@ export async function getSessionUser(cookies: Cookies): Promise<AuthUserDto | nu
   if (!token) return null
 
   try {
-    return await shion<AuthUserDto>("/auth/me", { token })
+    return await fetchCurrentUser(token)
   } catch (error) {
     if (error instanceof ShionError && (error.status === 401 || error.status === 404)) {
       clearSession(cookies)

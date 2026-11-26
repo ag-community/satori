@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ChartData, ChartOptions } from 'chart.js';
 	import Chart from '#lib/components/charts/Chart.svelte';
-	import type { StatsActivityDto } from '#lib/api/types.js';
+	import type { StatsActivityDto } from '#lib/types.js';
 	import {
 		DEFAULT_CHART_COLORS,
 		type ChartColors,

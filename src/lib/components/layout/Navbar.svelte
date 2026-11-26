@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import type { AuthUserDto } from '#lib/api/types.js';
+	import type { AuthUserDto } from '#lib/types.js';
 	import { m } from '#lib/paraglide/messages.js';
 	import LanguageSelector from './LanguageSelector.svelte';
 	import PlayerSearch from './PlayerSearch.svelte';

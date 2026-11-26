@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import type { PageResult, PlayerMatchDto } from '#lib/api/types.js';
+	import type { PageResult, PlayerMatchDto } from '#lib/types.js';
 	import Card from '#lib/components/ui/Card.svelte';
 	import Pagination from '#lib/components/ui/Pagination.svelte';
 	import { formatDate, formatDelta, formatRating } from '#lib/format.js';

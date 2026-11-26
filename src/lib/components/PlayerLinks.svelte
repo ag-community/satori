@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProfileDto } from '#lib/api/types.js';
+	import type { ProfileDto } from '#lib/types.js';
 	import { steamProfileUrl } from '#lib/format.js';
 	import { m } from '#lib/paraglide/messages.js';
 

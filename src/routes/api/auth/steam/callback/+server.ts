@@ -1,7 +1,6 @@
 import { redirect } from "@sveltejs/kit"
-import type { AuthSessionDto } from "#lib/api/types.js"
 import { completeLogin, setSession } from "#lib/server/session.js"
-import { shion } from "#lib/server/shion.js"
+import { verifySteam } from "#lib/server/shion/auth.js"
 import type { RequestHandler } from "./$types"
 
 const FAILURE_REDIRECT = "/settings?auth=failed"
@@ -18,10 +17,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
   }
 
   try {
-    const session = await shion<AuthSessionDto>("/auth/steam/verify", {
-      method: "POST",
-      body: { params },
-    })
+    const session = await verifySteam(params)
     setSession(cookies, session.token, session.expires_at)
   } catch {
     throw redirect(303, FAILURE_REDIRECT)

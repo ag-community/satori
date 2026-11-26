@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { DropdownMenu as Menu } from 'bits-ui';
-	import type { AuthUserDto } from '#lib/api/types.js';
+	import type { AuthUserDto } from '#lib/types.js';
 	import Avatar from '#lib/components/ui/Avatar.svelte';
 	import { m } from '#lib/paraglide/messages.js';
 

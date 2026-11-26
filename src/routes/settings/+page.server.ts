@@ -1,7 +1,7 @@
 import { fail } from "@sveltejs/kit"
-import type { PlayerDto, ProfileDto } from "#lib/api/types.js"
 import { requireSession } from "#lib/server/session.js"
-import { ShionError, shion } from "#lib/server/shion.js"
+import { ShionError } from "#lib/server/shion/errors.js"
+import { fetchPlayer, updateProfile } from "#lib/server/shion/players.js"
 import type { Actions, PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ url, parent }) => {
@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ url, parent }) => {
   if (!user) return { user: null, player: null, authFailed, error: null }
 
   try {
-    const player = await shion<PlayerDto>(`/players/${user.id}`)
+    const player = await fetchPlayer(user.id)
     return { user, player, authFailed, error: null }
   } catch (error) {
     return {
@@ -47,11 +47,7 @@ export const actions: Actions = {
     }
 
     try {
-      await shion<ProfileDto>(`/players/${user.id}/profile`, {
-        method: "PUT",
-        body,
-        token,
-      })
+      await updateProfile(user.id, body, token)
       return { success: true, message: null }
     } catch (error) {
       return fail(400, {

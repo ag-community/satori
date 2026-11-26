@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PlayerLink from '#lib/components/PlayerLink.svelte';
-	import type { GameDetailPlayerDto } from '#lib/api/types.js';
+	import type { GameDetailPlayerDto } from '#lib/types.js';
 	import Avatar from '#lib/components/ui/Avatar.svelte';
 	import Card from '#lib/components/ui/Card.svelte';
 	import { formatDelta, formatRating } from '#lib/format.js';

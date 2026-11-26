@@ -27,6 +27,15 @@ export interface ProfileDto {
   updated_at: string
 }
 
+export interface UpdateProfileInput {
+  bio: string
+  twitter_handle: string | null
+  twitch_handle: string | null
+  youtube_handle: string | null
+  discord_handle: string | null
+  website_url: string | null
+}
+
 export interface PlayerDto {
   id: number
   steam_id: string

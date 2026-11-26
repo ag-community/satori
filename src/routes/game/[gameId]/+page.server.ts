@@ -1,5 +1,4 @@
-import type { GameDto } from "#lib/api/types.js"
-import { shion } from "#lib/server/shion.js"
+import { fetchGame } from "#lib/server/shion/games.js"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -11,7 +10,7 @@ export const load: PageServerLoad = async ({ params }) => {
   }
 
   try {
-    const game = await shion<GameDto>(`/games/${id}`)
+    const game = await fetchGame(id)
 
     return { game, error: null, invalidId }
   } catch (error) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { StatsWeekdayDto } from '#lib/api/types.js';
+	import type { StatsWeekdayDto } from '#lib/types.js';
 	import { m } from '#lib/paraglide/messages.js';
 	import { getLocale } from '#lib/paraglide/runtime.js';
 

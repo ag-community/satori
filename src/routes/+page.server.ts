@@ -1,15 +1,10 @@
-import type { PageResult, PlayerDto } from "#lib/api/types.js"
-import { shion } from "#lib/server/shion.js"
+import { fetchLeaderboard } from "#lib/server/shion/players.js"
+import type { PlayerDto } from "#lib/types.js"
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async () => {
   try {
-    const top = await shion<PageResult<PlayerDto>>("/players/leaderboard", {
-      params: {
-        size: 5,
-        sort_by: "Points",
-      },
-    })
+    const top = await fetchLeaderboard({ size: 5, sortBy: "Points" })
     return { topPlayers: top.records, error: null }
   } catch (error) {
     return {

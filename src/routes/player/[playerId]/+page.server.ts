@@ -1,11 +1,6 @@
-import type {
-  PageResult,
-  PlayerDto,
-  PlayerMatchDto,
-  RatingHistoryDto,
-  SeasonDto,
-} from "#lib/api/types.js"
-import { shion } from "#lib/server/shion.js"
+import { fetchPlayer, fetchPlayerMatches, fetchRatingHistory } from "#lib/server/shion/players.js"
+import { fetchSeasons } from "#lib/server/shion/seasons.js"
+import type { RatingHistoryDto, SeasonDto } from "#lib/types.js"
 import type { PageServerLoad } from "./$types"
 
 const MATCHES_PAGE_SIZE = 10
@@ -17,7 +12,7 @@ export const load: PageServerLoad = async ({ params, url, parent }) => {
 
   let seasons: SeasonDto[] = []
   try {
-    seasons = await shion<SeasonDto[]>("/seasons")
+    seasons = await fetchSeasons()
   } catch {
     seasons = []
   }
@@ -45,14 +40,12 @@ export const load: PageServerLoad = async ({ params, url, parent }) => {
 
   try {
     const [player, history, matches] = await Promise.all([
-      shion<PlayerDto>(`/players/${id}`, { params: { season } }),
-      shion<RatingHistoryDto[]>(`/players/${id}/points_history`, { params: { season } }),
-      shion<PageResult<PlayerMatchDto>>(`/players/${id}/matches`, {
-        params: {
-          index: matchesPage,
-          size: MATCHES_PAGE_SIZE,
-          season,
-        },
+      fetchPlayer(id, season),
+      fetchRatingHistory(id, season),
+      fetchPlayerMatches(id, {
+        index: matchesPage,
+        size: MATCHES_PAGE_SIZE,
+        season,
       }),
     ])
 

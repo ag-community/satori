@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { Combobox } from 'bits-ui';
 	import { Debounced } from 'runed';
-	import { searchPlayers } from '#lib/api/client.js';
-	import type { PlayerDto } from '#lib/api/types.js';
+	import { search } from '#lib/search.remote.js';
+	import type { PlayerDto } from '#lib/types.js';
 	import Avatar from '#lib/components/ui/Avatar.svelte';
 	import { m } from '#lib/paraglide/messages.js';
 
@@ -36,20 +36,23 @@
 			return;
 		}
 
-		const controller = new AbortController();
+		let active = true;
 		loading = true;
 
 		void (async () => {
 			try {
-				results = await searchPlayers(value, controller.signal);
+				const next = await search(value);
+				if (active) results = next;
 			} catch {
-				if (!controller.signal.aborted) results = [];
+				if (active) results = [];
 			} finally {
-				if (!controller.signal.aborted) loading = false;
+				if (active) loading = false;
 			}
 		})();
 
-		return () => controller.abort();
+		return () => {
+			active = false;
+		};
 	});
 
 	function handleInput(event: Event & { currentTarget: HTMLInputElement }): void {

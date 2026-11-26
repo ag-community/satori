@@ -1,6 +1,6 @@
 import { redirect } from "@sveltejs/kit"
 import { clearSession, getSessionToken } from "#lib/server/session.js"
-import { shion } from "#lib/server/shion.js"
+import { logout } from "#lib/server/shion/auth.js"
 import type { RequestHandler } from "./$types"
 
 export const POST: RequestHandler = async ({ cookies }) => {
@@ -8,7 +8,7 @@ export const POST: RequestHandler = async ({ cookies }) => {
 
   if (token) {
     try {
-      await shion<boolean>("/auth/logout", { method: "POST", token })
+      await logout(token)
     } catch {
       // The cookie is cleared regardless of the backend response.
     }

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import type { SeasonDto } from '#lib/api/types.js';
+	import type { SeasonDto } from '#lib/types.js';
 	import Select from '#lib/components/ui/Select.svelte';
 	import { m } from '#lib/paraglide/messages.js';
 
