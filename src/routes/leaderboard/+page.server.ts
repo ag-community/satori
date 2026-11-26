@@ -28,11 +28,13 @@ export const load: PageServerLoad = async ({ url }) => {
 
   try {
     const data = await shion<PageResult<PlayerDto>>("/players/leaderboard", {
-      index: page,
-      size,
-      sort_by: sort,
-      country: country === "all" ? undefined : country,
-      season,
+      params: {
+        index: page,
+        size,
+        sort_by: sort,
+        country: country === "all" ? undefined : country,
+        season,
+      },
     })
     return { sort, country, page, size, season, seasons, data, error: null }
   } catch (error) {

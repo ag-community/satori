@@ -68,7 +68,7 @@
 	}
 </script>
 
-<div class="sm:w-37.5">
+<div class="w-full min-w-0">
 	<Combobox.Root
 		type="single"
 		bind:open

@@ -1,0 +1,23 @@
+/* SCEditor iframe stylesheet. global.css doesn't load inside the iframe.
+   BbcodeEditor sets --editor-text and --editor-gold. */
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: transparent;
+  color: var(--editor-text, inherit);
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+body {
+  padding: 8px;
+}
+
+a {
+  color: var(--editor-gold, inherit);
+  text-decoration: underline;
+}

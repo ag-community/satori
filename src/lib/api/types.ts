@@ -17,6 +17,16 @@ export interface SeasonDto {
   is_active: boolean
 }
 
+export interface ProfileDto {
+  bio: string
+  twitter_handle: string | null
+  twitch_handle: string | null
+  youtube_handle: string | null
+  discord_handle: string | null
+  website_url: string | null
+  updated_at: string
+}
+
 export interface PlayerDto {
   id: number
   steam_id: string
@@ -26,6 +36,21 @@ export interface PlayerDto {
   stats: StatsDto | null
   global_rank: number | null
   country_rank: number | null
+  profile: ProfileDto | null
+}
+
+export interface AuthUserDto {
+  id: number
+  steam_id: string
+  steam_name: string
+  steam_avatar_url: string
+  country: string
+}
+
+export interface AuthSessionDto {
+  token: string
+  expires_at: string
+  player: AuthUserDto
 }
 
 export interface RatingHistoryDto {

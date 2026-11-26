@@ -11,6 +11,6 @@
 	value={current}
 	{options}
 	label="Theme"
-	minWidth={110}
+	minWidth={70}
 	onSelect={(value) => setTheme(value as ThemeName)}
 />

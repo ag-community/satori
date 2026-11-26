@@ -10,7 +10,8 @@ import type { PageServerLoad } from "./$types"
 
 const MATCHES_PAGE_SIZE = 10
 
-export const load: PageServerLoad = async ({ params, url }) => {
+export const load: PageServerLoad = async ({ params, url, parent }) => {
+  const { user } = await parent()
   const id = Number(params.playerId)
   const invalidId = !Number.isInteger(id) || id <= 0
 
@@ -28,6 +29,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
 
   if (invalidId) {
     return {
+      user,
       id,
       seasons,
       season,
@@ -43,16 +45,19 @@ export const load: PageServerLoad = async ({ params, url }) => {
 
   try {
     const [player, history, matches] = await Promise.all([
-      shion<PlayerDto>(`/players/${id}`, { season }),
-      shion<RatingHistoryDto[]>(`/players/${id}/points_history`, { season }),
+      shion<PlayerDto>(`/players/${id}`, { params: { season } }),
+      shion<RatingHistoryDto[]>(`/players/${id}/points_history`, { params: { season } }),
       shion<PageResult<PlayerMatchDto>>(`/players/${id}/matches`, {
-        index: matchesPage,
-        size: MATCHES_PAGE_SIZE,
-        season,
+        params: {
+          index: matchesPage,
+          size: MATCHES_PAGE_SIZE,
+          season,
+        },
       }),
     ])
 
     return {
+      user,
       id,
       seasons,
       season,
@@ -66,6 +71,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
     }
   } catch (error) {
     return {
+      user,
       id,
       seasons,
       season,

@@ -36,12 +36,18 @@
     "vitest": "^5.1.0"
   },
   "dependencies": {
+    "@bbob/html": "^4.5.0",
+    "@bbob/preset-html5": "^4.5.0",
+    "@bbob/types": "^4.5.0",
     "@internationalized/date": "^3.12.4",
     "bits-ui": "^2.21.0",
     "chart.js": "^4.6.1",
+    "isomorphic-dompurify": "^4.8.0",
     "katex": "^0.19.1",
     "mermaid": "^12.3.0",
     "runed": "^0.38.0",
+    "sceditor": "^3.2.3",
+    "steamid": "^2.1.0",
     "svelte-dnd-action": "^0.9.80"
   }
 }

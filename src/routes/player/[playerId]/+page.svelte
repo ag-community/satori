@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import Bbcode from '#lib/components/Bbcode.svelte';
 	import MatchHistory from '#lib/components/MatchHistory.svelte';
+	import PlayerLinks from '#lib/components/PlayerLinks.svelte';
 	import PointsChart from '#lib/components/charts/player/PointsChart.svelte';
 	import SeasonSelector from '#lib/components/SeasonSelector.svelte';
 	import Avatar from '#lib/components/ui/Avatar.svelte';
@@ -41,6 +43,7 @@
 	const countryName = $derived(
 		player ? getCountryName(player.country.toUpperCase(), getLocale()) : '',
 	);
+	const hasBio = $derived((player?.profile?.bio.trim().length ?? 0) > 0);
 </script>
 
 <svelte:head>
@@ -80,6 +83,9 @@
 						<span class="ml-3">#{player.country_rank} {countryName}</span>
 					{/if}
 				</p>
+				{#if data.user?.id === player.id}
+					<a href="/settings" class="text-sm text-gold hover:underline">{m.profile_edit()}</a>
+				{/if}
 			</div>
 			{#if data.season !== undefined}
 				<div class="ml-auto">
@@ -87,7 +93,13 @@
 				</div>
 			{/if}
 		</div>
+
+		<PlayerLinks profile={player.profile} steamId={player.steam_id} />
 	</Card>
+
+	{#snippet bio()}
+		<Bbcode source={player.profile?.bio ?? ''} />
+	{/snippet}
 
 	{#snippet pointsProgression()}
 		<PointsChart history={history} />
@@ -117,16 +129,21 @@
 		/>
 	{/snippet}
 
-	<SortableSections
-		initialOrder={['points_progression', 'statistics', 'match_history']}
-		sections={[
-			{
-				id: 'points_progression',
-				title: m.player_points_progression(),
-				content: pointsProgression,
-			},
-			{ id: 'statistics', title: m.player_statistics(), content: statistics },
-			{ id: 'match_history', title: m.player_match_history(), content: matchHistory },
-		]}
-	/>
+	{#key player.id}
+		<SortableSections
+			initialOrder={hasBio
+				? ['bio', 'points_progression', 'statistics', 'match_history']
+				: ['points_progression', 'statistics', 'match_history']}
+			sections={[
+				...(hasBio ? [{ id: 'bio', title: m.player_bio(), content: bio }] : []),
+				{
+					id: 'points_progression',
+					title: m.player_points_progression(),
+					content: pointsProgression,
+				},
+				{ id: 'statistics', title: m.player_statistics(), content: statistics },
+				{ id: 'match_history', title: m.player_match_history(), content: matchHistory },
+			]}
+		/>
+	{/key}
 {/if}

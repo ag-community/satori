@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ url }) => {
   if (value.length < 2) return json([])
 
   try {
-    const players = await shion<PlayerDto[]>("/players/search", { value, limit: 8 })
+    const players = await shion<PlayerDto[]>("/players/search", { params: { value, limit: 8 } })
     return json(players)
   } catch {
     return json([])

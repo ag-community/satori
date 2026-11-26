@@ -1,3 +1,5 @@
+import SteamID from "steamid"
+
 export function formatPercent(numerator: number, denominator: number): string {
   if (denominator <= 0) return "0%"
   return `${((numerator / denominator) * 100).toFixed(2)}%`
@@ -28,4 +30,14 @@ export function formatShortDate(value: string | Date): string {
     month: "short",
     day: "numeric",
   })
+}
+
+export function steamProfileUrl(steamId: string): string | null {
+  try {
+    const id = new SteamID(steamId.trim())
+    if (!id.isValidIndividual()) return null
+    return `https://steamcommunity.com/profiles/${id.getSteamID64()}`
+  } catch {
+    return null
+  }
 }

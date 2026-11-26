@@ -19,6 +19,7 @@
 
 @theme {
   --breakpoint-sm: 600px;
+  --breakpoint-nav: 820px;
 }
 
 @theme inline {
@@ -254,4 +255,73 @@ html[data-theme="greysteam"] {
 
 .vgui-select:focus-visible {
   border-color: var(--skin-gold);
+}
+
+.bbcode-editor {
+  width: 100%;
+}
+
+.bbcode-editor .sceditor-container {
+  background: var(--skin-surface);
+  border-color: var(--skin-border-dark);
+  border-radius: var(--radius-skin);
+  color: var(--skin-text);
+  width: 100% !important;
+}
+
+.bbcode-editor .sceditor-toolbar {
+  background: var(--skin-surface);
+  border-bottom-color: var(--skin-border-dark);
+}
+
+.bbcode-editor .sceditor-group {
+  background: var(--skin-inset);
+  border-bottom-color: var(--skin-border-dark);
+}
+
+.bbcode-editor .sceditor-button svg {
+  fill: var(--skin-text);
+}
+
+.bbcode-editor .sceditor-button.disabled svg {
+  fill: var(--skin-text);
+  opacity: 0.45;
+}
+
+.bbcode-editor .sceditor-button:hover,
+.bbcode-editor .sceditor-button.active,
+.bbcode-editor .sceditor-button:active {
+  background: var(--skin-surface-lighter);
+}
+
+.bbcode-editor .sceditor-container iframe,
+.bbcode-editor .sceditor-container textarea {
+  background: var(--skin-inset);
+  color: var(--skin-text);
+}
+
+.bbcode-editor .sceditor-dropdown {
+  background: var(--skin-surface);
+  border-color: var(--skin-border-dark);
+  color: var(--skin-text);
+}
+
+.bbcode-editor .sceditor-dropdown a,
+.bbcode-editor .sceditor-dropdown a:link,
+.bbcode-editor .sceditor-dropdown label,
+.bbcode-editor .sceditor-font-option {
+  color: var(--skin-text);
+}
+
+.bbcode-editor .sceditor-dropdown input,
+.bbcode-editor .sceditor-dropdown textarea {
+  background: var(--skin-inset);
+  border-color: var(--skin-border-dark);
+  color: var(--skin-text);
+}
+
+.bbcode-editor .sceditor-dropdown .button {
+  background: var(--skin-surface-lighter);
+  border-color: var(--skin-border-dark);
+  color: var(--skin-text);
 }

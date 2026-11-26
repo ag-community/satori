@@ -10,6 +10,6 @@
 	value={current}
 	{options}
 	label="Language"
-	minWidth={80}
+	minWidth={50}
 	onSelect={(value) => void setLocale(value as (typeof locales)[number])}
 />

@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const season = seasonParam ? Number(seasonParam) : active?.id
 
   try {
-    const stats = await shion<StatsOverviewDto>("/stats", { season })
+    const stats = await shion<StatsOverviewDto>("/stats", { params: { season } })
     return { seasons, season, stats, error: null }
   } catch (error) {
     return {
