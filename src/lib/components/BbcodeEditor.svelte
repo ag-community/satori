@@ -65,7 +65,7 @@
 		if (!created) return;
 
 		instance = created;
-		created.bind('change', () => {
+		created.bind('valuechanged', () => {
 			if (instance) value = instance.val();
 		});
 
